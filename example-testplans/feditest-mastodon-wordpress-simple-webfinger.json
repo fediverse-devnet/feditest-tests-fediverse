@@ -1,0 +1,75 @@
+{
+    "name" : "feditest-default",
+    "sessions" : [
+        {
+            "constellation" : {
+                "name" : "Imp <-> Mastodon",
+                "roles" : [
+                    {
+                        "name" : "webfingerclient",
+                        "nodedriver" : "imp.ImpInProcessNodeDriver"
+                    },
+                    {
+                        "name" : "webfingerserver",
+                        "nodedriver" : "mastodon.MastodonUbosNodeDriver",
+                        "hostname" : "mastodon.123.lan",
+                        "parameters" : {
+                            "sitejsonfile" : "ubos-sites/site-mastodon.json",
+                            "siteid" : "s8fc9473a43ee638c4351137742764bc53d4c8d6c",
+                            "adminid" : "j12t"
+                        }
+                    }
+                ]
+            },
+            "tests" : [
+                {
+                    "name" : "webfinger.test_server_4_2__4_do_not_accept_malformed_resource_parameters"
+                },
+                {
+                    "name" : "webfinger.test_server_4_2__5_status_404_for_nonexisting_resources"
+                },
+                {
+                    "name" : "webfinger.test_server_4_2__8_server_serves_correct_content_type"
+                },
+                {
+                    "name" : "webfinger.test_server_4_3_server_only_returns_jrd_in_response_to_https_requests"
+                }
+            ]
+        },
+        {
+            "constellation" : {
+                "name" : "Imp <-> Wordpress+ActivityPub",
+                "roles" : [
+                    {
+                        "name" : "webfingerclient",
+                        "nodedriver" : "imp.ImpInProcessNodeDriver"
+                    },
+                    {
+                        "name" : "webfingerserver",
+                        "nodedriver" : "wordpress.WordPressPlusActivityPubPluginUbosNodeDriver",
+                        "hostname" : "wordpress.123.lan",
+                        "parameters" : {
+                            "backupfile" : "ubos-sites/wordpress.123.lan.ubos-backup",
+                            "siteid" : "se2e53e9fdbbad1431e6618540568874b5714b15b",
+                            "adminid" : "j12t"
+                        }
+                    }
+                ]
+            },
+            "tests" : [
+                {
+                    "name" : "webfinger.test_server_4_2__4_do_not_accept_malformed_resource_parameters"
+                },
+                {
+                    "name" : "webfinger.test_server_4_2__5_status_404_for_nonexisting_resources"
+                },
+                {
+                    "name" : "webfinger.test_server_4_2__8_server_serves_correct_content_type"
+                },
+                {
+                    "name" : "webfinger.test_server_4_3_server_only_returns_jrd_in_response_to_https_requests"
+                }
+            ]
+        }
+    ]
+}

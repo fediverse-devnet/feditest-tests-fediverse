@@ -1,0 +1,20 @@
+.annost {
+    --annost: #f06060;
+    margin: 20px 0;
+    border: 1px solid var(--annost);
+    font-family: Arial;
+}
+.annost div.annost-bar {
+    font-size: small;
+    color: #fff;
+    background: var(--annost);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.annost div.annost-content {
+    padding: 10px 20px;
+}
+.annost div.annost-content > :first-child {
+    margin-top: 0;
+}
