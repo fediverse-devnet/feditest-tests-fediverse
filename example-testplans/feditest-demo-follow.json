@@ -1,0 +1,37 @@
+{
+    "name" : "FollowTest",
+    "sessions" : [
+        {
+            "constellation" : {
+                "name" : "WordPressActivityPub <-> Mastodon",
+                "roles" : [
+                    {
+                        "name" : "leader",
+                        "nodedriver" : "wordpress.WordPressPlusActivityPubPluginUbosNodeDriver",
+                        "hostname" : "wordpress.123.lan",
+                        "parameters" : {
+                            "backupfile" : "ubos-sites/wordpress.123.lan.ubos-backup",
+                            "siteid" : "se2e53e9fdbbad1431e6618540568874b5714b15b",
+                            "adminid" : "j12t"
+                        }
+                    },
+                    {
+                        "name" : "follower",
+                        "nodedriver" : "mastodon.MastodonUbosNodeDriver",
+                        "hostname" : "mastodon.123.lan",
+                        "parameters" : {
+                            "sitejsonfile" : "ubos-sites/site-mastodon.json",
+                            "siteid" : "s8fc9473a43ee638c4351137742764bc53d4c8d6c",
+                            "adminid" : "j12t"
+                        }
+                    }
+                ]
+            },
+            "tests" : [
+                {
+                    "name" : "fediverse.test_follow"
+                }
+            ]
+        }
+    ]
+}
