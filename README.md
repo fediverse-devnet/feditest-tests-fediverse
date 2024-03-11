@@ -8,5 +8,9 @@ This repo contains:
 
 to be able to test the Fediverse protocols using FediTest. FediTest has its own [repository](https://github.com/fediverse-devnet/feditest).
 
-For more details, check out [feditest.org](https://feditest.org/).
+For more details, check out [feditest.org](https://feditest.org/) and find us on Matrix in [#fediverse-testing:matrix.org](https://matrix.to/#/%23fediverse-testing:matrix.org).
+
+> [!WARNING]  
+> Early work in progress.
+
 
