@@ -15,7 +15,7 @@ def only_returns_jrd_in_response_to_https(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
-    test_id = server.obtain_account_identifier();
+    test_id = server.obtain_account_identifier()
 
     correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
     http_webfinger_uri = correct_webfinger_uri.replace('https:', 'http:')
