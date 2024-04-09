@@ -20,7 +20,7 @@ def client_must_accept_failure_4xx(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
-    test_id = server.obtain_non_existing_account_identifier();
+    test_id = server.obtain_non_existing_account_identifier()
 
     try:
         result = client.perform_webfinger_query_for(test_id)

@@ -15,7 +15,7 @@ def client_accesses_correct_uri(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
-    test_id = server.obtain_account_identifier();
+    test_id = server.obtain_account_identifier()
 
     log : WebServerLog = server.transaction( lambda :
         client.perform_webfinger_query_for(test_id)
@@ -24,7 +24,7 @@ def client_accesses_correct_uri(
 
     assert_that(log.web_log_entries.size(), equal_to(1), 'Expecting one incoming request')
 
-    entry : HttpRequestResponsePair = log.web_log_entries.get(0);
+    entry : HttpRequestResponsePair = log.web_log_entries.get(0)
     assert_that(entry.uri.scheme, equal_to('https'))
     assert_that(entry.uri.netloc, equal_to(server.domain_name()))
     assert_that(entry.uri.path, equal_to('/.well-known/webfinger'))

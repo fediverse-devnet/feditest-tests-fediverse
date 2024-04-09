@@ -15,7 +15,7 @@ def correct_content_type(
         server: WebFingerServer
 ) -> None:
 
-    test_id = server.obtain_account_identifier();
+    test_id = server.obtain_account_identifier()
 
     test_result = client.perform_webfinger_query_for(test_id)
 

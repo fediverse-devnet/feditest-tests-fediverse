@@ -16,8 +16,8 @@ def follow(
     sides.
     """
 
-    leader_actor_uri   = to_be_leader_node.obtain_actor_document_uri();
-    follower_actor_uri = to_be_follower_node.obtain_actor_document_uri();
+    leader_actor_uri   = to_be_leader_node.obtain_actor_document_uri()
+    follower_actor_uri = to_be_follower_node.obtain_actor_document_uri()
 
     # FIXME
     # leader_actor_existing = to_be_leader_node.instantiate_actor_from_actor_uri(leader_actor_uri)
