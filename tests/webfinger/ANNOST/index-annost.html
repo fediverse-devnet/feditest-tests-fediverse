@@ -578,15 +578,13 @@ document. It is permitted, but not required, to redirect from HTTP to HTTPS.
    <a href="#section-4.1">4.1</a> for details.
 
 </pre>
-<annost-test testid="4/4" name="Client always provides a resource URI" role="Client" level="MUST">
+<annost-xref target="4/2">
 A client must always specify a resource as a parameter. The value must be a
 valid URI that is validly %-encoded.
-</annost-test>
-<annost-test testid="4/5" name="Server requires resource URI" role="Server" level="MUST">
-A server must not respond to a query that does not provide a resource URI.
-</annost-test>
-<annost-xref target="4.2/1">
-Server response to invalid resource URI
+Already tested there.
+</annost-xref>
+<annost-xref target="4.2/3">
+   Server response to invalid resource URI
 </annost-xref>
 <pre>
    The host to which a WebFinger query is issued is significant.  If the
@@ -607,7 +605,7 @@ Server response to invalid resource URI
 <annost-xref target="4/4">
 Resource parameter.
 </annost-xref>
-<annost-xref target="4/5">
+<annost-xref target="4.2/3">
 Server response to invalid resource URI
 </annost-xref>
 <pre>
@@ -664,9 +662,10 @@ Resource parameter.
    the interpretation of the query component.
 
 </pre>
-<annost-test testid="4.1/1" name="Client encodes the URI correctly" role="Client" level="MUST">
-Following the algorithm specified.
-</annost-test>
+<annost-xref target="4/2">
+Client encodes the URI correctly, following the algorithm specified.
+Already tested there
+</annost-xref>
 <annost-test testid="4.1/2" name="Parameter ordering is not significant" role="Server" level="MUST">
 Server produces the same response regardless of parameter ordering.
 </annost-test>
@@ -680,19 +679,17 @@ Server produces the same response regardless of parameter ordering.
    "resource" parameter exactly once and set to the value of the URI for
    which information is being sought.
 </pre>
-<annost-test testid="4.2/1" name="Client accesses correct URI" role="Client" level="MUST">
+<annost-xref target="4/2">
 The client issues the query to the right URI.
-</annost-test>
-<annost-test testid="4.2/2" name="Server serves correct URI" role="Server" level="MUST">
-The server responds at the right URI.
-</annost-test>
+Tested there already.
+</annost-xref>
+<annost-note>
+   4.2/2 removed, didn't do much
+</annost-note>
 <annost-xref target="4/4">
 Resource parameter (client)
 </annost-xref>
-<annost-xref target="4/5">
-Resource parameter (server)
-</annost-xref>
-
+   
 <pre>
    If the "resource" parameter is absent or malformed, the WebFinger
    resource MUST indicate that the request is bad as per <a href="./rfc2616#section-10.4.1">Section&nbsp;10.4.1
@@ -718,7 +715,14 @@ non-existent resource.
 </annost-test>
 <pre>
 
-   A client MUST query the WebFinger resource using HTTPS only.  If the
+   A client MUST query the WebFinger resource using HTTPS only.
+</pre>
+<annost-xref target="4/2">
+   The client must use HTTPS.
+   Already tested there.
+</annost-xref>
+<pre>   
+   If the
    client determines that the resource has an invalid certificate, the
    resource returns a 4xx or 5xx status code, or if the HTTPS connection
    cannot be established for any reason, then the client MUST accept
@@ -730,6 +734,10 @@ non-existent resource.
 The client must not use any result it may have obtained under the preceding
 conditions.
 </annost-test>
+<annost-note>
+FIXME: not sure how to test this. How do we know whether a client **uses** the result
+of a query when it shouldn't?
+</annost-note>
 <pre>
 
    A WebFinger resource MUST return a JRD as the representation for the
@@ -752,14 +760,30 @@ understand the Accept header.
 
 
    resource MUST silently ignore any requested representations that it
-   does not understand or support.  The media type used for the JSON
+   does not understand or support.
+
+</pre>
+<annost-note>
+ Not sure we can create test 4.2/8: Server must provide JRD unless requested otherwise.
+ How would we do that?
+ We are not testing a client-provided format at all, not even the JRD format.
+</annost-note>
+<pre>
+
+
+   
+   
+   
+   The media type used for the JSON
    Resource Descriptor (JRD) is "application/jrd+json" (see <a href="#section-10.2">Section</a>
    <a href="#section-10.2">10.2</a>).
 
-<annost-test testid="4.2/8" name="Server serves correct content type" role="Client" level="MUST">
+</pre>
+<annost-xref target="4/3">
 A server must return the <code>application/jrd+json</code> content type.
-</annost-test>
-
+We test this already and don't need 4.2/9.
+</annost-xref>
+<pre>
    The properties, titles, and link relation types returned by the
    server in a JRD might be varied and numerous.  For example, the
    server might return information about a person's blog, vCard [<a href="#ref-14" title="&quot;vCard Format Specification&quot;">14</a>],
@@ -768,12 +792,14 @@ A server must return the <code>application/jrd+json</code> content type.
    return a JRD with an empty "links" array or no "links" array.
 
 </pre>
-<annost-test testid="4.2/9" name="Client must accept non-existing links array" role="Client" level="MUST">
-The client must accept that the XRD document may not contain a links array.
-</annost-test>
-<annost-test testid="4.2/10" name="Client must accept empty links array" role="Client" level="MUST">
-The client must accept that the XRD document may contain an empty links array.
-</annost-test>
+<annost-xref target="4/2">
+   The client must accept that the XRD document may not contain a links array.
+   Already tested there.
+</annost-xref>
+<annost-xref target="4/2">
+   The client must accept that the XRD document may contain an empty links array.
+   Already tested there.
+</annost-xref>
 <pre>
 
    A WebFinger resource MAY redirect the client; if it does, the
@@ -784,9 +810,15 @@ The client must accept that the XRD document may contain an empty links array.
 <annost-test testid="4.2/11" name="Client must follow redirects" role="Client" level="MUST">
 The client must follow a redirect, if it leads to an HTTPS URI, and fail if it does not.
 </annost-test>
-<annost-test testid="4.2/11" name="Client must check certificates on the redirect target" role="Client" level="MUST">
-If the client is redirected, it must check the certificate of the new URI and not accept
-any obtained JRD if not valid.
+<annost-test testid="4.2/13" name="Client must check certificates on the redirect target" role="Client" level="MUST">
+   If the client is redirected, it must check the certificate of the new URI and not accept
+   any obtained JRD if not valid.
+</annost-test>
+<annost-note>
+   Not sure what constitutes a valid certificate for the purposes of our tests. FIXME?
+</annost-note>
+<annost-test testid="4.2/14" name="Server must only redirect to https" role="Server" level="MUST">
+  The server must only redirect to https.
 </annost-test>
 <pre>
 
@@ -825,9 +857,9 @@ Empty links.
    request multiple link relation types.
 
 </pre>
-<annost-test testid="4.3/2" name="Accept multiple rel parameters" role="Server" level="MUST">
-A server must accept requests that have multiple rel parameters.
-</annost-test>
+<annost-xref target="4/1">
+A server must accept requests that have multiple rel parameters. Already tested there.
+</annost-xref>
 <pre>
    The purpose of the "rel" parameter is to return a subset of "link
    relation objects" (see <a href="#section-4.4.4">Section 4.4.4</a>) that would otherwise be
@@ -862,9 +894,10 @@ Empty links.
    were present.
 
 </pre>
-<annost-test testid="4.3/3" name="Must accept any rel parameter" role="Server" level="MUST">
-A server must accept requests with any rel parameters, even if it does not understand them.
-</annost-test>
+<annost-xref target="4/1">
+   A server must accept requests with any rel parameters, even if it does not understand them.
+   Already tested there.
+</annost-xref>
 <pre>
 
    The following example uses the "rel" parameter to request links for
@@ -877,10 +910,21 @@ A server must accept requests with any rel parameters, even if it does not under
     Host: example.com
 
 </pre>
-<annost-test testid="4.3/4" name="Server accepts example query" role="Server" level="MUST">
-A client must accept the preceding query (adjusted with an identifier that the
+<annost-xref target="4/1">
+A server must accept the preceding query (adjusted with an identifier that the
 server can resolve) as valid.
-</annost-test>
+Already tested there.
+</annost-xref>
+<annost-xref target="4/1">
+ A server must return the same JRD, or the same JRD with a shorter links array if the rel parameters
+are specified. The removed elements must correspond to the rels.
+Already tested there.
+</annost-xref>
+<annost-note>
+The spec talks about a "subset", which, as a set, is commonly interpreted to be unordered. However,
+they allow that the ordering of links is meaningful (see 4.4.4). So I think they probably don't mean
+subset, but sub-sequence.
+</annost-note>
 <pre>
 
    In this example, the client requests the link relations of type
@@ -970,7 +1014,7 @@ the tests in the sub-sections.
    not treat the presence of an unknown member as an error.
 
 </pre>
-<annost-test testid="4.4/2" name="Client accepts unkown entries in the JRD" role="Client" level="MUST">
+<annost-test testid="4.4/2" name="Client accepts unknown entries in the JRD" role="Client" level="MUST">
 A client must accept entries on the first level of the JRD that it does not
 understand.
 </annost-test>
@@ -992,10 +1036,14 @@ understand.
    The "subject" member SHOULD be present in the JRD.
 
 </pre>
-<annost-test testid="4.4.1/1" name="Server only issues URIs as subjects" role="Server" level="MUST">
+<annost-xref target="4/1">
 If a JRD has a subject member, the value must be an absolute URI.
+Already tested there.
+</annost-xref>
+<annost-test testid="4.4.1/2" name="Client accepts JRDs with subject" role="Client" level="MUST">
+A client must accept JRD documents that have the subject member.
 </annost-test>
-<annost-test testid="4.4.1/2" name="Client accepts JRDs without subject" role="Client" level="MUST">
+<annost-test testid="4.4.1/3" name="Client accepts JRDs without subject" role="Client" level="MUST">
 A client must accept JRD documents that do not have the subject member.
 </annost-test>
 <pre>
@@ -1008,10 +1056,19 @@ A client must accept JRD documents that do not have the subject member.
    The "aliases" array is OPTIONAL in the JRD.
 
 </pre>
-<annost-test testid="4.4.2/1" name="Server only issues valid aliases" role="Server" level="MUST">
+<annost-xref target="4/1">
 If a JRD has an aliases member, it must be an array of any length.
 Each array member must be a valid, absolute URI.
-</annost-test>
+Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+A client must accept JRD documents that do have zero or more aliases.
+Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+A client must accept JRD documents that do not have the aliases member.
+Already tested there.
+</annost-xref>
 <pre>
 
 
@@ -1034,11 +1091,20 @@ Each array member must be a valid, absolute URI.
    The "properties" member is OPTIONAL in the JRD.
 
 </pre>
-<annost-test testid="4.4.3/1" name="Server only issues valid properties" role="Server" level="MUST">
+<annost-xref target="4/1">
 If a JRD has a properties member, it must be a JSON object of any size.
 All names in the JSON object must be valid absolute URIS.
 All values in the JSON object must be of type string or be null.
-</annost-test>
+Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+   A client must accept JRD documents that have zero or more properties members.
+   Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+   A client must accept JRD documents that do not have the properties member.
+   Already tested there.
+</annost-xref>
 <pre>
 
 <span class="h4"><a class="selflink" id="section-4.4.4" href="#section-4.4.4">4.4.4</a>.  links</span>
@@ -1068,10 +1134,19 @@ All values in the JSON object must be of type string or be null.
    The "links" array is OPTIONAL in the JRD.
 
 </pre>
-<annost-test testid="4.4.4/1" name="Server only issues valid links" role="Server" level="MUST">
+<annost-xref target="4/1">
 If a JRD has a links member, it must be a JSON array of any size.
 All members of the array must of type JSON Object.
-</annost-test>
+Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+   A client must accept JRD documents that have zero or more links members.
+   Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+   A client must accept JRD documents that do not have the link member.
+   Already tested there.
+</annost-xref>
 <pre>
 
    Below, each of the members of the objects found in the "links" array
@@ -1101,11 +1176,12 @@ All members of the array must of type JSON Object.
    link relation.
 
 </pre>
-<annost-test testid="4.4.4.1/1" name="rel value must be valid" role="Server" level="MUST">
-The value of the "rel" link entry object must be a non-empty string.
-The value must be a valid URI or be a relationship type registered
-at <a href="http://www.iana.org/assignments/link-relations/">http://www.iana.org/assignments/link-relations/</a>
-</annost-test>
+<annost-xref target="4/1">
+  The server must provide a "rel" entry in each link element, and its value must be a non-empty string.
+  The value must be a valid URI or be a relationship type registered
+  at <a href="http://www.iana.org/assignments/link-relations/">http://www.iana.org/assignments/link-relations/</a>.
+  Already tested there.
+</annost-xref>
 <pre>
 
    The other members of the object have meaning only once the type of
@@ -1120,12 +1196,13 @@ at <a href="http://www.iana.org/assignments/link-relations/">http://www.iana.org
    Comparison" algorithm of <a href="./rfc3986#section-6.2.1">Section&nbsp;6.2.1 of RFC 3986</a>.
 
 </pre>
-<annost-test testid="4.4.4.1/2" name="Use correct link comparison algorithm" role="Server" level="MUST">
-If a server chooses to return a subset of the JRD based on one or more provided rel parameters
+<annost-xref target="4/1">
+   If a server chooses to return a subset of the JRD based on one or more provided rel parameters
 in the query, the server must return those link elements whose rel values are the same
 as at least one of the provided rel parameters, using the "Simple String Comparison"
 algorithm.
-</annost-test>
+Already tested there.
+</annost-xref>
 <pre>
 
    The "rel" member MUST be present in the link relation object.
@@ -1144,10 +1221,11 @@ Each link entry object must have a rel member.
    The "type" member is OPTIONAL in the link relation object.
 
 </pre>
-<annost-test testid="4.4.4.2/1" name="Correct values for type entries" role="Server" level="MUST">
-If a type member is provided, its value must be a non-empty string
+<annost-xref target="4/1">
+   If a type member is provided, its value must be a non-empty string
 that is a media type as defined in the above standard.
-</annost-test>
+Already tested there.
+</annost-xref>
 <pre>
 
 <span class="h5"><a class="selflink" id="section-4.4.4.3" href="#section-4.4.4.3">4.4.4.3</a>.  href</span>
@@ -1158,13 +1236,12 @@ that is a media type as defined in the above standard.
    The "href" member is OPTIONAL in the link relation object.
 
 </pre>
-<annost-test testid="4.4.4.3/1" name="Correct values for href entries" role="Server" level="MUST">
-If an href member is provided, its value must be a non-empty URI.
-</annost-test>
-<annost-xref target="2/1">
-Absolute URIs only.
+<annost-xref target="4/1">
+   If an href member is provided, its value must be a non-empty, absolute URI.
 </annost-xref>
-<pre>
+<annost-note>
+   I was expecting this to be an http/s URI, but apparently it can be any.
+</annost-note><pre>
 
 <span class="h5"><a class="selflink" id="section-4.4.4.4" href="#section-4.4.4.4">4.4.4.4</a>.  titles</span>
 
@@ -1177,14 +1254,28 @@ Absolute URIs only.
    then the name is "und".
 
 </pre>
-<annost-test testid="4.4.4.4/1" name="Valid titles" role="Server" level="MUST">
-If a titles entry is provided, its value is a JSON object of any size.
-The JSON object contains only names that are the value "und" or the name
-of a language according to RFC 5646.
-</annost-test>
-<annost-test testid="4.4.4.4/2" name="Valid titles values" role="Server" level="MUST">
-The values in any titles entry must be non-empty string.
-</annost-test>
+<annost-xref target="4/1">
+   If a titles entry is provided, its value is a JSON object of any size.
+   Already tested there.
+</annost-xref>
+<annost-xref target="4/1">
+   The JSON object contains only names that are the value "und" or the name
+   of a language according to RFC 5646.
+   Already tested there.
+</annost-xref>
+<annost-xref target="4/1">
+   The values in any titles entry must be non-empty string.
+   Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+   A client must accept JDK link elements that have zero or more title members.
+   Already tested there.
+</annost-xref>
+<annost-xref target="4.2/10">
+   A client must accept JDK link elements that do not have the title member.
+   Already tested there.
+</annost-xref>
+            
 <pre>
 
    A JRD SHOULD NOT include more than one title identified with the same
@@ -1225,15 +1316,12 @@ The values in any titles entry must be non-empty string.
    The "properties" member is OPTIONAL in the link relation object.
 
 </pre>
-<annost-test testid="4.4.4.5/1" name="Valid property names" role="Server" level="MUST">
-If a properties entry is provided, its value is a JSON object of any size.
-The JSON object contains only names that are absolute URIs.
-</annost-test>
-<annost-test testid="4.4.4.5/2" name="Valid property values" role="Server" level="MUST">
-If a properties entry is provided, its value is a JSON object of any size.
-The JSON object contains only values that are strings. (This requirement comes
-from section 4.4.4 above.)
-</annost-test>
+<annost-xref target="4/1">
+   If a properties entry is provided, it must be a JSON object of any size.
+   All keys in the JSON object must be valid absolute URIs.
+   All values in the JSON object must be of type string or be null.
+   Already tested there.
+ </annost-xref>
 <pre>
 
 <span class="h3"><a class="selflink" id="section-4.5" href="#section-4.5">4.5</a>.  WebFinger and URIs</span>
@@ -1246,8 +1334,8 @@ from section 4.4.4 above.)
 
 </pre>
 <annost-test testid="4.5/1" name="Any URI scheme for resource identifiers" role="Server" level="MUST">
-The server must accept resource identifiers provided in the query that use any scheme,
-but returns a "404 not found" for those it does not understand.
+The server must accept resource identifiers provided in the query that use any scheme.
+The server must but returns a "404 not found" for URI schemes it does not understand.
 </annost-test>
 <pre>
 
@@ -1345,14 +1433,12 @@ The server must provide a valid value for HTTP Header "Access-Control-Allow-Orig
    server.
 
 </pre>
-<annost-xref target="4.2/10">
-Redirect.
-</annost-xref>
-<annost-test testid="7/1" name="CORS" role="Client" level="MUST">
+<annost-xref target=""4.2/12">
 If a server issues a redirect in response to a query, the client must use
 the provided Location URI, even if it has different query parameters or does
 not use the .well-known location.
-</annost-test>
+Already tested there.
+</annost-xref>
 <pre>
 
    As an example, assume that example.com's WebFinger services are
@@ -1562,8 +1648,10 @@ A client must accept the redirect in the preceding response.
    certificate is valid.
 
 </pre>
-<annost-xref target="4.2/6">
-Valid certs.
+
+<annost-xref target="4.2/7">
+A client must not accept a response with an invalid tls certificate.
+Already tested over there.
 </annost-xref>
 <pre>
 
