@@ -8,7 +8,7 @@ def rejects_invalid_json(
         server: WebFingerServer
 ) -> None:
 
-    test_id = server.obtain_existing_account_identifier()
+    test_id = server.obtain_account_identifier()
     overridden_jrd_json_string = """{
        "subject" : "acct:bob@example.com",
        "aliases" :
@@ -34,7 +34,7 @@ def rejects_invalid_json(
   }}}
   """ # same as in 4_3__6 but with some extra curly braces at the end
 
-    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response( 
+    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
             lambda:
                 client.perform_webfinger_query(test_id),
             {

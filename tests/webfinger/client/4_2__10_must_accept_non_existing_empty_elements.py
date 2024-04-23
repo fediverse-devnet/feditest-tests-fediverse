@@ -10,11 +10,11 @@ def test_one(
         server: WebFingerServer,
         overridden_jrd_json : dict
 ) -> None:
-    test_id = server.obtain_existing_account_identifier()
+    test_id = server.obtain_account_identifier()
     overridden_jrd_json['subject'] = test_id
-    overridden_jrd_json_string = json.dump(overridden_jrd_json)
+    overridden_jrd_json_string = json.dumps(overridden_jrd_json)
 
-    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response( 
+    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
             lambda:
                 client.perform_webfinger_query(test_id),
             {
@@ -22,8 +22,8 @@ def test_one(
             }
     )
     assert_that(calling(webfinger_response.jrd.validate()), is_not(raises(Exception)))
-    
-    
+
+
 @step
 def must_accept_empty_document(
         client: WebFingerClient,
@@ -342,11 +342,11 @@ def must_accept_long_titles_array_in_link(
         'en-ZA',
         'en-ZM',
         'en-ZW' )
-    
+
     titles = {}
     for lang in languages:
         titles[lang] = f'Text for { lang }'
-    
+
     test_one(client, server, { 'links' : [ {
         "rel" : f"https://host.example.com/some/where",
         "titles" : titles } ] })

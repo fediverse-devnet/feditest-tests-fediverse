@@ -11,7 +11,7 @@ def accept_jrds_without_subject(
         server: WebFingerServer
 ) -> None:
 
-    test_id = server.obtain_existing_account_identifier()
+    test_id = server.obtain_account_identifier()
     webfinger_uri = client.construct_webfinger_uri_for(test_id)
 
     normal_response : WebFingerQueryResponse = client.perform_webfinger_query(test_id)

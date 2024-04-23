@@ -11,7 +11,7 @@ def accept_unknown_entries(
         server: WebFingerServer
 ) -> None:
 
-    test_id = server.obtain_existing_account_identifier()
+    test_id = server.obtain_account_identifier()
     overridden_jrd_json = {
        "subject" : "acct:bob@example.com",
        "foo" : None,
@@ -40,10 +40,10 @@ def accept_unknown_entries(
          }
        ]
     } # same as in 4_3__6 but with extra entries
-    
-    overridden_jrd_json_string = json.dump(overridden_jrd_json)
 
-    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response( 
+    overridden_jrd_json_string = json.dumps(overridden_jrd_json)
+
+    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
             lambda:
                 client.perform_webfinger_query(test_id),
             {

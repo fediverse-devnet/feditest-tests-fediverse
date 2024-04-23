@@ -11,7 +11,7 @@ def accept_example_response(
         server: WebFingerServer
 ) -> None:
 
-    test_id = server.obtain_existing_account_identifier()
+    test_id = server.obtain_account_identifier()
     overridden_jrd_json = {
        "subject" : "acct:bob@example.com",
        "aliases" :
@@ -34,9 +34,9 @@ def accept_example_response(
          }
        ]
      }
-    overridden_jrd_json_string = json.dump(overridden_jrd_json)
+    overridden_jrd_json_string = json.dumps(overridden_jrd_json)
 
-    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response( 
+    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
             lambda:
                 client.perform_webfinger_query(test_id),
             {

@@ -13,7 +13,7 @@ def double_equals(
     # We use the lower-level API from WebClient because we can't make the WebFingerClient do something invalid
 
     test_id = server.obtain_account_identifier()
-    hostname : str = server.hostname()
+    hostname : str = server.hostname
 
     malformed_webfinger_uri = f"https://{hostname}/.well-known/webfinger?resource=={urllib.parse.quote(test_id)}"
 

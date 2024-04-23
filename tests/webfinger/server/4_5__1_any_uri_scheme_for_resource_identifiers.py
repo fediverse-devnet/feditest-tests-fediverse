@@ -12,10 +12,10 @@ def any_uri_scheme_for_resource_identifiers(
 ) -> None:
     # We use the lower-level API from WebClient because we can't make the WebFingerClient do something
     # with a scheme it does not understand
-    hostname : str = server.hostname()
+    hostname : str = server.hostname
 
     for test_id in [ 'mailto:abc@def.com', 'foo://' + hostname ]:
-        url : str = f"https://{hostname}/.well-known/webfinger?resource={ quote(test_id) }"
+        url : str = f"https://{ hostname }/.well-known/webfinger?resource={ quote(test_id) }"
 
         response : HttpResponse = client.http_get(url).response
         assert_that(response.http_status, equal_to(404), 'Not HTTP status 404')
