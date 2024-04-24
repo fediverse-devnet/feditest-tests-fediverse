@@ -10,6 +10,7 @@ class AnnostTest extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <section style="margin: 20px 0; padding: 20px; border: 1px solid #c04040; font-family: Arial;">
+        <p style="margin: 0; font-weight: 700"></p>
         <h2 style="margin-top: 0"></h2>
         <slot></slot>
       </section>
@@ -21,12 +22,15 @@ class AnnostTest extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    var label =  this.getAttribute('role') + " Test " + this.getAttribute('testid');
+    var roleLabel =  this.getAttribute('role');
+    roleLabel = roleLabel.indexOf(',') > 0 ? ( "Roles: " + roleLabel ) : ( "Role:" + roleLabel );
+    var mainLabel =  "Test " + this.getAttribute('testid');
     if( this.getAttribute( 'name') !== '' ) {
-        label += ": " + this.getAttribute('name');
+        mainLabel += ": " + this.getAttribute('name');
     }
-    label += ' (' + this.getAttribute('level') + ')';
-    this.shadowRoot.querySelector('h2').textContent = label;
+    mainLabel += ' (' + this.getAttribute('level') + ')';
+    this.shadowRoot.querySelector('p').textContent = roleLabel;
+    this.shadowRoot.querySelector('h2').textContent = mainLabel;
 
     this.id = "test-" + this.getAttribute('testid');
   }

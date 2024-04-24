@@ -23,16 +23,19 @@
             },
             "tests" : [
                 {
-                    "name" : "webfinger.test_server_4_2__4_do_not_accept_malformed_resource_parameters"
+                    "name" : "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters1"
                 },
                 {
-                    "name" : "webfinger.test_server_4_2__5_status_404_for_nonexisting_resources"
+                    "name" : "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters2"
                 },
                 {
-                    "name" : "webfinger.test_server_4_2__8_server_serves_correct_content_type"
+                    "name" : "webfinger.server.4_2__5_status_404_for_nonexisting_resources"
                 },
                 {
-                    "name" : "webfinger.test_server_4_3_server_only_returns_jrd_in_response_to_https_requests"
+                    "name" : "webfinger.server.4_2__14_must_only_redirect_to_https"
+                },
+                {
+                    "name" : "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers"
                 }
             ]
         },
@@ -58,16 +61,19 @@
             },
             "tests" : [
                 {
-                    "name" : "webfinger.test_server_4_2__4_do_not_accept_malformed_resource_parameters"
+                    "name" : "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters1"
                 },
                 {
-                    "name" : "webfinger.test_server_4_2__5_status_404_for_nonexisting_resources"
+                    "name" : "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters2"
                 },
                 {
-                    "name" : "webfinger.test_server_4_2__8_server_serves_correct_content_type"
+                    "name" : "webfinger.server.4_2__5_status_404_for_nonexisting_resources"
                 },
                 {
-                    "name" : "webfinger.test_server_4_3_server_only_returns_jrd_in_response_to_https_requests"
+                    "name" : "webfinger.server.4_2__14_must_only_redirect_to_https"
+                },
+                {
+                    "name" : "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers"
                 }
             ]
         }

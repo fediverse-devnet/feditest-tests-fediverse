@@ -1,13 +1,7 @@
-"""
-See annotated WebFinger specification, test 4.3
-"""
-
-from urllib.parse import parse_qs
-
 from hamcrest import any_of, assert_that, equal_to, is_not, starts_with
 
 from feditest import step
-from feditest.protocols.web import WebServerLog, HttpRequestResponsePair
+from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
 @step
@@ -23,16 +17,16 @@ def only_returns_jrd_in_response_to_https(
     assert_that(correct_webfinger_uri, starts_with('https://'))
     assert_that(http_webfinger_uri, starts_with('http://'))
 
-    correct_webfinger_response = client.http_get(correct_webfinger_uri)
-    assert_that(correct_webfinger_response.status_code, equal_to(200))
-    assert_that(correct_webfinger_response.headers['Content-Type'],
+    correct_https_response : HttpResponse = client.http_get(correct_webfinger_uri).response
+    assert_that(correct_https_response.http_status, equal_to(200))
+    assert_that(correct_https_response.response_headers['content-type'],
         any_of(
                 equal_to('application/jrd+json'),
                 starts_with('application/jrd+json;')))
 
-    http_webfinger_response = client.http_get(http_webfinger_uri)
-    assert_that(http_webfinger_response.status_code, is_not(equal_to(200)))
-    assert_that(http_webfinger_response.headers['Content-Type'],
+    http_response : HttpResponse = client.http_get(http_webfinger_uri).response
+    assert_that(http_response.http_status, is_not(equal_to(200)))
+    assert_that(http_response.response_headers['content-type'],
         is_not(any_of(
                 equal_to('application/jrd+json'),
                 starts_with('application/jrd+json;'))))
