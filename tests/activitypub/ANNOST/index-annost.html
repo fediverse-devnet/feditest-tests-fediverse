@@ -122,20 +122,24 @@
    <h1 id='annost-title' style='display: block; text-align: left; color: #c04040; padding: 20px; border: 1px solid #c04040; font-family: Arial'>
     Annotated by AnnoST. Experimental :-)
    </h1>
- <p>The AnnoST annotations use the following roles (see also section Conformance below):</p>
+ <p>The AnnoST annotations use the following roles (see also sections on Conformance, and on Specification Profiles below):</p>
  <dl>
-  <dt>FP-C-endpoint</dt>
+  <dt>S2S-C-endpoint</dt>
   <dd>The implementation of the federation protocol by an instance that acts as a client
-      in a particular S2S interaction (i.e. the server in an HTTP request)</dd>
-  <dt>FP-S-endpoint</dt>
+      in a particular S2S interaction (i.e. the client in an HTTP request).
+      We often refer to this as the &quot;C2S client&quot; in the annotations.</dd>
+  <dt>S2S-S-endpoint</dt>
   <dd>The implementation of the federation protocol by an instance that acts as a server
-      in a particular S2S interaction (i.e. the server in an HTTP request)</dd>
-  <dt>C-endpoint</dt>
+      in a particular S2S interaction (i.e. the server in an HTTP request).
+      We often refer to this as the &quot;C2S server&quot; in the annotations.</dd>
+  <dt>C2S-C-endpoint</dt>
   <dd>The implementation of the client portion of the client to server protocol
-      (C2S interaction)</dd>
-  <dt>S-endpoint</dt>
+      (C2S interaction).
+      We often refer to this as the &quot;federation sender&quot; in the annotations.</dd>
+  <dt>C2S-S-endpoint</dt>
   <dd>The implementation of the server portion of the client to server protocol
-      (C2S interaction)</dd>
+      (C2S interaction).
+      We often refer to this as the &quot;federation receiver&quot; in the annotations.</dd>
  </dl>
 </annost-note>
 <annost-note>
@@ -225,8 +229,8 @@
    "liked": "https://social.example/alyssa/liked/"}
       </pre>
 
-<annost-test testid="1.1/1" name="Server accepts example actor document" role="FP-S-endpoint" level="MUST">
-A server must accept the preceding example actor document as valid.
+<annost-test testid="1.1/1" name="Client accepts example actor document" role="S2S-C-endpoint, C2S-C-endpoint" level="MUST">
+A client must accept the preceding example actor document as valid.
 </annost-test>
 
       <p>
@@ -244,8 +248,13 @@ A server must accept the preceding example actor document as valid.
         (If you're going to add extensions, that's the point at which JSON-LD
         really helps you out).
       </p>
-
-      <p>
+<annost-note>
+All messages must be valid JSON. This is not a separate test but something to always check.
+</annost-note>
+<annost-note>
+All messages must be valid JSON-LD. This is not a separate test but something to always check.
+</annost-note>
+        <p>
         So, okay.
         Alyssa wants to talk to her friends, and her friends want to talk to
         her!
@@ -283,6 +292,9 @@ A server must accept the preceding example actor document as valid.
           (client-to-server and/or server-to-server)
         </li>
       </ul>
+<annost-note>
+Not sure there is something to test here.
+</annost-note>
 
       <p>
         Of course, if that last one (GET'ing from someone's outbox) was the
@@ -308,8 +320,8 @@ A server must accept the preceding example actor document as valid.
    "content": "Say, did you finish reading that book I lent you?"}
       </pre>
 
-<annost-test testid="1.1/2" name="Server accepts example note" role="S-endpoint" level="MUST">
-A server supporting C2S S-endpoint must accept the preceding example note as valid.
+<annost-test testid="1.1/2" name="Server accepts example note" role="C2S-S-endpoint" level="MUST">
+A C2S server must accept the preceding example note as valid.
 </annost-test>
       <p>
         This is a note addressed to Ben.
@@ -345,21 +357,25 @@ A server supporting C2S S-endpoint must accept the preceding example note as val
               "content": "Say, did you finish reading that book I lent you?"}}
       </pre>
 
-<annost-test testid="1.1/3" name="Instance accepts example note" role="S-endpoint" level="MUST">
-A server that receives the note in example 2 via C2S must accept it as valid.
+<annost-test testid="1.1/3" name="Server accepts example note" role="C2S-S-endpoint" level="MUST">
+A C2S server must accept the preceding example message as valid.
 </annost-test>
-<annost-test testid="1.1/4" name="Instance wraps and sends on example note" role="S-endpoint, FP-C-endpoint" level="MUST">
-A server that also participates in federation  must wrap the note in example 2 and send it on
-to the destination server in the form shown in example 3.
+<annost-test testid="1.1/4" name="Instance wraps and sends on example note" role="C2S-S-endpoint, S2S-C-endpoint" level="MUST">
+An instance that supports both the C2S-S-endpoint and S2S-C-endpoint roles, when receiving the note
+in example 2 as the server in a C2S interaction, must send it on to the federation receiver
+in the form shown in example 3.
 </annost-test>
-<annost-test testid="1.1/5" name="Instance accepts example Create Note" role="FP-S-endpoint" level="MUST">
-A server that receives the message in example 3 via S2S must must accept it as valid.
+<annost-test testid="1.1/5" name="Receiver accepts example Create Note" role="S2S-S-endpoint" level="MUST">
+A federation receiver that receives the message in example 3 must accept it as valid.
 </annost-test>
 
       <p>
         Alyssa's server looks up Ben's ActivityStreams actor object, finds his
         inbox endpoint, and POSTs her object to his inbox.
       </p>
+<annost-test testid="1.1/6" name="Sender determines inbox from actor" role="S2S-C-endpoint" level="MUST">
+A federation sender must determine the inbox endpoint from the actor object of the receiving actor.
+</annost-test>
 
       <p>
         <img src="illustration/tutorial-4.png"
@@ -402,11 +418,11 @@ A server that receives the message in example 3 via S2S must must accept it as v
                              since it's been a while since I wrote one.&lt;/p&gt;"}}
       </pre>
 
-<annost-test testid="1.1/6" name="Instance accepts example Create Note" role="FP-S-endpoint" level="MUST">
-A server that receives the message in example 4 via federation must must accept it as valid.
+<annost-test testid="1.1/7" name="Receiver accepts example Create Note" role="S2S-S-endpoint" level="MUST">
+A federation receiver that receives the message in example 4 must accept it as valid.
 </annost-test>
-<annost-test testid="1.1/7" name="Client accepts example Note" role="C-endpoint" level="MUST">
-A client that receives the Note contained in example 4 via C2S must must accept it as valid.
+<annost-test testid="1.1/8" name="Client accepts example Note" role="C2S-C-endpoint" level="MUST">
+A C2S client that receives the message in example 4 must accept it as valid.
 </annost-test>
 
       <p>Alyssa is relieved, and likes Ben's post:</p>
@@ -419,16 +435,6 @@ A client that receives the Note contained in example 4 via C2S must must accept 
    "actor": "https://social.example/alyssa/",
    "object": "https://chatty.example/ben/p/51086"}
       </pre>
-<annost-test testid="1.1/8" name="Instance accepts example Like" role="S-endpoint" level="MUST">
-A server that receives the message in example 5 via C2S must must accept it as valid.
-</annost-test>
-<annost-test testid="1.1/9" name="Server forwards example Like" role="S-endpoint, FP-C-endpoint" level="MUST">
-A server that also participates in federation and that receives the message in example 5
-via C2S must forward it to the receiving server via S2S.
-</annost-test>
-<annost-test testid="1.1/10" name="Server accepts example Like" role="FP-S-endpoint" level="MUST">
-A server that receives the message in example 5 via S2S must accept it as valid.
-</annost-test>
 
       <p>
         She POSTs this message to her outbox.
@@ -436,7 +442,18 @@ A server that receives the message in example 5 via S2S must accept it as valid.
         a Create object).
       </p>
 
-      <p>
+<annost-test testid="1.1/9" name="Server accepts example Like" role="C2S-S-endpoint" level="MUST">
+A C2S server that receives the message in example 5 must accept it as valid.
+</annost-test>
+<annost-test testid="1.1/10" name="Server forwards example Like" role="C2S-S-endpoint, S2S-C-endpoint" level="MUST">
+A C2S server that also participates in federation and that receives the message in example 5
+via C2S must forward it as client / federation sender to the federation receiver.
+</annost-test>
+<annost-test testid="1.1/11" name="Receiver accepts example Like" role="S2S-S-endpoint" level="MUST">
+A federation receive that receives the message in example 5 must accept it as valid.
+</annost-test>
+
+        <p>
         Feeling happy about things, she decides to post a public message to her
         followers.
         Soon the following message is blasted to all the members of her
@@ -459,12 +476,11 @@ A server that receives the message in example 5 via S2S must accept it as valid.
               "content": "Lending books to friends is nice.  Getting them back is even nicer! :)"}}
       </pre>
 <annost-note>
-There is no specific description of how example 6 is created, such as through a client,
-and whether it is the client or the server that creates the "create" activity.
-So we don't specify a test here.
+There is no specific description of how example 6 is created, such as through a client, and whether
+it is the client or the server that creates the "create" activity. So we don't specify a test here.
 </annost-note>
-<annost-test testid="1.1/11" name="Server accepts example Like" role="FP-S-endpoint" level="MUST">
-A server that receives the message in example 6 via S2S must accept it as valid.
+<annost-test testid="1.1/12" name="Server accepts example Like" role="S2S-S-endpoint" level="MUST">
+A federation receiver that receives the message in example 6 must accept it as valid.
 </annost-test>
 
       <section id="social-web-working-group" inlist="" rel="schema:hasPart"
@@ -559,7 +575,7 @@ A server that receives the message in example 6 via S2S must accept it as valid.
         object definitions.
         Implementers MAY include additional context as appropriate.
       </p>
-<annost-test testid="3/1" name="JSON-LD context is optional" role="C-endpoint, S-endpoint, FP-S-endpoint, FP-C-endpoint" level="MUST">
+<annost-test testid="3/1" name="JSON-LD context is optional" role="C2S-S-endpoint, C2S-C-endpoint, S2S-S-endpoint, S2S-C-endpoint" level="MUST">
 Any endpoint must accept objects that do not state the above JSON-LD context. (This should
 probably be broken down into several tests.)
 </annost-test>
@@ -603,8 +619,12 @@ How can this be tested?
            }
          }
         </pre>
-<annost-test testid="3/2" name="Server should accept example activity as valid" role="FP-S-endpoint" level="MUST">
+<annost-test testid="3/2" name="Server accepts example activity as valid" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
 A server must accept the preceding example activity as valid.
+</annost-test>
+<annost-test testid="3/2" name="Server validates" role="S2S-S-endpoint" level="SHOULD">
+A federation receiver should validate the content they receive. Unclear how to turn this vague
+requirement into a test.
 </annost-test>
         it should dereference the <code>id</code> both to ensure that it exists
         and is a valid object, and that it is not misrepresenting the object.
@@ -640,7 +660,7 @@ A server must accept the preceding example activity as valid.
     the resource via HTTP GET. As those two are somewhat in conflict, we will interpret
     this section as saying that non-null ids must be HTTP or HTTPS URIs.</p>
  <p>Taking this together with the "same URI / IRI conventions as in ActivityStreams" above,
-    it appears the requirement is really: all ids must be full-qualified HTTP or HTTPS URIs.
+    it appears the requirement is really: all ids must be fully-qualified HTTP or HTTPS URIs.
     This conclusion is the reason for the relevant test below.</p>
 </annost-note>
         <p>
@@ -663,14 +683,18 @@ A server must accept the preceding example activity as valid.
             The type of the object.
           </dd>
         </dl>
-<annost-test testid="3.1/1" name="Ids, if not null, must be unique" role="C-endpoint, S-endpoint, FP-C-endpoint, FP-S-endpoint" level="MUST">
-All identifiers must be unique if they are not null.
+<annost-note>
+It's unclear under which circumstances exactly activities may be considered transient, and thus
+do not need to have an identifier.
+</annost-note>
+<annost-test testid="3.1/1" name="Ids, if not null, must be unique" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
+All endpoints must only create unique identifiers if they are not null.
 </annost-test>
-<annost-test testid="3.1/2" name="Ids, if not null, must be HTTP or HTTPS" role="C-endpoint, S-endpoint, FP-C-endpoint, FP-S-endpoint" level="MUST">
-All identifiers must be valid, non-relative URIs using the HTTP or HTTPS scheme.
+<annost-test testid="3.1/2" name="Ids, if not null, must be HTTP or HTTPS" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
+All endpoints must only create valid, non-relative URIs using the HTTP or HTTPS scheme as identifiers.
 </annost-test>
-<annost-test testid="3.1/3" name="Objects must have a type" role="C-endpoint, S-endpoint, FP-C-endpoint, FP-S-endpoint" level="MUST">
-All objects must have a type.
+<annost-test testid="3.1/3" name="Objects must have a type" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
+All endpoints must only create objects that have a type.
 </annost-test>
       </section>
 
@@ -690,15 +714,18 @@ All objects must have a type.
           <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>
           media type in order to retrieve the activity.
         </p>
-<annost-test testid="3.2/1" name="Servers must return ActivityStreams Object with right content type" role="S-endpoint, FP-S-endpoint" level="MUST">
+<annost-test testid="3.2/1" name="Servers must return ActivityStreams Object with right content type" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
 When an HTTP GET is performed on an id property of an ActivityStreams Object with Accept header
 <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>, the
 server must return the ActivityStream Object.
 </annost-test>
-<annost-test testid="3.2/2" name="Clients must request ActivityStreams Objects with right content type" role="C-endpoint, FP-C-endpoint" level="MUST">
+<annost-test testid="3.2/2" name="Clients must request ActivityStreams Objects with right content type" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
 To obtain any ActivityStream Object, a client must provide HTTP Accept header with
 value <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.
 </annost-test>
+<annost-note>
+We can't test the "should" with <code>application/activity+json</code>.
+</annost-note>
 
         <p>
           Servers MAY implement other behavior for requests which do not comply
@@ -718,11 +745,13 @@ value <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"
           a private target MAY instead respond with a status code of
           404 Not Found.
         </p>
-<annost-test testid="3.2/3" name="Objects must be the same when accessed with GET" role="FP-C-endpoint, FP-S-endpoint" level="MUST">
+
+<annost-test testid="3.2/3" name="Objects must be the same when accessed with GET" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
 If a server sends an object with a non-null identifier, the server must return the same data
 as stored in the sent object's "content" attribute
 to clients that performing HTTP/S GET on the identifier, with an HTTP Accept header of
 <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.
+However, different responses are allowed if the HTTP status code is 403 or 404.
 </annost-test>
 <annost-note>
  <p>It appears undefined how to compare the two to check for "sameness".</p>
@@ -800,8 +829,15 @@ to clients that performing HTTP/S GET on the identifier, with an HTTP Accept hea
           </p>
         </div>
 <annost-note>
-Is there a requirement that the mediaType is always text?
+Is there a requirement that the <code>mediaType</code> for the <code>content</code>
+in the <code>source</code> is always some kind of text?
 </annost-note>
+
+<annost-test testid="3.3/1" name="Content must be provided if there is a source property" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
+All endpoints must create objects with a non-empty <code>content</code> property if there is
+a value for <code>source</code>. (This is not exactly explicit, but I'm reading between the lines.)
+</annost-test>
+
       </section>
     </section>
 
@@ -841,6 +877,10 @@ Is there a requirement that the mediaType is always text?
       <p>
         Once the actor's URI has been identified, it should be dereferenced.
       </p>
+
+<annost-note>
+  Don't think there is anything testable here.
+</annost-note>
 
       <div class="note">
         ActivityPub does not dictate a specific relationship between
@@ -906,20 +946,30 @@ Is there a requirement that the mediaType is always text?
           </dd>
         </dl>
 
-<annost-test testid="4.1/1" name="Actor Objects must have an Inbox" role="S-endpoint, FP-S-endpoint" level="MUST">
-The inbox must be a reference to an OrderedCollection.
+<annost-test testid="4.1/1" name="Actor Objects must have an Inbox" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+Servers serving actor documents must declare an <code>inbox</code> property in each served actor document.
+The value of the property must be a non-relative http or https URL.
+When accessed with HTTP GET, the response must be an OrderedCollection or have HTTP status 403 or 404.
 </annost-test>
-<annost-test testid="4.1/2" name="Actor Objects must have an Outbox" role="S-endpoint, FP-S-endpoint" level="MUST">
-The outbox must be a reference to an OrderedCollection.
+<annost-test testid="4.1/2" name="Actor Objects must have an Outbox" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+Servers serving actor documents must declare an <code>outbox</code> property in each served actor document.
+The value of the property must be a non-relative http or https URL.
+When accessed with HTTP GET, the response must be an OrderedCollection or have HTTP status 403 or 404.
 </annost-test>
-<annost-test testid="4.1/3" name="Any Following of an Actor Object must be a Collection" role="S-endpoint, FP-S-endpoint" level="MUST">
-The Following entry is optional. But if it exists, it must be a Collection.
+<annost-test testid="4.1/3" name="Any Following of an Actor Object must be a Collection" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+Servers serving actor documents may declare a <code>following</code> property in any actor document.
+If the property is provided, its value must be a non-relative http or https URL.
+When accessed with HTTP GET, the response must be a Collection or have HTTP status 403 or 404.
 </annost-test>
-<annost-test testid="4.1/4" name="Any Followers of an Actor Object must be a Collection" role="S-endpoint, FP-S-endpoint" level="MUST">
-The Followers entry is optional. But if it exists, it must be a Collection.
+<annost-test testid="4.1/4" name="Any Followers of an Actor Object must be a Collection" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+Servers serving actor documents may declare a <code>followers</code> property in any actor document.
+If the property is provided, its value must be a non-relative http or https URL.
+When accessed with HTTP GET, the response must be a Collection or have HTTP status 403 or 404.
 </annost-test>
-<annost-test testid="4.1/5" name="Any Liked of an Actor Object must be a Collection" role="S-endpoint, FP-S-endpoint" level="MUST">
-The Liked entry is optional. But if it exists, it must be a Collection.
+<annost-test testid="4.1/5" name="Any Liked of an Actor Object must be a Collection" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+Servers serving actor documents may declare a <code>liked</code> property in any actor document.
+If the property is provided, its value must be a non-relative http or https URL.
+When accessed with HTTP GET, the response must be a Collection or have HTTP status 403 or 404.
 </annost-test>
 
         <pre class="example">
@@ -941,7 +991,7 @@ The Liked entry is optional. But if it exists, it must be a Collection.
   ]
 }
         </pre>
-<annost-test testid="4.1/6" name="Accept preceding actor example" role="S-endpoint, FP-endpoint" level="MUST">
+<annost-test testid="4.1/6" name="Accept preceding actor example" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
 Any role that receives the preceding actor object must accept it as valid.
 </annost-test>
         <p>Implementations MAY, in addition, provide the following properties:</p>
@@ -1028,15 +1078,21 @@ Any role that receives the preceding actor object must accept it as valid.
             endpoint.
           </dd>
         </dl>
-<annost-test testid="4.1/7" name="Any Streams of an Actor Object must be a list of Collections" role="S-endpoint, FP-endpoint" level="MUST">
-The Streams entry is optional. But if it exists, it must be a list of Collections.
-The list may be empty.
+<annost-test testid="4.1/7" name="Any Streams of an Actor Object must be a list" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+ <p>Servers serving actor documents may declare a <code>streams</code> property in any actor document.
+  If the property is provided, its value must be a non-relative http or https URL.</p>
+ <p>When accessed with HTTP GET, the response must be a list or have HTTP status 403 or 404.</p>
+ <p>The list may be empty.</p>
+ <p>Any entry in the list must be a non-relative http or https URL. When accessed with HTTP GET,
+  the response must be a Collection or have HTTP status 403 or 404.</p>
 </annost-test>
-<annost-test testid="4.1/8" name="Any preferredUsername must be a string" role="S-endpoint, FP-endpoint" level="MUST">
-The preferredUsername entry is optional. But if it exists, it must be a non-empty string.
+<annost-test testid="4.1/8" name="Any preferredUsername must be a string" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+Servers serving actor documents may declare a <code>preferredUsername</code> property in any actor document.
+If it is provided, the value must be a non-empty string.
 </annost-test>
-<annost-test testid="4.1/9" name="Any endpoints must be a JSON object" role="S-endpoint, FP-endpoint" level="MUST">
-The endpoints entry is optional. But if it exists, it must be a JSON object.
+<annost-test testid="4.1/9" name="Any endpoints must be a JSON object" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+Servers serving actor documents may declare a <code>preferredUsername</code> property in any actor document.
+If it is provided, the value must be a JSON Object.
 </annost-test>
 <annost-note>
 The language says "This mapping may be nested inside the actor document as the value
@@ -1044,51 +1100,53 @@ or may be a link to a JSON-LD document". This indirectly implies that in other p
 links to JSON-LD documents are not permitted, but where is unclear. See also
 <a href="https://github.com/w3c/activitypub/issues/410">AP issue #410</a>.
 </annost-note>
-<annost-test testid="4.1/10" name="Any proxyUrl inside the endpoints must be a URI" role="S-endpoint, FP-endpoint" level="MUST">
-The proxyUrl entry inside optional endpoints is optional. But if it exists, it must be an
-absolute URI.
+<annost-test testid="4.1/10" name="Any proxyUrl inside the endpoints must be a URI" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+If a server declares a <code>proxyUri</code> entry inside the <code>endpoints</code> in an actor document,
+its value must be an absolute HTTP or HTTPS URI.
 </annost-test>
 <annost-note>
-The description of how to use proxyUrl is unclear to me. Also, it is called a URL but
+The description of how to use <code>proxyUrl</code> is unclear to me. Also, it is called a URL but
 its value is URI. See also
 <a href="https://github.com/w3c/activitypub/issues/411">AP issue #411</a>.
 </annost-note>
-<annost-test testid="4.1/11" name="Any oauthAuthorizationEndpoint inside the endpoints must be a URI" role="S-endpoint" level="MUST">
-The oauthAuthorizationEndpoint entry inside optional endpoints is optional. But if it exists,
-it must be an absolute URI.
+
+<annost-test testid="4.1/11" name="Any oauthAuthorizationEndpoint inside the endpoints must be a URI" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+If a server declares an <code>oauthAuthorizationEndpoint</code> entry inside the <code>endpoints</code> in an actor document,
+its value must be an absolute HTTP or HTTPS URI.
 </annost-test>
-<annost-test testid="4.1/12" name="Any oauthTokenEndpoint inside the endpoints must be a URI" role="S-endpoint" level="MUST">
-The oauthTokenEndpoint entry inside optional endpoints is optional. But if it exists,
-it must be an absolute URI.
+<annost-test testid="4.1/12" name="Any oauthTokenEndpoint inside the endpoints must be a URI" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+If a server declares an <code>oauthTokenEndpoint</code> entry inside the <code>endpoints</code> in an actor document,
+its value must be an absolute HTTP or HTTPS URI.
 </annost-test>
 <annost-note>
 Is this description of OAuth-related functionality sufficient to explain how this would work?
 Note also <a href="https://github.com/w3c/activitypub/issues/409">AP Issue 409</a>.
 </annost-note>
-<annost-test testid="4.1/13" name="Any provideClientKey inside the endpoints must be a URI" role="S-endpoint" level="MUST">
-The provideClientKey entry inside optional endpoints is optional. But if it exists,
-it must be an absolute URI.
+
+<annost-test testid="4.1/13" name="Any provideClientKey inside the endpoints must be a URI" role="C2S-S-endpoint" level="MUST">
+If a server declares an <code>provideClientKey</code> entry inside the <code>endpoints</code> in an actor document,
+its value must be an absolute HTTP or HTTPS URI.
 </annost-test>
-<annost-test testid="4.1/14" name="Any signClientKey inside the endpoints must be a URI" role="S-endpoint" level="MUST">
-The signClientKey entry inside optional endpoints is optional. But if it exists,
-it must be an absolute URI.
+<annost-test testid="4.1/14" name="Any signClientKey inside the endpoints must be a URI" role="C2S-S-endpoint" level="MUST">
+If a server declares an <code>signClientKey</code> entry inside the <code>endpoints</code> in an actor document,
+its value must be an absolute HTTP or HTTPS URI.
 </annost-test>
 <annost-note>
-Is this description of clientKey-related functionality sufficient to explain how this would work?
+Is this description of <code>clientKey</code>-related functionality sufficient to explain how this would work?
 Note also <a href="https://github.com/w3c/activitypub/issues/382">AP Issue 382</a>.
 </annost-note>
-<annost-test testid="4.1/15" name="Any sharedInbox inside the endpoints must be a URI" role="S-endpoint" level="MUST">
-The sharedInbox entry inside optional endpoints is optional. But if it exists,
-it must be an absolute URI.
+
+<annost-test testid="4.1/15" name="Any sharedInbox inside the endpoints must be a URI" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+<p>If a server declares an <code>sharedInbox</code> entry inside the <code>endpoints</code> in an actor document,
+its value must be an absolute HTTP or HTTPS URI. (Note: it doesn't explicitly say that but I guess they thought
+it was obvious)</p>
+<p>When accessed with HTTP GET, the response must be a OrderedCollection, or have status code 403 or 404.</p>
 </annost-test>
-<annost-test testid="4.1/16" name="SharedInbox, if it exists, must refer to an OrderedCollection" role="S-endpoint" level="MUST">
-The sharedInbox entry inside optional endpoints is optional. But if it exists,
-it must refer to an OrderedCollection.
-</annost-test>
-<annost-test testid="4.1/17" name="SharedInbox OrderedCollection to only contain Objects addressed to Public" role="S-endpoint" level="MUST">
-The sharedInbox entry inside optional endpoints is optional. But if it exists,
-the referenced OrderedCollection must not contain an Objects that aren't addressed to
-the Public special collection.
+<annost-test testid="4.1/16" name="SharedInbox OrderedCollection to only contain Objects addressed to Public" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+<p>This test applies if a server declares an <code>sharedInbox</code> entry inside the <code>endpoints</code> in an actor document,
+   and a non-empty collection is obtained when accessing it.</p>
+<p>Send activities to the server that are addressed to a variety of receivers not including the "Public" special collection.
+   Test that none of these activities end up in the sharedInbox collection.</p>
 </annost-test>
 
         <div class="note" id="as2-actor-properties">
@@ -1171,10 +1229,17 @@ the Public special collection.
         A property which changes regularly, such a "last updated" timestamp,
         should not be used.
       </p>
-<annost-test testid="5/1" name="All OrderedCollections must be ordered chronologically" role="S-endpoint" level="MUST">
-This requirement goes beyond the ActivityStream spec, which defines OrderedCollection, but
-does not define an ordering for it.
+<annost-note>
+  When receiving any OrderedCollection in any scenario, test that it is ordered in
+  reverse chronological order.
+</annost-note>
+<annost-test testid="5/1" name="OrderedCollections grow at the head only" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+  When an item is added to an OrderedCollection, the item is added at the head position.
 </annost-test>
+<annost-note>
+To test this, we need to figure out which OrderedCollections with non-empty content have been implemented,
+e.g. outbox.
+</annost-note>
 
       <section id="outbox">
         <h2>Outbox</h2>
@@ -1211,9 +1276,6 @@ Actor Objects must have an outbox that's an OrderedCollection.
     outbox. Is it all of them, only the most recent ones, or possibly a random subset?</p>
  <p>The phrase "should respond with all" implies it is all of them for all time?</p>
 </annost-note>
-<annost-xref target="xxx">
-FIXME: insert reference to section 6
-</annost-xref>
       </section>
 
       <section id="inbox">
@@ -1253,12 +1315,16 @@ Actor Objects must have an inbox that's an OrderedCollection.
           <code>id</code> of the activities and dropping any activities
           already seen.
         </p>
-
-<annost-test testid="5.2/1" name="All Objects in Collections must have a unique id" role="S-endpoint" level="MUST">
-I read this as admonishing implementors not to forget the need to de-duplicate
-entries in inboxes. However, I believe this is just an application of the general
-requirement that Collections must not contain duplicates, as determined by comparing
-their id properties.
+<annost-note>
+<p>I read this as admonishing implementors not to forget the need to de-duplicate
+  entries in inboxes. However, I believe this is just an application of the general
+  requirement that Collections must not contain duplicates, as determined by comparing
+  their id properties.</p>
+<p>Make sure we test all Collections for this.</p>
+</annost-note>
+<annost-test testid="5.2/1" name="Servers must de-duplicate activities" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+ Send an activity to a server both through the shared inbox, and through an individual actor's inbox.
+ Test that the actor's inbox contains the activity only once.
 </annost-test>
         <p>
           The inboxes of actors on federated servers accepts HTTP POST requests,
@@ -1266,9 +1332,6 @@ their id properties.
           Non-federated servers SHOULD return a 405 Method Not Allowed upon
           receipt of a POST request.
         </p>
-<annost-xref target="xxx">
-FIXME: insert reference to section 7.
-</annost-xref>
       </section>
 
       <section id="followers">
@@ -1385,8 +1448,9 @@ Any Actor may have a Liked. Should it exist, it must be a Collection.
             and should be prepared to accept all three representations.
           </p>
         </div>
-<annost-test testid="5.6/1" name="Never deliver to the public address directly" role="FP-endpoint" level="MUST">
-When delivering to the public, do not deliver to https://www.w3.org/ns/activitystreams#Public.
+<annost-test testid="5.6/1" name="Activities sent to public collection must be publicly accessible" role="S2S-C-endpoint" level="MUST">
+Send an activity to the public address via the sharedInbox. Test that the activity has been published
+&quot;to all users, without authentication&quot;. But see https://github.com/w3c/activitypub/issues/436.
 </annost-test>
       </section>
 
@@ -1491,9 +1555,9 @@ Any Object (not just an Actor) may have a Shares. Should it exist, it must be a 
         <a href="#object-without-create">will be wrapped in a Create activity
           by the server</a>.
       </p>
-<annost-test testid="6/1" name="Clients must discover outbox URI from Actor document" role="C-endpoint" level="MUST">
+<annost-test testid="6/1" name="Clients must discover outbox URI from Actor document" role="C2S-C-endpoint" level="MUST">
 </annost-test>
-<annost-test testid="6/2" name="Clients must deliver activities to discovered outbox URI" role="C-endpoint" level="MUST">
+<annost-test testid="6/2" name="Clients must deliver activities to discovered outbox URI" role="C2S-C-endpoint" level="MUST">
 Using HTTP POST with Content-Type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.
 Clients must provide authentication information with the POST. The body of the POST must
 contain either:
@@ -1502,10 +1566,13 @@ contain either:
  <li>A single non-Activity object.</li>
 </ul>
 </annost-test>
-<annost-test testid="6/3" name="Server must accept activities through their output URI" role="S-endpoint" level="MUST">
-Must accept HTTP POST with Content-Type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.
-Must only accept authenticated requests. Must also accept non-Activity objects (see
-automatic CREATE activity test below)
+<annost-test testid="6/3" name="Server must accept activities through their outbox URI" role="C2S-S-endpoint" level="MUST">
+Must accept HTTP POST with Content-Type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>
+containing a single activity. Must only accept authenticated requests.
+</annost-test>
+<annost-test testid="6/4" name="Server must accept objects through their outbox URI" role="C2S-S-endpoint" level="MUST">
+Must accept HTTP POST with Content-Type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>
+containing a single non-activity object. Must only accept authenticated requests.
 </annost-test>
 
       <pre class="example" title="Submitting an Activity to the Outbox">
@@ -1527,7 +1594,7 @@ Content-Type: application/ld+json; profile="https://www.w3.org/ns/activitystream
   "cc": "https://e14n.com/evan"
 }
       </pre>
-<annost-test testid="6/4" name="Server must accept the preceding example Like" role="S-endpoint" level="MUST">
+<annost-test testid="6/5" name="Server must accept the preceding example Like" role="C2S-S-endpoint" level="MUST">
 With adjusted URIs and bearer token.
 </annost-test>
       <p>
@@ -1543,10 +1610,10 @@ HTTP/1.1 201 Created
 Location: https://dustycloud.org/likes/345
       </pre>
 
-<annost-test testid="6/5" name="Server must create or replace ids" role="S-endpoint" level="MUST">
+<annost-test testid="6/6" name="Server must create or replace ids" role="C2S-S-endpoint" level="MUST">
 A server must create a new id for any activity submitted by the client.
 </annost-test>
-<annost-test testid="6/6" name="Server must return the created or replaced id" role="S-endpoint" level="MUST">
+<annost-test testid="6/7" name="Server must return the created or replaced id" role="C2S-S-endpoint" level="MUST">
 A server, having received a new activity submitted by the client, must responds with HTTP status
 201 and a Location header whose value is the absolute URI identifying the Activity.
 </annost-test>
@@ -1562,8 +1629,8 @@ A server, having received a new activity submitted by the client, must responds 
 The server must deliver the activity to all destination addressees, including bto and bcc.
 FIXME
 </annost-xref>
-<annost-test testid="6/7" name="Server must remote bto and bcc addreeses before delivery" role="FP-endpoint" level="MUST">
-While the destination addresses include bto and bcc, the server must strip these entries
+<annost-test testid="6/8" name="Server must remote bto and bcc addreeses before delivery" role="S2S-S-endpoint" level="MUST">
+While the destination addresses include <code>bto</code> and <code>bcc</code>, the server must strip these entries
 prior to delivery.
 </annost-test>
 
@@ -1610,6 +1677,14 @@ define a test for this.
           <code>bto</code>, <code>cc</code>, <code>bcc</code>, and
           <code>audience</code> fields.
         </p>
+
+<annost-test testid="6.1/1" name="Server must send activities to the right destinations" role="S2S-C-endpoint" level="MUST">
+  The federation sender delivers activities, without duplicates, to the destinations
+  given in <code>to</code>,
+  <code>bto</code>, <code>cc</code>, <code>bcc</code>, and
+  <code>audience</code>. Note that destinations may be collections.
+</annost-test>
+
         <p>
           The <a href="#followers">Followers Collection</a> and/or the
           <a href="#public-addressing">Public Collection</a> are good
@@ -1683,12 +1758,17 @@ While it sounds there may be something testable in the section so far, it does n
           MUST also provide the <code>target</code> property:
           <code>Add</code>, <code>Remove</code>.
         </p>
-<annost-test testid="6.1/1" name="Clients must provide object property for certain activities" role="C-endpoint" level="MUST">
+<annost-test testid="6.1/2" name="Clients must provide object property for certain activities" role="C2S-C-endpoint" level="MUST">
 Create, Update, Delete, Follow, Add, Remove, Like, Block, Undo.
 </annost-test>
-<annost-test testid="6.1/1" name="Clients must provide target property for certain activities" role="C-endpoint" level="MUST">
+<annost-test testid="6.1/3" name="Clients must provide target property for certain activities" role="C2S-C-endpoint" level="MUST">
 Add, Remove.
 </annost-test>
+<annost-note>
+It does not identify what the values of the <code>object</code> and <code>target</code> properties
+must be in the previous two cases.
+</annost-note>
+
       </section>
 
 
@@ -1699,6 +1779,12 @@ Add, Remove.
           This has the side effect that the object embedded within the Activity
           (in the <code>object</code> property) is created.
         </p>
+
+<annost-note>
+  This sounds like the object created is assumed to be embedded within the activity, but it doesn't
+  specifically require that.
+</annost-note>
+
         <p>
           When a <code>Create</code> activity is posted, the <code>actor</code>
           of the activity SHOULD be copied onto the <code>object</code>'s
@@ -1735,7 +1821,7 @@ does this have on delivery? So I don't know what to test here.
           <code>id</code> to both the wrapping <code>Create</code> and its
           wrapped <code>Object</code>.
         </p>
-<annost-test testid="6.2.1/1" name="Server must automatically wrap objects in CREATE" role="C-endpoint" level="MUST">
+<annost-test testid="6.2.1/1" name="Server must automatically wrap objects in CREATE" role="C2S-S-endpoint" level="MUST">
 If a client submits a non-Activity object to the server, the server must
 automatically wrap the submitted object in a CREATE activity.
 </annost-test>
@@ -1752,8 +1838,9 @@ In the intro to section 6, it requires the Location to reference the Create acti
           and <code>audience</code> properties specified on the object MUST be
           copied over to the new Create activity by the server.
         </p>
-<annost-test testid="6.2.1/2" name="Auto-created CREATE activity has same addressees as object" role="FP-endpoint" level="MUST">
-A CREATE activity that was auto-created has the same to, bto, cc, bcc and audience property
+<annost-test testid="6.2.1/2" name="Auto-created CREATE activity has same addressees as object" role="C2S-S-endpoint" level="MUST">
+A CREATE activity that was auto-created must have the same <code>to</code>, <code>bto</code>,
+<code>cc</code>, <code>bcc</code> and <code>audience</code> property
 values as the contained object.
 </annost-test>
 
@@ -1768,9 +1855,6 @@ values as the contained object.
                  "https://www.w3.org/ns/activitystreams#Public"]
         }
         </pre>
-<annost-test testid="6.2.1/3" name="Test preceding example for CREATE activity auto-creation" role="S-endpoint, FP-endpoint" level="MUST">
-Server must accept and correctly wrap preceding example object, adjusted for identifiers.
-</annost-test>
 
         The above example could be converted to this:
         <pre class="example" title="Create Activity wrapper generated by the server">
@@ -1808,6 +1892,16 @@ Server must accept and correctly wrap preceding example object, adjusted for ide
           object.
         </p>
 
+<annost-test testid="6.3/1" name="Sender must forward update activities" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
+  If an object held by the sender is updated, the sender must send an Update activity.
+</annost-test>
+<annost-note>
+  It's unclear who to send the activity to, in particular if the update changes the audience.
+</annost-note>
+<annost-test testid="6.3/2" name="Receiver must update objects based on Update activities" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+  If an object held by a receiver is the subject of an Update message, the sender must update the object.
+</annost-test>
+
         <section id="partial-updates">
           <h4>Partial Updates</h4>
           <p>
@@ -1821,11 +1915,9 @@ Server must accept and correctly wrap preceding example object, adjusted for ide
             <code>null</code> type; this means that this field should be
             removed from the server's representation of the object.
           </p>
-<annost-test testid="6.3.1/1" name="" role="C-endpoint" level="MUST">
-A client must issue incremental updates to a server.
+<annost-test testid="6.3.1/1" name="Client must issue incremental updates to a server" role="C2S-C-endpoint" level="MUST">
 </annost-test>
-<annost-test testid="6.3.1/2" name="" role="S-endpoint" level="MUST">
-A server must interpret updates to an object as increments.
+<annost-test testid="6.3.1/2" name="Server must interpret updates to an object as increments" role="C2S-S-endpoint" level="MUST">
 </annost-test>
           <p>
             Note that this behavior is for client to server interaction where
@@ -1854,11 +1946,6 @@ A server must interpret updates to an object as increments.
           object is presented as the response body, otherwise respond with a
           HTTP 404 Not Found.
         </p>
-<annost-note>
-It appears the server can also actually delete the object rather than replacing it
-with a tombstone. Perhaps even keep the object? The spec is unclear; it does not
-say that the object MUST either be replaced by a tombstone or deleted.
-</annost-note>
         <p>A deleted object:</p>
         <pre class="example">
           {
@@ -1870,6 +1957,18 @@ say that the object MUST either be replaced by a tombstone or deleted.
             "deleted": "2015-02-10T15:04:55Z"
           }
         </pre>
+<annost-test testid="6.4/1" name="Client must send Delete activity if an object is deleted" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
+  If an object held by a client is deleted, it must send a Delete activity. The client must delete
+  the copy of the object it holds, or replace it with a tombstone object.
+</annost-test>
+<annost-note>
+  The server has some leeway here what to do. E.g. it can delete, replace with tombstone or
+  perhaps do nothing? There is no requirement to do anything, apparently.
+</annost-note>
+<annost-note>
+  This does not say who gets to delete objects. Can anybody delete any object?
+</annost-note>
+
       </section>
       <section id="follow-activity-outbox">
         <h3>Follow Activity</h3>
@@ -1980,8 +2079,12 @@ Nothing to test here, all is optional.
           For example, if undoing a <code>Like</code>, any counter that had
           been incremented previously should be decremented appropriately.
         </p>
-<annost-test testid="6.10/1" name="Only the same actor may undo" role="FP-endpoint, C-endpoint" level="MUST">
-Any UNDO activity created by a client or FP endpoint MUST have the same actor
+<annost-test testid="6.10/1" name="Undo must have same actor" role="C2S-C-endpoint, S2S-C-endpoint" level="MUST">
+A client must create any UNDO activity with the same actor
+as the activity referenced that is being undone.
+</annost-test>
+<annost-test testid="6.10/2" name="Only the same actor may undo" role="C2S-S-endpoint, S2S-S-endpoint" level="MUST">
+A server must ignore any UNDO activity that does not have the same actor
 as the activity referenced that is being undone.
 </annost-test>
 
@@ -2043,11 +2146,11 @@ Nothing to test here, all is optional.
         to <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>
         for server-to-server interactions.
       </p>
-<annost-test testid="7/1" name="Correct Content-Type when delivering" role="FP-endpoint" level="MUST">
-When delivering an activity to another server, a server must use HTTP POST and content type
+<annost-test testid="7/1" name="Federation senders must use correct Content-Type when delivering" role="S2S-C-endpoint" level="MUST">
+When delivering an activity, federation sender must use HTTP POST and content type
 <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>.
 </annost-test>
-<annost-test testid="7/2" name="Respond to request for retrieving an object with correct content type" role="FP-endpoint" level="MUST">
+<annost-test testid="7/2" name="Respond to request for retrieving an object with correct content type" role="S2S-S-endpoint" level="MUST">
 If an object is accessed with HTTP GET, and the requestor has appropriate permission, and
 provides the content-type <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code>,
 the FP endpoint shall respond with the correct object.
@@ -2106,10 +2209,10 @@ the FP endpoint shall respond with the correct object.
         property: <code>Add</code>, <code>Remove</code>.
       </p>
 
-<annost-test testid="7/3" name="Servers must provide object property for certain activities" role="FP-endpoint" level="MUST">
+<annost-test testid="7/3" name="Federation senders must provide object property for certain activities" role="S2S-C-endpoint" level="MUST">
 Create, Update, Delete, Follow, Add, Remove, Like, Block, Undo.
 </annost-test>
-<annost-test testid="7/4" name="Servers must provide target property for certain activities" role="FP-endpoint" level="MUST">
+<annost-test testid="7/4" name="Federation senders must provide target property for certain activities" role="S2S-C-endpoint" level="MUST">
 Add, Remove.
 </annost-test>
       <p>
@@ -2176,19 +2279,12 @@ Add, Remove.
           result in a <code>405 Method Not Allowed</code> response.
         </p>
 
-<annost-test testid="7.1/1" name="Construct correct recipient list" role="FP-endpoint" level="MUST">
-A given FP-endpoint has a recursion limit.
-The recipient list is the recursive union of all addressees specified in to, bto, cc, bcc
-and audience fields, with resulting collections expanded up to the recursion limit;
-de-duplicated minus the actor of the activity to be sent.
-</annost-test>
-<annost-test testid="7.1/2" name="Servers must deliver to the correct recipient list" role="FP-endpoint" level="MUST">
-Given the calculation of the recipient list, servers must deliver the activity to all
-members of the list.
-</annost-test>
-<annost-test testid="7.1/3" name="Server must deliver to the correct inbox" role="FP-endpoint" level="MUST">
-Given the calculation of the recipient list, servers must lookup the correct inbox from
-each of the receiving actor objects.
+<annost-test testid="7.1/1" name="Sender delivers to the correct recipient list" role="S2S-C-endpoint" level="MUST">
+<p>The recipient list is the recursive union of all addressees specified in <code>to</code>, <code>bto</code>,
+   <code>cc</code>, <code>bcc</code> and <code>audience</code> fields, with resulting collections expanded up to
+   the recursion limit; de-duplicated minus the actor of the activity to be sent.</p>
+<p>There must be a recursion limit.</p>
+<p>The sender must deliver the activity to the correct inbox of all determined recipients.</p>
 </annost-test>
 
         <p>
@@ -2248,6 +2344,10 @@ each of the receiving actor objects.
             populated appropriately by the client</a> which posted the Activity
             to the outbox.
           </p>
+<annost-note>
+  All optional, nothing to test here.
+</annost-note>
+
         </section>
 
         <section id="inbox-forwarding">
@@ -2306,13 +2406,21 @@ each of the receiving actor objects.
               (in case these addressees were purposefully amended by or via the client).
             </li>
           </ul>
-<annost-test testid="7.1.2/1" name="Server must not forward received activities repeatedly" role="FP-endpoint" level="MUST">
-If a server has previously seen (forwarded?) an activity, it must not forward it again.
+<annost-note>
+  This is a bit convoluted and it's hard to extract the specific responsibilities. I think
+  that in the example, Ben's server has no particular responsibilities, and thus there is no
+  applicable test: that's because it's Ben's server or Ben that decides whether to include
+  Alyssa's followers collection as one of the recipients.
+</annost-note>
+<annost-test testid="7.1.2/1" name="Federation receiver forwards activities as needed" role="S2S-S-endpoint" level="MUST">
+If a receiver receives an activity that meets the bulleted list above, it must forward
+the activity to the inboxes of a recipient collection, which is constructed as outlined.
 </annost-test>
-<annost-test testid="7.1.2/2" name="Server must forward received activities to the right places" role="FP-endpoint" level="MUST">
-If a server has not previous seen (forwarded) an activity, it must forward it to the
-right places (see algorithm above).
-</annost-test>
+<annost-note>
+  It may not be clear to the federation receiver which recipients have been sent the
+  activity already by the federation sender, so it is entirely possible that a receipient
+  gets the same activity sent by both Alyssa and Ben in the example.
+</annost-note>
           <p>
             The server MAY filter its delivery targets according to
             implementation-specific rules (for example, spam filtering).
@@ -2355,6 +2463,11 @@ right places (see algorithm above).
             and would not otherwise receive the activity through the
             <code>sharedInbox</code> mechanism.
           </p>
+<annost-test testid="7.1.3/1" name="Federation sender sends direct to receipients without shared inbox" role="S2S-C-endpoint" level="MUST">
+Take several recipients on the same server. Some of them publish the same sharedInbox, some may publish a different
+sharedInbox, and some don't publish one at all. Make sure the federation sender sends the activity not just
+to the single sharedInbox but to everybody.
+</annost-test>
         </section>
       </section>
 
@@ -2389,6 +2502,10 @@ right places (see algorithm above).
           At minimum, this may be done by ensuring that the <code>Update</code>
           and its <code>object</code> are of same origin.
         </p>
+<annost-note>
+  While there is a MUST here, this is not testable.
+</annost-note>
+
       </section>
 
       <section id="delete-activity-inbox">
@@ -2406,6 +2523,10 @@ right places (see algorithm above).
           protocol that can <em>enforce</em> remote deletion of an object's
           representation).
         </p>
+<annost-note>
+Everything optional, nothing to test here.
+</annost-note>
+
       </section>
 
       <section id="follow-activity-inbox">
@@ -2455,6 +2576,9 @@ right places (see algorithm above).
           </p>
         </div>
 
+<annost-note>
+ Everything optional, nothing to test here.
+</annost-note>
       </section>
 
       <section id="accept-activity-inbox">
@@ -2473,6 +2597,10 @@ right places (see algorithm above).
           <code>actor</code> to the receiver's
           <a href="#following">Following Collection</a>.
         </p>
+<annost-note>
+Everything optional, nothing to test here.
+</annost-note>
+
       </section>
 
       <section id="reject-activity-inbox">
@@ -2492,6 +2620,10 @@ right places (see algorithm above).
           <code>actor</code> to the receiver's
           <a href="#following">Following Collection</a>.
         </p>
+<annost-note>
+Everything optional, nothing to test here.
+</annost-note>
+
       </section>
 
       <section id="add-activity-inbox">
@@ -2513,6 +2645,10 @@ right places (see algorithm above).
             receiver's discretion.
           </li>
         </ul>
+<annost-note>
+Everything optional, nothing to test here.
+</annost-note>
+
       </section>
       <section id="remove-activity-inbox">
         <h3>Remove Activity</h3>
@@ -2532,6 +2668,10 @@ right places (see algorithm above).
             receiver's discretion.
           </li>
         </ul>
+<annost-note>
+Everything optional, nothing to test here.
+</annost-note>
+
       </section>
       <section id="like-activity-inbox">
         <h3>Like Activity</h3>
@@ -2542,6 +2682,10 @@ right places (see algorithm above).
           <a href="#likes"><code>likes</code></a> collection
           if this collection is present.
         </p>
+<annost-note>
+Everything optional, nothing to test here.
+</annost-note>
+
       </section>
       <section id="announce-activity-inbox">
         <h3>Announce Activity (sharing)</h3>
@@ -2556,6 +2700,10 @@ right places (see algorithm above).
           The <code>Announce</code> activity is effectively what is known as
           "sharing", "reposting", or "boosting" in other social networks.
         </div>
+<annost-note>
+Everything optional, nothing to test here.
+</annost-note>
+
       </section>
       <section id="undo-activity-inbox">
         <h3>Undo Activity</h3>
