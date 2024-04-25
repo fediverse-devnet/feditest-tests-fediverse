@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}</style><style>dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}</style><link rel="preconnect" crossorigin="anonymous" href="https://www.w3.org/" class="removeOnSave"><link rel="preload" as="script" href="ActivityPub%20Miscellaneous%20Terms_files/fixup.js" class="removeOnSave"><link rel="preload" as="style" href="ActivityPub%20Miscellaneous%20Terms_files/base.css" class="removeOnSave"><link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" class="removeOnSave"><link rel="preload" as="image" crossorigin="anonymous" href="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" class="removeOnSave"><link rel="stylesheet" href="ActivityPub%20Miscellaneous%20Terms_files/base.css" class="removeOnSave">
+  <meta charset="utf-8">
+  <title>ActivityPub Miscellaneous Terms</title>
+  
+  
+  <style>
+    table td,
+    table td * {
+      vertical-align: top;
+    }
+  </style>
+<style id="respec-ui-styles" class="removeOnSave">.respec-modal .close-button{position:absolute;z-index:inherit;padding:.2em;font-weight:700;cursor:pointer;margin-left:5px;border:none;background:0 0}
+#respec-ui{position:fixed;display:flex;flex-direction:row-reverse;top:20px;right:20px;width:202px;text-align:right;z-index:9000}
+#respec-pill,.respec-info-button{height:2.4em;background:#fff;background:var(--bg,#fff);color:#787878;color:var(--tocnav-normal-text,#787878);border:1px solid #ccc;box-shadow:1px 1px 8px 0 rgba(100,100,100,.5);box-shadow:1px 1px 8px 0 var(--tocsidebar-shadow,rgba(100,100,100,.5));padding:.2em 0}
+.respec-info-button{border:none;opacity:.75;border-radius:2em;margin-right:1em;min-width:3.5em;will-change:opacity}
+.respec-info-button:focus,.respec-info-button:hover{opacity:1;transition:opacity .2s}
+#respec-pill{width:4.8em}
+#respec-pill:not(:disabled){animation:respec-fadein .6s ease-in-out}
+@keyframes respec-fadein{
+from{margin-top:-1.2em;border-radius:50%;border:.2em solid rgba(100,100,100,.5);box-shadow:none;height:4.8em}
+to{margin-top:0;border:1px solid #ccc;border-radius:0;box-shadow:1px 1px 8px 0 rgba(100,100,100,.5);height:2.4em}
+}
+#respec-pill:disabled{margin-top:-1.2em;position:relative;border:none;box-shadow:none;border-radius:50%;width:4.8em;height:4.8em;padding:0}
+#respec-pill:disabled::after{position:absolute;content:'';inset:-.2em;border-radius:50%;border:.2em solid rgba(100,100,100,.5);border-left:.2em solid transparent;animation:respec-spin .5s infinite linear}
+@media (prefers-reduced-motion){
+#respec-pill:not(:disabled){animation:none}
+#respec-pill:disabled::after{animation:none;border-left:.2em solid rgba(100,100,100,.5)}
+}
+@keyframes respec-spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+.respec-hidden{visibility:hidden;opacity:0;transition:visibility 0s .2s,opacity .2s linear}
+.respec-visible{visibility:visible;opacity:1;transition:opacity .2s linear}
+#respec-pill:focus,#respec-pill:hover{color:#000;background-color:#f5f5f5;transition:color .2s}
+#respec-menu{position:absolute;margin:0;padding:0;font-family:sans-serif;background:var(--bg,#fff);color:var(--text,#000);box-shadow:1px 1px 8px 0 rgba(100,100,100,.5);width:200px;display:none;text-align:left;margin-top:32px;font-size:.8em}
+#respec-menu:not([hidden]){display:block}
+#respec-menu li{list-style-type:none;margin:0;padding:0}
+.respec-save-buttons{display:grid;grid-template-columns:repeat(auto-fill,minmax(47%,2fr));grid-gap:.5cm;padding:.5cm}
+.respec-save-button:link{padding-top:16px;color:var(--def-text,#fff);background:var(--def-bg,#2a5aa8);justify-self:stretch;height:1cm;text-decoration:none;text-align:center;font-size:inherit;border:none;border-radius:.2cm}
+.respec-save-button:link:hover{color:var(--def-text,#fff);background:var(--defrow-border,#2a5aa8);padding:0;margin:0;border:0;padding-top:16px}
+.respec-save-button:link:focus{background:var(--tocnav-active-bg,#193766);color:var(--tocnav-active-text,#000)}
+#respec-pill:focus,#respec-ui button:focus,.respec-option:focus{outline:0;outline-style:none}
+#respec-pill-error{background-color:red;color:#fff}
+#respec-pill-warning{background-color:orange;color:#fff}
+.respec-error-list,.respec-warning-list{margin:0;padding:0;font-family:sans-serif;font-size:.85em}
+.respec-warning-list{background-color:#fffbe6}
+:is(.respec-warning-list,.respec-error-list)>li{list-style-type:none;margin:0;padding:.5em 0;padding-left:2em;padding-right:.5em}
+:is(.respec-warning-list,.respec-error-list)>li+li{margin-top:.5rem}
+:is(.respec-warning-list,.respec-error-list)>li:before{position:absolute;left:.4em}
+:is(.respec-warning-list,.respec-error-list) p{padding:0;margin:0}
+.respec-warning-list>li{color:#5c3b00;border-bottom:thin solid #fff5c2}
+.respec-error-list,.respec-error-list li{background-color:#fff0f0}
+.respec-warning-list>li::before{content:"⚠️"}
+.respec-error-list>li::before{content:"💥"}
+.respec-error-list>li{color:#5c3b00;border-bottom:thin solid #ffd7d7}
+:is(.respec-warning-list,.respec-error-list)>li li{list-style:disc}
+#respec-overlay{display:block;position:fixed;z-index:10000;top:0;left:0;height:100%;width:100%;background:#000}
+.respec-show-overlay{transition:opacity .2s linear;opacity:.5}
+.respec-hide-overlay{transition:opacity .2s linear;opacity:0}
+.respec-modal{display:block;position:fixed;z-index:11000;top:10%;background:var(--bg,#fff);color:var(--text,#000);border:5px solid #666;border-color:var(--tocsidebar-shadow,#666);min-width:20%;padding:0;max-height:80%;overflow-y:auto;margin:0 -.5cm;left:20%;max-width:75%;min-width:60%}
+.respec-modal h3{margin:0;padding:.2em;left:0!important;text-align:center;background:var(--tocsidebar-shadow,#ddd);color:var(--text,#000);font-size:1em}
+#respec-menu button.respec-option{background:var(--bg,#fff);color:var(--text,#000);border:none;width:100%;text-align:left;font-size:inherit;padding:1.2em 1.2em}
+#respec-menu button.respec-option:hover{background-color:var(--tocnav-hover-bg,#eee);color:var(--tocnav-hover-text,#000)}
+.respec-cmd-icon{padding-right:.5em}
+#respec-ui button.respec-option:first-child{margin-top:0}
+#respec-ui button.respec-option:last-child{border:none;border-radius:inherit;margin-bottom:0}
+.respec-button-copy-paste{position:absolute;height:28px;width:40px;cursor:pointer;background-image:linear-gradient(#fcfcfc,#eee);border:1px solid #90b8de;border-left:0;border-radius:0 0 3px 0;-webkit-user-select:none;user-select:none;-webkit-appearance:none;top:0;left:127px}
+@media print{
+#respec-ui{display:none}
+}
+.respec-iframe{width:100%;min-height:550px;height:100%;overflow:hidden;padding:0;margin:0;border:0}
+.respec-iframe:not(.ready){background:url(https://respec.org/xref/loader.gif) no-repeat center}
+.respec-iframe+a[href]{font-size:.9rem;float:right;margin:0 .5em .5em;border-bottom-width:1px}
+p:is(.respec-hint,.respec-occurrences){display:block;margin-top:.5em}
+.respec-plugin{text-align:right;color:rgb(120,120,120,.5);font-size:.6em}</style><style id="respec-mainstyle">@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}</style><link rel="dns-prefetch" crossorigin="anonymous" href="https://api.specref.org/" class="removeOnSave"><link rel="preconnect" crossorigin="anonymous" href="https://respec.org/" class="removeOnSave"><link rel="preload" as="script" href="https://www.w3.org/Tools/respec/respec-highlight" class="removeOnSave"><link rel="stylesheet" href="ActivityPub%20Miscellaneous%20Terms_files/cg-draft.css"><script src="ActivityPub%20Miscellaneous%20Terms_files/prompt.js"></script><meta name="description" content="This specification documents miscellaneous terms used for ActivityPub
+      and defined in the Activity Streams 2.0 namespace."><style>.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}</style><style class="removeOnSave">var:hover{text-decoration:underline;cursor:pointer}
+var.respec-hl{color:var(--color,#000);background-color:var(--bg-color);box-shadow:0 0 0 2px var(--bg-color)}
+@media (prefers-color-scheme:dark){
+var.respec-hl{filter:saturate(.9) brightness(.9)}
+}
+var.respec-hl-c1{--bg-color:#f4d200}
+var.respec-hl-c2{--bg-color:#ff87a2}
+var.respec-hl-c3{--bg-color:#96e885}
+var.respec-hl-c4{--bg-color:#3eeed2}
+var.respec-hl-c5{--bg-color:#eacfb6}
+var.respec-hl-c6{--bg-color:#82ddff}
+var.respec-hl-c7{--bg-color:#ffbcf2}
+@media print{
+var.respec-hl{background:0 0;color:#000;box-shadow:unset}
+}</style><style>var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}</style><meta name="monetization" content="$respec.org" class="removeOnSave"><script id="initialUserConfig" type="application/json">{
+  "specStatus": "CG-DRAFT",
+  "editors": [
+    {
+      "name": "Evan Prodromou",
+      "url": "https://evanp.me/"
+    }
+  ],
+  "github": "swicg/miscellany",
+  "shortName": "apmisc",
+  "xref": [
+    "web-platform",
+    "activitystreams-vocabulary",
+    "activitystreams-core",
+    "activitypub"
+  ],
+  "group": "socialcg",
+  "publishISODate": "2024-04-22T00:00:00.000Z",
+  "generatedSubtitle": "Draft Community Group Report 22 April 2024"
+}</script></head>
+
+<body class="h-entry toc-sidebar" data-cite="web-platform activitystreams-vocabulary activitystreams-core activitypub"><p id="toc-nav"><a id="toc-jump" href="#toc"><span aria-hidden="true">↑</span> <span>Jump to Table of Contents</span></a><a id="toc-toggle" href="#toc"><span aria-hidden="true">←</span> <span>Collapse Sidebar</span></a></p><div id="respec-ui" class="removeOnSave"><button id="respec-pill" aria-controls="respec-menu" aria-expanded="false" aria-haspopup="true" aria-label="ReSpec Menu">ReSpec</button><ul id="respec-menu" role="menu" aria-labelledby="respec-pill" hidden=""><li role="menuitem"><button class="respec-option" id="respec-button-search-specref">
+      <span class="respec-cmd-icon" aria-hidden="true">🔎<!---0.712254%--></span> Search Specref<!---0.712254%-->…
+    </button><!---0.712254%--></li><li role="menuitem"><button class="respec-option" id="respec-button-search-definitions">
+      <span class="respec-cmd-icon" aria-hidden="true">📚<!---0.712254%--></span> Search definitions<!---0.712254%-->…
+    </button><!---0.712254%--></li><li role="menuitem"><button class="respec-option" id="respec-button-about-35.0.0">
+      <span class="respec-cmd-icon" aria-hidden="true">ℹ️<!---0.712254%--></span> About 35.0.0<!---0.712254%-->…
+    </button><!---0.712254%--></li><li role="menuitem"><button class="respec-option" id="respec-button-export">
+      <span class="respec-cmd-icon" aria-hidden="true">💾<!---0.712254%--></span> Export<!---0.712254%-->…
+    </button><!---0.712254%--></li></ul></div><div class="head">
+    <!---0.712254%-->
+    <h1 id="title" class="title">ActivityPub Miscellaneous Terms</h1><!---0.712254%--> <!---0.712254%-->
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report<!---0.712254%--></a>
+      <time class="dt-published" datetime="2024-04-22">22 April 2024<!---0.712254%--></time>
+    </p>
+    <dl>
+      <!---0.712254%-->
+      <dt>Latest published version:<!---0.712254%--></dt><dd>
+              <a href="https://www.w3.org/apmisc/">https://www.w3.org/apmisc/<!---0.712254%--></a><!---0.712254%-->
+            </dd><!---0.712254%-->
+      <dt>Latest editor's draft:<!---0.712254%--></dt><dd><a href="https://swicg.github.io/miscellany/">https://swicg.github.io/miscellany/<!---0.712254%--></a></dd><!---0.712254%-->
+      <!---0.712254%-->
+      <!---0.712254%-->
+      <!---0.712254%-->
+      <!---0.712254%--><!---0.712254%-->
+      <dt>Editor:<!---0.712254%--></dt><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://evanp.me/">Evan Prodromou<!---0.712254%--></a><!---0.712254%-->
+  </dd><!---0.712254%--><!---0.712254%-->
+      <!---0.712254%-->
+      <!---0.712254%-->
+      <dt>Feedback:<!---0.712254%--></dt><dd>
+        <a href="https://github.com/swicg/miscellany/">GitHub swicg/miscellany<!---0.712254%--></a>
+        (<a href="https://github.com/swicg/miscellany/pulls/">pull requests</a>,
+        <a href="https://github.com/swicg/miscellany/issues/new/choose">new issue</a>,
+        <a href="https://github.com/swicg/miscellany/issues/">open issues</a>)
+      </dd><!---0.712254%--><!---0.712254%-->
+      <!---0.712254%-->
+    </dl>
+    <!---0.712254%-->
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          <!---0.712254%-->2024<!---0.712254%-->
+          <!---0.712254%-->
+          the Contributors to the ActivityPub Miscellaneous Terms<!---0.712254%-->
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/socialcg">Social Web Incubator Community Group<!---0.712254%--></a> under the
+          <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/cla-deed/">summary</a>
+                is available.
+              <!---0.712254%-->
+        </p><!---0.712254%-->
+    <hr title="Separator for header">
+  </div>
+  <section id="abstract" class="introductory"><!--OddPage--><h2>Abstract<!---0.712254%--></h2>
+    <p>
+      This specification documents miscellaneous terms used for ActivityPub
+      and defined in the Activity Streams 2.0 namespace.
+    </p>
+  </section>
+  <section id="sotd" class="introductory"><!--OddPage--><h2>Status of This Document<!---0.712254%--></h2><!---0.712254%--><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/socialcg">Social Web Incubator Community Group<!---0.712254%--></a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>
+            there is a limited opt-out and other conditions apply.
+          <!---0.712254%-->
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+    <p>This is required.</p>
+  <!---0.712254%--><!---0.712254%--><p>
+    <a href="https://github.com/swicg/miscellany/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        <!---0.712254%-->
+    <!---0.712254%-->
+  </p><!---0.712254%--><!---0.712254%--><!---0.712254%--><!---0.712254%--></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents<!---0.712254%--></h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract<!---0.712254%--></a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document<!---0.712254%--></a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1.<!---0.712254%--> </bdi>Introduction</a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#context"><bdi class="secno">2.<!---0.712254%--> </bdi>Context</a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#types"><bdi class="secno">3.<!---0.712254%--> </bdi>Types</a><!---0.712254%--><ol class="toc"><li class="tocline"><a class="tocxref" href="#Hashtag"><bdi class="secno">3.1<!---0.712254%--> </bdi>Hashtag</a><!---0.712254%--></li></ol></li><li class="tocline"><a class="tocxref" href="#properties"><bdi class="secno">4.<!---0.712254%--> </bdi>Properties</a><!---0.712254%--><ol class="toc"><li class="tocline"><a class="tocxref" href="#manuallyApprovesFollowers"><bdi class="secno">4.1<!---0.712254%--> </bdi>manuallyApprovesFollowers</a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#movedTo"><bdi class="secno">4.2<!---0.712254%--> </bdi>movedTo</a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#sensitive"><bdi class="secno">4.3<!---0.712254%--> </bdi>sensitive</a><!---0.712254%--></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">5.<!---0.712254%--> </bdi>Conformance<!---0.712254%--></a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A.<!---0.712254%--> </bdi>References<!---0.712254%--></a><!---0.712254%--><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1<!---0.712254%--> </bdi>Normative references<!---0.712254%--></a><!---0.712254%--></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">A.2<!---0.712254%--> </bdi>Informative references<!---0.712254%--></a><!---0.712254%--></li></ol></li></ol></nav>
+  <section class="informative" id="introduction"><!--OddPage--><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1.<!---0.712254%--> </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.<!---0.712254%--></em></p>
+    
+    <p>
+      The first software packages that implemented the [<cite><a class="bibref" data-link-type="biblio" href="#bib-activitypub" title="ActivityPub">activitypub<!---0.712254%--></a></cite><!---0.712254%-->] protocol
+      federation protocol began to appear in 2018. <a href="https://joinmastodon.org/">Mastodon</a>, a federated
+      microblogging service, had previously implemented the <a href="https://en.wikipedia.org/wiki/OStatus">OStatus</a>
+      protocol. It was ported over to using ActivityPub.
+    </p>
+    <p>
+      As it was, the Mastodon team included a number of terms that the 
+software needed to implement Mastodon features
+      not defined in basic ActivityPub. Some terms were proposed for 
+inclusion in the ActivityPub specification, but weren't included because
+ of time constraints.
+    </p>
+    <p>
+      In the absence of a clear extensions process, those terms were not
+ given their own namespace or context document, but instead were defined
+ in the default namespace for Activity Streams 2.0.
+      They also were not given their own [<cite><a class="bibref" data-link-type="biblio" href="#bib-json-ld" title="JSON-LD 1.0">JSON-LD<!---0.712254%--></a></cite><!---0.712254%-->] context document, instead defined in the <code>@context</code>
+      property of each ActivityPub object.
+    </p>
+    <p>
+      The terms have been widely adopted by other ActivityPub implementations.
+      Newer Mastodon-specific extensions have been defined in Mastodon's own namespace. The first few terms, though,
+      remain undocumented in a formal specification.
+    </p>
+    <p>
+      The <a href="https://www.w3.org/community/socialcg/">SocialCG</a> at the W3C is responsible for managing resources
+      like the ActivityPub and Activity Streams 2.0 errata and context document. Its proposed <a href="https://swicg.github.io/extensions-policy/">Process for Including Extensions in Activity Streams 2.0</a>
+      gives a path for widely-used extension terms to be included in the context document.
+    </p>
+    <p>
+      The terms in this Report are good candidates for that process, but
+ miss a few key criteria. They are not defined in their own namespace. 
+They also miss the criteria of being well-documented, and having their 
+own context
+      document at a permanent URL.
+    </p>
+    <p>
+      Changing the namespace for the terms would change their meaning 
+and would not be backwards compatible. So, the current report aims to 
+fix the two latter problems. It describes a context document for the 
+terms, and
+      defines each of the terms in a similar way to the [<cite><a class="bibref" data-link-type="biblio" href="#bib-activitystreams-vocabulary" title="Activity Vocabulary">activitystreams-vocabulary<!---0.712254%--></a></cite><!---0.712254%-->] specification.
+    </p>
+    <p>
+      Besides documenting these terms and giving them a path to 
+inclusion in the Activity Streams 2.0 context document, this 
+specification also serves as a test case for the SocialCG extension 
+inclusion process.
+    </p>
+  </section>
+  <section id="context"><!--OddPage--><div class="header-wrapper"><h2 id="x2-context"><bdi class="secno">2.<!---0.712254%--> </bdi>Context</h2><a class="self-link" href="#context" aria-label="Permalink for Section 2."></a></div>
+    
+    <p>
+      The terms in this document are defined in a context document that can be used in [<cite><a class="bibref" data-link-type="biblio" href="#bib-json-ld" title="JSON-LD 1.0">JSON-LD<!---0.712254%--></a></cite><!---0.712254%-->] documents. The
+      context document is available at <a href="https://purl.archive.org/socialweb/miscellany">https://purl.archive.org/socialweb/miscellany</a>.
+    </p>
+    <p>To use these terms, documents should include this context URL in the
+      <code>@context</code> property of the JSON-LD document.
+    </p>
+    <aside class="example" id="example-1"><div class="marker">
+    <a class="self-link" href="#example-1">Example<!---0.712254%--><bdi> 1<!---0.712254%--></bdi></a><!---0.712254%-->
+  </div>
+      <p>Example usage of the context.</p>
+      <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="hljs-string">"https://purl.archive.org/socialweb/miscellany"</span>
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://example.com/users/evan"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Person"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Evan Prodromou"</span>,
+  <span class="hljs-attr">"manuallyApprovesFollowers"</span>: <span class="hljs-literal">false</span>
+}</code></pre>
+    </aside>
+    <p>
+      For backwards compatibility, the context document does <i>not</i> define a separate namespace nor a prefix for
+      these terms, instead falling back to the Activity Streams 2.0 defaults. If needed for
+      disambiguation, the <code>as:</code> prefix defined in the
+      Activity Streams 2.0 context document can be used.
+    </p>
+  </section>
+  <section id="types"><!--OddPage--><div class="header-wrapper"><h2 id="x3-types"><bdi class="secno">3.<!---0.712254%--> </bdi>Types</h2><a class="self-link" href="#types" aria-label="Permalink for Section 3."></a></div>
+    
+    <p>This extension includes one object type, <a href="#Hashtag">Hashtag</a>.</p>
+    <section id="Hashtag" data-dfn-for="Hashtag"><div class="header-wrapper"><h3 id="x3-1-hashtag"><bdi class="secno">3.1<!---0.712254%--> </bdi>Hashtag</h3><a class="self-link" href="#Hashtag" aria-label="Permalink for Section 3.1"></a></div>
+      
+      <table>
+        <tbody>
+          <tr>
+            <td width="10%">
+              URI:
+            </td>
+            <td>
+              <code>https://www.w3.org/ns/activitystreams#Hashtag</code><br>
+              <code>as:Hashtag</code><br>
+              <code>Hashtag</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Notes:
+            </td>
+            <td>
+              <p>
+                A metadata tag used for casual categorization of content. Often, a hashtag is presented inline in
+              content prefixed with a hash symbol, "#". See <a href="https://en.wikipedia.org/wiki/Hashtag">https://en.wikipedia.org/wiki/Hashtag</a>. Examples are
+              shown in the [<cite><a class="bibref" data-link-type="biblio" href="#bib-activitystreams-vocabulary" title="Activity Vocabulary">activitystreams-vocabulary<!---0.712254%--></a></cite><!---0.712254%-->] specification under
+              <a href="https://www.w3.org/TR/activitystreams-vocabulary/#microsyntaxes">Mentions, Tags, and Other Common
+                Social Microsyntaxes</a> implementation notes, without a type for tag object.
+                Original discussion in ActivityPub issue #<a href="https://github.com/w3c/activitypub/issues/235">235</a>.
+              </p>
+              <p>
+                The <code>name</code> property <em class="rfc2119">MAY<!---0.712254%--></em> include an initial hash character "#".
+              </p>
+              <p>
+                Some processors treat Hashtag objects with the same <code>name</code> as equivalent, with or without the initial hash character. For example, an aggregator service may list all objects with <code>tag</code> items of type <code>Hashtag</code> with the same <code>name</code> together, even if their <code>href</code> values differ.
+              </p>
+              <p>
+                Despite the name, the Hashtag type <em class="rfc2119">MAY<!---0.712254%--></em> be used for metadata tags that are not implemented with inline microsyntax. See <a href="https://en.wikipedia.org/wiki/Tag_(metadata)">https://en.wikipedia.org/wiki/Tag_(metadata)</a>.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>Extends:</td>
+            <td><code><a href="https://www.w3.org/TR/activitystreams-core/#link">Link</a></code></td>
+          </tr>
+          <tr>
+            <td>Properties:</td>
+            <td>Inherits all properties from <code><a href="https://www.w3.org/TR/activitystreams-core/#link">Link</a></code>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <aside class="example" id="example-2"><div class="marker">
+    <a class="self-link" href="#example-2">Example<!---0.712254%--><bdi> 2<!---0.712254%--></bdi></a><!---0.712254%-->
+  </div>
+        <p>A <a href="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-note">Note</a> with a <code>Hashtag</code> in its <a href="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tag">tag</a> array.</p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="hljs-string">"https://purl.archive.org/socialweb/miscellany"</span>
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://example.com/notes/1"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Note"</span>,
+  <span class="hljs-attr">"attributedTo"</span>: <span class="hljs-string">"https://example.com/users/john"</span>,
+  <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"A thank-you note"</span>,
+  <span class="hljs-attr">"content"</span>: <span class="hljs-string">"&lt;a href='https://example.org/tags/givingthanks'&gt;#givingthanks&lt;/a&gt;"</span>,
+  <span class="hljs-attr">"tag"</span>: [
+    {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Hashtag"</span>,
+      <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://example.org/tags/givingthanks"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"#givingthanks"</span>
+    }
+  ]
+}</code></pre></aside>
+      <aside class="example" id="example-3"><div class="marker">
+    <a class="self-link" href="#example-3">Example<!---0.712254%--><bdi> 3<!---0.712254%--></bdi></a><!---0.712254%-->
+  </div>
+        <p>A collection of <a href="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-image">Image</a> objects with <code>Hashtag</code> objects in their <a href="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tag">tag</a> array. The images are grouped together
+        because the hashtag <code>name</code> values are equivalent.</p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="hljs-string">"https://purl.archive.org/socialweb/miscellany"</span>
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://photos.example/collections/tag/givingthanks"</span>,
+  <span class="hljs-attr">"attributedTo"</span>: <span class="hljs-string">"https://photos.example/editors/asjt"</span>,
+  <span class="hljs-attr">"to"</span>: <span class="hljs-string">"as:Public"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Collection"</span>,
+  <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Images tagged with #eclipse2024"</span>,
+  <span class="hljs-attr">"items"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://example.com/images/1"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Image"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Fred and Ethel watching the eclipse"</span>,
+      <span class="hljs-attr">"attributedTo"</span>: <span class="hljs-string">"https://example.com/users/ethel"</span>,
+      <span class="hljs-attr">"to"</span>: <span class="hljs-string">"as:Public"</span>,
+      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://example.com/files/image1.png"</span>,
+      <span class="hljs-attr">"tag"</span>: [
+        {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Hashtag"</span>,
+          <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://example.com/tags/eclipse2024"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"eclipse2024"</span>
+        }
+      ]
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://social.example/users/nasa/images/2e4f8e6c.jsonld"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Image"</span>,
+      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://social.example/uploads/2e4f8e6c.png"</span>,
+      <span class="hljs-attr">"attributedTo"</span>: <span class="hljs-string">"https://social.example/users/nasa"</span>,
+      <span class="hljs-attr">"to"</span>: <span class="hljs-string">"as:Public"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Eclipse from the ISS"</span>,
+      <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"&lt;a href='https://tags.example/eclipse2024'&gt;#eclipse2024&lt;/a&gt;"</span>,
+      <span class="hljs-attr">"tag"</span>: [
+        {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Hashtag"</span>,
+          <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://tags.example/eclipse2024"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"#eclipse2024"</span>
+        }
+      ]
+    }
+  ]
+}</code></pre></aside>
+    </section>
+  </section>
+  <section id="properties"><!--OddPage--><div class="header-wrapper"><h2 id="x4-properties"><bdi class="secno">4.<!---0.712254%--> </bdi>Properties</h2><a class="self-link" href="#properties" aria-label="Permalink for Section 4."></a></div>
+      
+      <p>This extension includes three properties: <a href="#manuallyApprovesFollowers">manuallyApprovesFollowers</a>, <a href="#movedTo">movedTo</a>, and <a href="#sensitive">sensitive</a>.</p>
+      <section id="manuallyApprovesFollowers" data-dfn-for="manuallyApprovesFollowers"><div class="header-wrapper"><h3 id="x4-1-manuallyapprovesfollowers"><bdi class="secno">4.1<!---0.712254%--> </bdi>manuallyApprovesFollowers</h3><a class="self-link" href="#manuallyApprovesFollowers" aria-label="Permalink for Section 4.1"></a></div>
+        
+        <table>
+          <tbody>
+            <tr>
+              <td width="10%">
+                URI:
+              </td>
+              <td>
+                <code>https://www.w3.org/ns/activitystreams#manuallyApprovesFollowers</code><br>
+                <code>as:manuallyApprovesFollowers</code><br>
+                <code>manuallyApprovesFollowers</code>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Notes:
+              </td>
+              <td>
+                When *true*, conveys that for this actor, follow 
+requests are not usually automatically approved, but instead are 
+examined by a person who may accept or reject the request, at some time 
+in the future.  Setting of FALSE conveys no information and may be 
+ignored. This information is typically used to affect display of 
+accounts, such as showing an account as private or locked.
+              </td>
+            </tr>
+            <tr>
+              <td>Domain:</td>
+              <td><code>Object</code> (an ActivityPub <a href="https://www.w3.org/TR/activitypub/#actors">Actor</a>)</td>
+            </tr>
+            <tr>
+              <td>Range:</td>
+              <td><code>Boolean</code></td>
+            </tr>
+            <tr>
+              <td>Functional:</td>
+              <td><code>true</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="example" id="example-4"><div class="marker">
+    <a class="self-link" href="#example-4">Example<!---0.712254%--><bdi> 4<!---0.712254%--></bdi></a><!---0.712254%-->
+  </div>
+          <p>An ActivityPub actor with the <code>manuallyApprovesFollowers</code> flag set to true.</p>
+          <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="hljs-string">"https://purl.archive.org/socialweb/miscellany"</span>
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://example.com/users/alyssa"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Person"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Alyssa P. Hacker"</span>,
+  <span class="hljs-attr">"inbox"</span>: <span class="hljs-string">"https://example.com/users/alyssa/inbox"</span>,
+  <span class="hljs-attr">"outbox"</span>: <span class="hljs-string">"https://example.com/users/alyssa/outbox"</span>,
+  <span class="hljs-attr">"followers"</span>: <span class="hljs-string">"https://example.com/users/alyssa/followers"</span>,
+  <span class="hljs-attr">"following"</span>: <span class="hljs-string">"https://example.com/users/alyssa/following"</span>,
+  <span class="hljs-attr">"liked"</span>: <span class="hljs-string">"https://example.com/users/alyssa/liked"</span>,
+  <span class="hljs-attr">"manuallyApprovesFollowers"</span>: <span class="hljs-literal">true</span>
+}</code></pre>
+        </aside>
+      </section>
+      <section id="movedTo" data-dfn-for="movedTo"><div class="header-wrapper"><h3 id="x4-2-movedto"><bdi class="secno">4.2<!---0.712254%--> </bdi>movedTo</h3><a class="self-link" href="#movedTo" aria-label="Permalink for Section 4.2"></a></div>
+        
+        <table>
+          <tbody>
+            <tr>
+              <td width="10%">
+                URI:
+              </td>
+              <td>
+                <code>https://www.w3.org/ns/activitystreams#movedTo</code><br>
+                <code>as:movedTo</code><br>
+                <code>movedTo</code>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Notes:
+              </td>
+              <td>
+                Signifies that an actor has been moved to a different ID. Used in Mastodon-style data portability with the <a href="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-move">Move</a> activity; see <a href="https://swicg.github.io/activitypub-data-portability/#move-action">ActivityPub Data Portability/Move Action</a> for more details.
+              </td>
+            </tr>
+            <tr>
+              <td>Domain:</td>
+              <td><code>Object</code> (an ActivityPub <a href="https://www.w3.org/TR/activitypub/#actors">Actor</a>)</td>
+            </tr>
+            <tr>
+              <td>Range:</td>
+              <td><code>Object</code> (an ActivityPub <a href="https://www.w3.org/TR/activitypub/#actors">Actor</a>)</td>
+            </tr>
+            <tr>
+              <td>Functional:</td>
+              <td><code>true</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="example" id="example-5"><div class="marker">
+    <a class="self-link" href="#example-5">Example<!---0.712254%--><bdi> 5<!---0.712254%--></bdi></a><!---0.712254%-->
+  </div>
+          <p>An ActivityPub actor with the <code>movedTo</code> property set to a new ID.</p>
+          <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="hljs-string">"https://purl.archive.org/socialweb/miscellany"</span>
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://example.com/users/alyssa"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Person"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Alyssa P. Hacker"</span>,
+  <span class="hljs-attr">"inbox"</span>: <span class="hljs-string">"https://example.com/users/alyssa/inbox"</span>,
+  <span class="hljs-attr">"outbox"</span>: <span class="hljs-string">"https://example.com/users/alyssa/outbox"</span>,
+  <span class="hljs-attr">"followers"</span>: <span class="hljs-string">"https://example.com/users/alyssa/followers"</span>,
+  <span class="hljs-attr">"following"</span>: <span class="hljs-string">"https://example.com/users/alyssa/following"</span>,
+  <span class="hljs-attr">"liked"</span>: <span class="hljs-string">"https://example.com/users/alyssa/liked"</span>,
+  <span class="hljs-attr">"movedTo"</span>: <span class="hljs-string">"https://example.org/users/alyssa2"</span>
+}</code></pre>
+        </aside>
+      </section>
+      <section id="sensitive" data-dfn-for="sensitive"><div class="header-wrapper"><h3 id="x4-3-sensitive"><bdi class="secno">4.3<!---0.712254%--> </bdi>sensitive</h3><a class="self-link" href="#sensitive" aria-label="Permalink for Section 4.3"></a></div>
+        
+        <table>
+          <tbody>
+            <tr>
+              <td width="10%">
+                URI:
+              </td>
+              <td>
+                <code>https://www.w3.org/ns/activitystreams#sensitive</code><br>
+                <code>as:sensitive</code><br>
+                <code>sensitive</code>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Notes:
+              </td>
+              <td>
+                The <code>sensitive</code> property (a boolean) on an 
+object indicates that some users may wish to apply discretion about 
+viewing its content, whether due to nudity, violence, or any other 
+likely aspects that viewers may be sensitive to.  This is comparable to 
+what is popularly called "NSFW" (Not Safe For Work) or "trigger warning"
+ in some systems.  Implementations may choose to hide content flagged 
+with this property by default, exposed at user discretion. Original 
+discussion in ActivityPub issue #<a href="https://github.com/w3c/activitypub/issues/231">231</a>.
+              </td>
+            </tr>
+            <tr>
+              <td>Domain:</td>
+              <td><code>Object</code></td>
+            </tr>
+            <tr>
+              <td>Range:</td>
+              <td><code>Boolean</code></td>
+            </tr>
+            <tr>
+              <td>Functional:</td>
+              <td><code>true</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="example" id="example-6"><div class="marker">
+    <a class="self-link" href="#example-6">Example<!---0.712254%--><bdi> 6<!---0.712254%--></bdi></a><!---0.712254%-->
+  </div>
+          <p>An ActivityPub <code>Note</code> with the <code>sensitive</code> property set to true.</p>
+          <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="hljs-string">"https://purl.archive.org/socialweb/miscellany"</span>
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://example.com/notes/1"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Note"</span>,
+  <span class="hljs-attr">"attributedTo"</span>: <span class="hljs-string">"https://example.com/users/john"</span>,
+  <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"A sensitive note"</span>,
+  <span class="hljs-attr">"content"</span>: <span class="hljs-string">"This note contains sensitive content."</span>,
+  <span class="hljs-attr">"sensitive"</span>: <span class="hljs-literal">true</span>
+}</code></pre>
+      </aside></section>
+    </section>
+    <section id="conformance"><!--OddPage--><div class="header-wrapper"><h2 id="x5-conformance"><bdi class="secno">5.<!---0.712254%--> </bdi>Conformance<!---0.712254%--></h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 5."></a></div><p>As
+ well as sections marked as non-normative, all authoring guidelines, 
+diagrams, examples, and notes in this specification are non-normative. 
+Everything else in this specification is normative.<!---0.712254%--></p><p>
+        The key word<!---0.712254%--> <em class="rfc2119">MAY<!---0.712254%--></em><!---0.712254%--> in this document
+        is<!---0.712254%--> to be interpreted as described in
+        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119<!---0.712254%--></a></cite><!---0.712254%-->]<!---0.712254%--> [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174<!---0.712254%--></a></cite><!---0.712254%-->]<!---0.712254%-->
+        when, and only when, they appear in all capitals, as shown here.
+      </p><!---0.712254%-->
+      <p>
+        This is required for specifications that contain normative material.
+      </p>
+    </section>
+  
+<section id="references" class="appendix"><!--OddPage--><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A.<!---0.712254%--> </bdi>References<!---0.712254%--></h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1<!---0.712254%--> </bdi>Normative references<!---0.712254%--></h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-activitystreams-vocabulary">[activitystreams-vocabulary<!---0.712254%-->]</dt><dd>
+      <a href="https://www.w3.org/TR/activitystreams-vocabulary/"><cite>Activity Vocabulary</cite></a>. James Snell; Evan Prodromou.  W3C. 23 May 2017. W3C Recommendation. URL: <a href="https://www.w3.org/TR/activitystreams-vocabulary/">https://www.w3.org/TR/activitystreams-vocabulary/</a><!---0.712254%-->
+    </dd><dt id="bib-json-ld">[JSON-LD<!---0.712254%-->]</dt><dd>
+      <a href="https://www.w3.org/TR/json-ld/"><cite>JSON-LD 1.0</cite></a>. Manu Sporny; Gregg Kellogg; Markus Lanthaler.  W3C. 3 November 2020. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld/">https://www.w3.org/TR/json-ld/</a><!---0.712254%-->
+    </dd><dt id="bib-rfc2119">[RFC2119<!---0.712254%-->]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a><!---0.712254%-->
+    </dd><dt id="bib-rfc8174">[RFC8174<!---0.712254%-->]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a><!---0.712254%-->
+    </dd><!---0.712254%--></dl>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="a-2-informative-references"><bdi class="secno">A.2<!---0.712254%--> </bdi>Informative references<!---0.712254%--></h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix A.2"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-activitypub">[activitypub<!---0.712254%-->]</dt><dd>
+      <a href="https://www.w3.org/TR/activitypub/"><cite>ActivityPub</cite></a>. Christopher Webber; Jessica Tallon.  W3C. 23 January 2018. W3C Recommendation. URL: <a href="https://www.w3.org/TR/activitypub/">https://www.w3.org/TR/activitypub/</a><!---0.712254%-->
+    </dd><!---0.712254%--></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="ActivityPub%20Miscellaneous%20Terms_files/fixup.js"></script></body></html>
