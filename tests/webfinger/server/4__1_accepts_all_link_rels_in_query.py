@@ -3,9 +3,8 @@ from hamcrest import assert_that, equal_to
 from feditest import step
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
+from feditest.protocols.webfinger.utils import link_subset_or_equal_to
 from feditest.reporting import info
-
-from .. import wfutils
 
 # Note: we do not try all the known rel values, only the ones known to be used in a webfinger context
 # See also https://fedidevs.org/reference/webfinger/
@@ -57,7 +56,7 @@ def accepts_known_link_rels_in_query(
         info(f'WebFinger query for resource "{test_id}" with rel "{rel}"')
         response_with_rel : WebFingerQueryResponse = client.perform_webfinger_query(test_id, [rel])
         assert_that(response_with_rel.http_request_response_pair.response.http_status, equal_to(200))
-        assert_that(response_with_rel.jrd, wfutils.link_subset_or_equal_to(response_without_rel.jrd))
+        assert_that(response_with_rel.jrd, link_subset_or_equal_to(response_without_rel.jrd))
 
 
 @step
@@ -71,7 +70,7 @@ def accepts_unknown_link_rels_in_query(
     for rel in UNKNOWN_RELS:
         response_with_rel = client.perform_webfinger_query(test_id, [rel])
         assert_that(response_with_rel.http_request_response_pair.response.http_status, equal_to(200))
-        assert_that(response_with_rel.jrd, wfutils.link_subset_or_equal_to(response_without_rel.jrd))
+        assert_that(response_with_rel.jrd, link_subset_or_equal_to(response_without_rel.jrd))
 
 
 @step
@@ -88,5 +87,5 @@ def accepts_combined_link_rels_in_query(
             rels = [rel1, rel2] if count % 2 else [rel2, rel1]
             response_with_rel = client.perform_webfinger_query(test_id, rels)
             assert_that(response_with_rel.http_request_response_pair.response.http_status, equal_to(200))
-            assert_that(response_with_rel.jrd, wfutils.link_subset_or_equal_to(response_without_rel.jrd))
+            assert_that(response_with_rel.jrd, link_subset_or_equal_to(response_without_rel.jrd))
             ++count
