@@ -1,10 +1,10 @@
 from hamcrest import assert_that, equal_to
 
-from feditest import step
+from feditest import test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
-@step
+@test
 def status_404_for_nonexisting_resources(
         client: WebFingerClient,
         server: WebFingerServer

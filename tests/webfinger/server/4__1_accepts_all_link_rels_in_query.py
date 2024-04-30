@@ -1,6 +1,6 @@
 from hamcrest import assert_that, equal_to
 
-from feditest import step
+from feditest import test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 from feditest.protocols.webfinger.utils import link_subset_or_equal_to
@@ -45,7 +45,7 @@ UNKNOWN_RELS = ( # not known to be used in webfinger files, likely not real
     'something-else'
 )
 
-@step
+@test
 def accepts_known_link_rels_in_query(
         client: WebFingerClient,
         server: WebFingerServer
@@ -59,7 +59,7 @@ def accepts_known_link_rels_in_query(
         assert_that(response_with_rel.jrd, link_subset_or_equal_to(response_without_rel.jrd))
 
 
-@step
+@test
 def accepts_unknown_link_rels_in_query(
         client: WebFingerClient,
         server: WebFingerServer
@@ -73,7 +73,7 @@ def accepts_unknown_link_rels_in_query(
         assert_that(response_with_rel.jrd, link_subset_or_equal_to(response_without_rel.jrd))
 
 
-@step
+@test
 def accepts_combined_link_rels_in_query(
         client: WebFingerClient,
         server: WebFingerServer

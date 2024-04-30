@@ -1,12 +1,12 @@
 from hamcrest import assert_that
 
-from feditest import step
+from feditest import test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.utils import multi_dict_has_key
 
 
-@step
+@test
 def cors_header_required(
         client: WebFingerClient,
         server: WebFingerServer

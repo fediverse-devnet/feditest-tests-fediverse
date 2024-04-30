@@ -1,11 +1,11 @@
 from hamcrest import any_of, assert_that, equal_to, is_not, all_of
 
-from feditest import step
+from feditest import test
 from feditest.utils import uri_parse_validate
 from feditest.protocols.web.traffic import HttpResponse, ParsedUri
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
-@step
+@test
 def only_https_requests(
         client: WebFingerClient,
         server: WebFingerServer

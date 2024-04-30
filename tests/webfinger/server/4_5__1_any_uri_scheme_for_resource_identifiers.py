@@ -1,11 +1,12 @@
 from urllib.parse import quote
 from hamcrest import assert_that, equal_to
 
-from feditest import step
+from feditest import test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
-@step
+
+@test
 def any_uri_scheme_for_resource_identifiers(
         client: WebFingerClient,
         server: WebFingerServer

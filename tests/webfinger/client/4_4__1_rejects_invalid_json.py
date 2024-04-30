@@ -1,8 +1,8 @@
-from feditest import step
+from feditest import test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
-@step
+@test
 def rejects_invalid_json(
         client: WebFingerClient,
         server: WebFingerServer

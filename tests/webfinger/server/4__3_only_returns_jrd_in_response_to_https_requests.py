@@ -1,10 +1,10 @@
 from hamcrest import any_of, assert_that, equal_to, is_not, starts_with
 
-from feditest import step
+from feditest import test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
-@step
+@test
 def only_returns_jrd_in_response_to_https(
         client: WebFingerClient,
         server: WebFingerServer

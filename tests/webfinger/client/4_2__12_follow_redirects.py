@@ -1,12 +1,12 @@
 from hamcrest import assert_that, equal_to
 from multidict import MultiDict
 
-from feditest import step
+from feditest import test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
-@step
+@test
 def follow_redirects(
         client: WebFingerClient,
         server: WebFingerServer
