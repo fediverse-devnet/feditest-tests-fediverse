@@ -1,7 +1,7 @@
 import json
 from hamcrest import assert_that, calling, is_not, raises
 
-from feditest import step
+from feditest import test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
@@ -24,7 +24,7 @@ def test_one(
     assert_that(calling(webfinger_response.jrd.validate()), is_not(raises(Exception)))
 
 
-@step
+@test
 def must_accept_empty_document(
         client: WebFingerClient,
         server: WebFingerServer
@@ -35,7 +35,7 @@ def must_accept_empty_document(
     test_one(client, server, {} )
 
 
-@step
+@test
 def must_accept_empty_links_array(
         client: WebFingerClient,
         server: WebFingerServer
@@ -43,7 +43,7 @@ def must_accept_empty_links_array(
     test_one(client, server, { 'links' : [] } )
 
 
-@step
+@test
 def must_accept_empty_aliases_array(
         client: WebFingerClient,
         server: WebFingerServer
@@ -51,7 +51,7 @@ def must_accept_empty_aliases_array(
     test_one(client, server, { 'aliases' : [] } )
 
 
-@step
+@test
 def must_accept_long_aliases_array(
         client: WebFingerClient,
         server: WebFingerServer
@@ -59,7 +59,7 @@ def must_accept_long_aliases_array(
     test_one(client, server, { 'aliases' : [ f"alias-{i}" for i in range(0, 100) ] } )
 
 
-@step
+@test
 def must_accept_empty_properties_object(
         client: WebFingerClient,
         server: WebFingerServer
@@ -67,7 +67,7 @@ def must_accept_empty_properties_object(
     test_one(client, server, { 'properties' : {} } )
 
 
-@step
+@test
 def must_accept_long_properties_object(
         client: WebFingerClient,
         server: WebFingerServer
@@ -80,7 +80,7 @@ def must_accept_long_properties_object(
     test_one(client, server, { 'properties' : props } )
 
 
-@step
+@test
 def must_accept_long_links_array(
         client: WebFingerClient,
         server: WebFingerServer
@@ -90,7 +90,7 @@ def must_accept_long_links_array(
     } for i in range(0, 100) ] } )
 
 
-@step
+@test
 def must_accept_long_titles_array_in_link(
         client: WebFingerClient,
         server: WebFingerServer

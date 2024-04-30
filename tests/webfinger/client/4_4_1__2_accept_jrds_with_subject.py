@@ -1,12 +1,12 @@
 import json
 from hamcrest import assert_that
 
-from feditest import step
+from feditest import test
 from feditest.protocols.web.traffic import ParsedUri
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
-@step
+@test
 def accept_jrds_with_subject(
         client: WebFingerClient,
         server: WebFingerServer

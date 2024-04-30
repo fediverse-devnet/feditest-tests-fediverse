@@ -1,6 +1,6 @@
 from hamcrest import any_of, assert_that, calling, equal_to, greater_than_or_equal_to, is_not, starts_with, raises
 
-from feditest import step
+from feditest import test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import ClaimedJrd
@@ -13,7 +13,7 @@ def interpret_payload_as_jrd(payload: str):
     jrd.validate()
 
 
-@step
+@test
 def requires_resource_uri(
         client: WebFingerClient,
         server: WebFingerServer
@@ -21,7 +21,6 @@ def requires_resource_uri(
     test_id = server.obtain_account_identifier()
 
     correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
-    
     q = correct_webfinger_uri.index('?resource=')
     assert_that(q, greater_than_or_equal_to(0))
     uri_without = correct_webfinger_uri[0:q]

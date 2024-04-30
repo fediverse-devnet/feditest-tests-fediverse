@@ -1,0 +1,3 @@
+[submodule "misc/annost"]
+	path = misc/annost
+	url = https://github.com/jernst/annost.git

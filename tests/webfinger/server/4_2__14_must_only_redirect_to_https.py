@@ -1,11 +1,11 @@
 from hamcrest import assert_that, equal_to
 
-from feditest import step
+from feditest import test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
 
-@step
+@test
 def must_only_redirect_to_https(
         client: WebFingerClient,
         server: WebFingerServer

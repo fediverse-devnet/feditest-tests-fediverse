@@ -1,7 +1,8 @@
-from feditest import step
+from feditest import test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
-@step
+
+@test
 def parameter_ordering(
         client: WebFingerClient,
         server: WebFingerServer
