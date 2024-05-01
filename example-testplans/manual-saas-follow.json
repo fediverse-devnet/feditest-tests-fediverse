@@ -1,0 +1,23 @@
+{
+    "sessions" : [
+        {
+            "constellation" : {
+                "roles" : [
+                    {
+                        "name" : "to_be_leader_node",
+                        "nodedriver": "saas.SaasFediverseNodeDriver"
+                    },
+                    {
+                        "name" : "to_be_follower_node",
+                        "nodedriver": "saas.SaasFediverseNodeDriver"
+                    }
+                ]
+            },
+            "tests" : [
+                {
+                    "name" : "fediverse.test_follow::follow"
+                }
+            ]
+        }
+    ]
+}

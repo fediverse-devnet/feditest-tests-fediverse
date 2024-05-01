@@ -19,14 +19,14 @@ def only_returns_jrd_in_response_to_https(
 
     correct_https_response : HttpResponse = client.http_get(correct_webfinger_uri).response
     assert_that(correct_https_response.http_status, equal_to(200))
-    assert_that(correct_https_response.response_headers['content-type'],
+    assert_that(correct_https_response.response_headers.get('content-type'),
         any_of(
                 equal_to('application/jrd+json'),
                 starts_with('application/jrd+json;')))
 
     http_response : HttpResponse = client.http_get(http_webfinger_uri).response
     assert_that(http_response.http_status, is_not(equal_to(200)))
-    assert_that(http_response.response_headers['content-type'],
+    assert_that(http_response.response_headers.get('content-type'),
         is_not(any_of(
                 equal_to('application/jrd+json'),
                 starts_with('application/jrd+json;'))))
