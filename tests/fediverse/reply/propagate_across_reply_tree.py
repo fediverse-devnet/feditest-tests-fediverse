@@ -12,6 +12,6 @@ Note: I don't think this is what is currently implemented, but I argue it should
 7. `actor-a@a.example`, `actor-b1@b1.example` and `actor-c1@c1.example`: all receive `Create(Note-Y)`, respond with HTTP 2xx
 6. On `a.example`, `b1.example`, `b2.example` and `c1.example`, `Note-Y` is now shown as reply to `Note-X`
 
-FIXME
+FIXME -- create this after single_hop and double_hop work.
 
 """

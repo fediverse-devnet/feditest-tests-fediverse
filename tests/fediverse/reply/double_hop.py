@@ -1,14 +1,78 @@
-"""
-Double-hop rely attached to the original post and intermediate post
+from feditest import step, test
+from feditest.protocols.fediverse import FediverseNode
 
-1. `actor-b@b.example` follows `actor-a@a.example`, `actor-c@c.example` follows `actor-b@b.example`
-2. `actor-a@a.example`: `Create(Note-X)`
-3. `actor-b@b.example`: receives `Create(Note-X)` and `Note-X` is now in `actor-b@b.example`'s inbox
-4. `actor-b@b.example`: `Announce(Note-X)`
-5. `actor-c@c.example`: receives `Announce(Note-X)`, and `Note-X` is now in `actor-c@c.example`'s inbox
-6. `actor-c@c.example`: `Create(Note-Y)` with `inReplyTo(Note-X)`
-7. `actor-a@a.example` and `actor-b@b.example`: both receive `Create(Note-Y)`, responds with HTTP 2xx
-6. On `a.example` and `b.example`, `Note-Y` is now shown as rely to `Note-X`
 
-FIXME
-"""
+@test
+class ReplyDoubleHopTest:
+    """
+    Test that replies on a boosted post make it to the booster and the poster.
+    """
+    def __init__(self,
+        leader_node:   FediverseNode,
+        middle_node:   FediverseNode,
+        follower_node: FediverseNode
+    ) -> None:
+       self.leader_node = leader_node
+       self.middle_node = middle_node
+       self.follower_node = follower_node
+
+       self.post_content = "Nothing much happening."
+       self.reply_content = "Join us here, we are having fun!"
+
+
+    @step
+    def get_actors(self):
+        self.leader_actor_uri   = self.leader_node.obtain_actor_document_uri()
+        self.middle_actor_uri   = self.middle_node.obtain_actor_document_uri()
+        self.follower_actor_uri = self.follower_node.obtain_actor_document_uri()
+
+
+    @step
+    def setup_follow(self):
+        self.middle_node.make_a_follow_b(self.middle_actor_uri, self.leader_actor_uri, self.leader_node)
+        self.follower_node.make_a_follow_b(self.follower_actor_uri, self.middle_actor_uri, self.middle_node)
+
+
+    @step
+    def leader_creates_note(self):
+        self.post_uri_on_leader_node = self.leader_node.make_create_note(self.leader_actor_uri, self.post_content)
+
+
+    @step
+    def note_in_middle_inbox(self):
+        try:
+            self.post_uri_on_middle_node = self.middle_node.wait_for_object_in_inbox(self.middle_actor_uri, self.post_uri_on_leader_node)
+            # FIXME check for the right content
+
+        except TimeoutError as e:
+            raise AssertionError(e)
+
+
+    @step
+    def middle_creates_announce(self):
+        self.announce_uri_on_middle_node = self.middle_node.make_announce_object(self.middle_actor_uri, self.post_uri_on_middle_node)
+
+
+    @step
+    def announce_in_follower_inbox(self):
+        try:
+            self.announce_uri_on_follower_node = self.middle_node.wait_for_object_in_inbox(self.announce_uri_on_middle_node)
+            # FIXME check for the right content
+
+        except TimeoutError as e:
+            raise AssertionError(e)
+
+
+    @step
+    def follower_creates_reply(self):
+        self.reply_uri_on_follower_node = self.follower_node.make_reply(self.follower_actor_uri, self.reply_content)
+
+
+    @step
+    def middle_received_reply(self):
+        self.middle_node.wait_for_object_in_inbox(self.reply_uri_on_follower_node)
+
+
+    @step
+    def leader_received_reply(self):
+        self.leader_node.wait_for_object_in_inbox(self.reply_uri_on_follower_node)

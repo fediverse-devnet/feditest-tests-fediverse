@@ -8,5 +8,5 @@ Append to leader_accepts_follow_request.py
 1. `actor-b@b.example`: `Undo(Follow)`
 2. Both `actor-a@a.example` and `actor-b@b.example`'s Followers and Following lists do not contain each other
 
-FIXME
+FIXME -- let's do this after leader_XXX_follow_request work
 """

@@ -1,15 +1,61 @@
-"""
-Deliver a Note with inReplyTo of an existing Note to a user's inbox. Check that it returns HTTP 2xx, is visible to the target user, and appears attached to the inReplyTo Note.
+from feditest import step, test
+from feditest.protocols.fediverse import FediverseNode
+from hamcrest import assert_that
 
-See also: https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/16
 
-1. `actor-b@b.example` follows `actor-a@a.example`
-2. `actor-a@a.example`: `Create(Note-X)`
-3. `actor-b@b.example`: receives `Create(Note-X)` and `Note-X` is now in `actor-b@b.example`'s inbox
-4. `actor-b@b.example`: `Create(Note-Y)` with `inReplyTo(Note-X)`
-5. `actor-a@a.example`: receives `Create(Note-Y)`, responds with HTTP 2xx
-6. On `a.example`, `Note-Y` is now shown as reply to `Note-X`
+@test
+class ReplyTest:
+    """
+    Test that replies on a post.
+    """
+    def __init__(self,
+        leader_node:   FediverseNode,
+        follower_node: FediverseNode
+    ) -> None:
+       self.leader_node = leader_node
+       self.follower_node = follower_node
 
-FIXME
-"""
+       self.post_content = "Nothing much happening."
+       self.reply_content = "Join us here, we are having fun!"
 
+    @step
+    def get_actors(self):
+        self.leader_actor_uri   = self.leader_node.obtain_actor_document_uri()
+        self.follower_actor_uri = self.follower_node.obtain_actor_document_uri()
+
+
+    @step
+    def setup_follow(self):
+        self.follower_node_node.make_a_follow_b(self.follower_actor_uri, self.leader_actor_uri, self.leader_node)
+
+
+    @step
+    def leader_creates_note(self):
+        self.post_uri_on_leader_node = self.leader_node.make_create_note(self.leader_actor_uri, self.post_content)
+
+
+    @step
+    def note_in_follower_inbox(self):
+        try:
+            self.post_uri_on_follower_node = self.follower_node.wait_for_object_in_inbox(self.follower_actor_uri, self.post_uri_on_leader_node)
+            # FIXME check for the right content
+
+        except TimeoutError as e:
+            raise AssertionError(e)
+
+
+    @step
+    def follower_creates_reply(self):
+        self.reply_uri_on_follower_node = self.follower_node.make_reply(self.follower_actor_uri, selfreply_content)
+
+
+    @step
+    def reply_isreply_on_follower_node(self):
+        assert_that(self.follower_node.is_reply_to( self.reply_uri_on_follower_node, self.post_uri_on_follower_node))
+        # FIXME check for the right content
+
+
+    @step
+    def leader_received_reply(self):
+        self.leader_node.wait_for_object_in_inbox(self.reply_uri_on_follower_node)
+        # FIXME check for the right content
