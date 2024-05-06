@@ -169,23 +169,11 @@
       </h1>
       <p>The AnnoST annotations use the following roles (see also sections on Conformance, and on Specification Profiles below):</p>
       <dl>
-       <dt>S2S-C-endpoint</dt>
-       <dd>The implementation of the federation protocol by an instance that acts as a client
-           in a particular S2S interaction (i.e. the client in an HTTP request).
-           We often refer to this as the &quot;C2S client&quot; in the annotations.</dd>
-       <dt>S2S-S-endpoint</dt>
-       <dd>The implementation of the federation protocol by an instance that acts as a server
-           in a particular S2S interaction (i.e. the server in an HTTP request).
-           We often refer to this as the &quot;C2S server&quot; in the annotations.</dd>
-       <dt>C2S-C-endpoint</dt>
-       <dd>The implementation of the client portion of the client to server protocol
-           (C2S interaction).
-           We often refer to this as the &quot;federation sender&quot; in the annotations.</dd>
-       <dt>C2S-S-endpoint</dt>
-       <dd>The implementation of the server portion of the client to server protocol
-           (C2S interaction).
-           We often refer to this as the &quot;federation receiver&quot; in the annotations.</dd>
-      </dl>
+         <dt>Client</dt>
+         <dd>The client role in a WebFinger interaction</dd>
+         <dt>Server</dt>
+         <dd>The server role in a WebFinger interaction</dd>
+          </dl>
      </annost-note>
      <span class="pre noprint docinfo">[<a href="https://www.rfc-editor.org" title="RFC Editor">RFC Home</a>] [<a href="/rfc/rfc7033.txt">TEXT</a>|<a href="/rfc/pdfrfc/rfc7033.txt.pdf">PDF</a>|<a href="/rfc/rfc7033.html">HTML</a>] [<a href='https://datatracker.ietf.org/doc/rfc7033' title='IETF Datatracker information for this document'>Tracker</a>] [<a href="https://datatracker.ietf.org/ipr/search/?rfc=7033&amp;submit=rfc" title="IPR disclosures related to this document">IPR</a>] [<a href='https://www.rfc-editor.org/info/rfc7033' title='Info page'>Info page</a>]                  </span><br/><span class="pre noprint docinfo">                                                                        </span><br /><span class="pre noprint docinfo">                                                       PROPOSED STANDARD</span><br /><span class="pre noprint docinfo">                                                                        </span><pre>Internet Engineering Task Force (IETF)                          P. Jones
 Request for Comments: 7033                                  G. Salgueiro
@@ -698,11 +686,17 @@ Resource parameter (client)
    of RFC 2616</a> [<a href="#ref-2" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">2</a>].
 
 </pre>
+<annost-note>
+ In all tests that test absent or malformed resource parameters, test for HTTP status &quot;<code>400 Bad Request</code>&quot;
+ per Section 10.4.1 in RFC 2616.
+</annost-note>
 <annost-test testid="4.2/3" name="Do not accept requests with missing resource parameter" role="Server" level="MUST">
 The server responds with "400 Bad Request" when the resource parameter is missing.
+See section 4.2 Note on 400 Bad Request.
 </annost-test>
 <annost-test testid="4.2/4" name="Do not accept malformed resource parameters" role="Server" level="MUST">
 The server responds with "400 Bad Request" when the resource parameter is malformed.
+# See section 4.2 Note on 400 Bad Request.
 </annost-test>
 <pre>
 
@@ -711,6 +705,10 @@ The server responds with "400 Bad Request" when the resource parameter is malfor
    request as per <a href="./rfc2616#section-10.4.5">Section&nbsp;10.4.5 of RFC 2616</a>.
 
 </pre>
+<annost-note>
+   In all tests that valid resource parameters that have no account behind them, test for HTTP
+   status &quot;<code>404 Not found</code>&quot; per Section 10.4.5 in RFC 2616.
+</annost-note>
 <annost-test testid="4.2/5" name="404 for non-existing resources" role="Server" level="MUST">
 The server responds with "404 Not Found" when the resource parameter identifies a
 non-existent resource.
