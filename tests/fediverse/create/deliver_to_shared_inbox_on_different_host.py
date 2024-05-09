@@ -5,4 +5,7 @@ Note: We assume that if this test passes, other activities can also be delivered
 a sharedInbox on a different host.
 
 FIXME
+
+This may not be a separate test. We could run deliver_to_inbox, but with a Node whose shared inbox
+is on a different host. FIXME?
 """

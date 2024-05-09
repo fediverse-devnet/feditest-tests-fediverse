@@ -21,7 +21,7 @@ def requires_resource_uri(
     test_id = server.obtain_account_identifier()
 
     correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
-    q = correct_webfinger_uri.index('?resource=')
+    q = correct_webfinger_uri.find('?resource=')
     assert_that(q, greater_than_or_equal_to(0))
     uri_without = correct_webfinger_uri[0:q]
 
