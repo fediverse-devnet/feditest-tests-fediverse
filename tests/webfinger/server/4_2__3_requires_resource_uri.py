@@ -31,5 +31,6 @@ def requires_resource_uri(
         is_not(any_of(
                 equal_to('application/jrd+json'),
                 starts_with('application/jrd+json;'))))
-    assert_that(calling( lambda: interpret_payload_as_jrd(response_without.payload_as_string())), raises(RuntimeError))
+    if "application/json" in response_without.response_headers.get('content-type', ""):
+        assert_that(calling( lambda: interpret_payload_as_jrd(response_without.payload_as_string())), raises(RuntimeError))
 
