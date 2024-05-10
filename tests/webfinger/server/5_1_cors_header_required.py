@@ -15,5 +15,7 @@ def cors_header_required(
 
     response : HttpResponse = client.perform_webfinger_query(test_id).http_request_response_pair.response
 
-    assert_that(response.response_headers, multi_dict_has_key('access-control-allow-origin'))
+    assert_that(
+        'access-control-allow-origin' in response.response_headers, 
+        "Missing access-control-allow-origin header")
     # FIXME not checking for a correct value. How?
