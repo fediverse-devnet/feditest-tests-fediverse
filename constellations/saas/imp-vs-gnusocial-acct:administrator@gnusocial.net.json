@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "gnusocial.net",
+                "existing-account-uri" : "acct:administrator@gnusocial.net",
+                "nonexisting-account-uri" : "acct:does-not-exist@gnusocial.net"
+            }
+        }
+    ]
+}

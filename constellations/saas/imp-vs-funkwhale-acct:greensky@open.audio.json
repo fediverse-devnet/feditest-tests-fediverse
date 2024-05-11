@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "open.audio",
+                "existing-account-uri" : "acct:greensky@open.audio",
+                "nonexisting-account-uri" : "acct:does-not-exist@open.audio"
+            }
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "friendi.ca",
+                "existing-account-uri" : "acct:tobias@friendi.ca",
+                "nonexisting-account-uri" : "acct:does-not-exist@friendi.ca"
+            }
+        }
+    ]
+}
