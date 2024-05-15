@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "manton.org",
+                "existing-account-uri" : "acct:manton@manton.org",
+                "nonexisting-account-uri" : "acct:does-not-exist@manton.org"
+            }
+        }
+    ]
+}
