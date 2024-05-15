@@ -1,4 +1,4 @@
-from feditest import step, test
+from feditest import step, test, HardAssertionFailure
 from feditest.protocols.fediverse import FediverseNode
 from hamcrest import assert_that
 
@@ -41,12 +41,12 @@ class ReplyTest:
             # FIXME check for the right content
 
         except TimeoutError as e:
-            raise AssertionError(e)
+            raise HardAssertionFailure(e)
 
 
     @step
     def follower_creates_reply(self):
-        self.reply_uri_on_follower_node = self.follower_node.make_reply(self.follower_actor_uri, selfreply_content)
+        self.reply_uri_on_follower_node = self.follower_node.make_reply(self.follower_actor_uri, self.reply_content)
 
 
     @step
