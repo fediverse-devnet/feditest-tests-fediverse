@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "snac.bsd.cafe",
+                "existing-account-uri" : "acct:fedops@snac.bsd.cafe",
+                "nonexisting-account-uri" : "acct:does-not-exist@snac.bsd.cafe"
+            }
+        }
+    ]
+}
