@@ -1,10 +1,11 @@
 from hamcrest import any_of, assert_that, equal_to, is_not, starts_with
 
-from feditest import test
+from feditest import test, HardAssertionFailure
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
 from feditest.protocols.webfinger.traffic import ClaimedJrd
+
 
 @test
 def returns_valid_jrd(
@@ -27,4 +28,4 @@ def returns_valid_jrd(
     try:
         jrd.validate()
     except ClaimedJrd.JrdError as ex:
-        raise AssertionError(*ex.args[1:])
+        raise HardAssertionFailure(*ex.args[1:])
