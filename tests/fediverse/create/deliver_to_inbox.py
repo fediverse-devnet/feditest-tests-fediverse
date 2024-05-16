@@ -1,4 +1,4 @@
-from feditest import step, test
+from feditest import step, test, HardAssertionFailure
 from feditest.protocols.fediverse import FediverseNode
 
 
@@ -19,19 +19,22 @@ class DeliverToInboxTest:
        self.post_content = "Good morning!"
 
 
+    @step
     def get_actors(self):
         self.sender_actor_uri   = self.sender_node.obtain_actor_document_uri()
         self.receiver_actor_uri = self.receiver_node.obtain_actor_document_uri()
 
 
+    @step
     def create_note(self):
         self.create_note_uri_on_sender_node = self.sender_node.make_create_note(self.sender_actor_uri, self.post_content, to=self.receiver_actor_uri, inbox_preference='actor')
 
 
+    @step
     def test_note_received(self):
         try:
             self.create_note_uri_on_receiver_node = self.receiver_node.wait_for_object_in_inbox(self.receiver_actor_uri, self.create_note_uri_on_sender_node)
             # FIXME check for the right content
 
         except TimeoutError as e:
-            raise AssertionError(e)
+            raise HardAssertionFailure(e)
