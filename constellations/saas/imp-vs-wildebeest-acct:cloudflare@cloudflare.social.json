@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "cloudflare.social",
+                "existing-account-uri" : "acct:gargron@cloudflare.social",
+                "nonexisting-account-uri" : "acct:does-not-exist@cloudflare.social"
+            }
+        }
+    ]
+}

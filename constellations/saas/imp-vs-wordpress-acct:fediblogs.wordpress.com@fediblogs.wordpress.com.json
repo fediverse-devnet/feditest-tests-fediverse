@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "fediblogs.wordpress.com",
+                "existing-account-uri" : "acct:fediblogs.wordpress.com@fediblogs.wordpress.com",
+                "nonexisting-account-uri" : "acct:does-not-exist@fediblogs.wordpress.com"
+            }
+        }
+    ]
+}

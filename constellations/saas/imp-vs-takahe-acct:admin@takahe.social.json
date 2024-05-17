@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name" : "client",
+            "nodedriver" : "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name" : "server",
+            "nodedriver" : "saas.SaasFediverseNodeDriver",
+            "parameters" : {
+                "hostname" : "gotosocial.social",
+                "existing-account-uri" : "acct:admin@gotosocial.social",
+                "nonexisting-account-uri" : "acct:does-not-exist@gotosocial.social"
+            }
+        }
+    ]
+}
