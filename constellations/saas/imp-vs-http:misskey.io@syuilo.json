@@ -8,6 +8,7 @@
             "name" : "server",
             "nodedriver" : "saas.SaasFediverseNodeDriver",
             "parameters" : {
+                "app": "Misskey",
                 "hostname" : "misskey.io",
                 "existing-account-uri" : "https://misskey.io/@syuilo",
                 "nonexisting-account-uri" : "https://misskey.io/@does-not-exist"

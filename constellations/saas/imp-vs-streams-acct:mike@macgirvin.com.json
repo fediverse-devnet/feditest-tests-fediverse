@@ -8,6 +8,7 @@
             "name" : "server",
             "nodedriver" : "saas.SaasFediverseNodeDriver",
             "parameters" : {
+                "app": "Stream",
                 "hostname" : "macgirvin.com",
                 "existing-account-uri" : "acct:mike@macgirvin.com",
                 "nonexisting-account-uri" : "acct:does-not-exist@macgirvin.com"
