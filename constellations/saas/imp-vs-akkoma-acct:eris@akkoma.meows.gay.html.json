@@ -8,6 +8,7 @@
             "name" : "server",
             "nodedriver" : "saas.SaasFediverseNodeDriver",
             "parameters" : {
+                "app": "Akkoma",
                 "hostname" : "akkoma.meows.gay",
                 "existing-account-uri" : "acct:eris@akkoma.meows.gay",
                 "nonexisting-account-uri" : "acct:does-not-exist@akkoma.meows.gay"

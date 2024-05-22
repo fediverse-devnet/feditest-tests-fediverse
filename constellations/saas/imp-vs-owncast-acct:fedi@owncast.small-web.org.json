@@ -8,6 +8,7 @@
             "name" : "server",
             "nodedriver" : "saas.SaasFediverseNodeDriver",
             "parameters" : {
+                "app": "Owncast",
                 "hostname" : "owncast.small-web.org",
                 "existing-account-uri" : "acct:fedi@owncast.small-web.org",
                 "nonexisting-account-uri" : "acct:does-not-exist@owncast.small-web.org"
