@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app" : "PeerTube",
+        "hostname": "framapiaf.org",
+        "existing-account-uri": "acct:peertube@framapiaf.org",
+        "nonexisting-account-uri": "acct:does-not-exist@framapiaf.org"
+    }
+}

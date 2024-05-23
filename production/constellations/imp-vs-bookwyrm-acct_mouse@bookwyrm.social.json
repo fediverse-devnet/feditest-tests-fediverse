@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Bookwyrm",
+                "hostname": "bookwyrm.social",
+                "existing-account-uri": "acct:mouse@bookwyrm.social",
+                "nonexisting-account-uri": "acct:does-not-exist@bookwyrm.social"
+            }
+        }
+    },
+    "name": "Imp vs bookwyrm-acct_mouse@bookwyrm.social"
+}

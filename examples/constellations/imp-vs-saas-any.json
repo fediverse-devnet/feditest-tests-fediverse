@@ -1,0 +1,13 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": null
+        }
+    },
+    "name": "Imp vs any SaaS application"
+}

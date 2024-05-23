@@ -1,0 +1,31 @@
+{
+    "sessions": [
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": null
+                    }
+                },
+                "name": "Any Saas application vs any SaaS application"
+            },
+            "tests": [
+                {
+                    "name": "fediverse.follow.leader_accepts_follow_request::AcceptFollowTest",
+                    "rolemapping": {
+                        "follower_node": "follower_node",
+                        "leader_node": "leader_node"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        }
+    ],
+    "name": null
+}

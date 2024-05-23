@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Funkwhale",
+                "hostname": "open.audio",
+                "existing-account-uri": "acct:publiccode@open.audio",
+                "nonexisting-account-uri": "acct:does-not-exist@open.audio"
+            }
+        }
+    },
+    "name": "Imp vs funkwhale-acct_publiccode@open.audio"
+}

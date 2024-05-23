@@ -1,0 +1,13 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": null
+        }
+    },
+    "name": "Any Saas application vs any SaaS application"
+}

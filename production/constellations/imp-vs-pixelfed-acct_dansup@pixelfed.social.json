@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Pixelfed",
+                "hostname": "pixelfed.social",
+                "existing-account-uri": "acct:dansup@pixelfed.social",
+                "nonexisting-account-uri": "acct:does-not-exist@pixelfed.social"
+            }
+        }
+    },
+    "name": "Imp vs pixelfed-acct_dansup@pixelfed.social"
+}

@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Gancio",
+                "hostname": "gancio.cisti.org",
+                "existing-account-uri": "acct:gancio@gancio.cisti.org",
+                "nonexisting-account-uri": "acct:does-not-exist@gancio.cisti.org"
+            }
+        }
+    },
+    "name": "Imp vs gancio-acct_gancio@gancio.cisti.org"
+}

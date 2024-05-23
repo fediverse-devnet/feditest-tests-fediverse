@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Pleroma",
+                "hostname": "stereophonic.space",
+                "existing-account-uri": "acct:karolat@stereophonic.space",
+                "nonexisting-account-uri": "acct:does-not-exist@stereophonic.space"
+            }
+        }
+    },
+    "name": "Imp vs pleroma-acct_karolat@stereophonic.space"
+}

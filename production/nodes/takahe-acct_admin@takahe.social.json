@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app" : "Takahē",
+        "hostname": "gotosocial.social",
+        "existing-account-uri": "acct:admin@gotosocial.social",
+        "nonexisting-account-uri": "acct:does-not-exist@gotosocial.social"
+    }
+}

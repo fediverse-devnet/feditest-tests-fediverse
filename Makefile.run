@@ -1,0 +1,104 @@
+#
+# This Makefile runs certain test plans
+#
+# This attempt to run executable `feditest` in your $PATH. If you'd like
+# to run a different executable, such as one in a virtual environment,
+# invoke this Makefile with extra parameter FEDITEST=path/to/my/feditest
+#
+
+FEDITEST=feditest
+
+EXAMPLES_TESTPLANS= \
+  webfinger-server-gargron-mastodon-social-saas-imp \
+  webfinger-server-ubos-mastodon-imp \
+  webfinger-server-ubos-mastodon-wordpress-imp \
+  webfinger-server-ubos-wordpress-imp
+
+PRODUCTION_TESTPLANS= \
+  webfinger-server-all-wellknown-saas-imp \
+
+default :
+	@echo "Choose a target, such as 'examples' or 'production'."
+
+all : \
+  examples \
+  production
+
+examples : \
+  examples-transcripts \
+  examples-transcripts-tap \
+  examples-transcripts-html
+
+examples-transcripts : \
+  $(patsubst %, examples/testresults/%.json, $(EXAMPLES_TESTPLANS))
+
+examples-transcripts-tap : \
+  $(patsubst %, examples/testresults/%.tap, $(EXAMPLES_TESTPLANS))
+
+examples-transcripts-html : \
+  $(patsubst %, examples/testresults/%.sequential.html, $(EXAMPLES_TESTPLANS)) \
+  $(patsubst %, examples/testresults/%.testmatrix.html, $(EXAMPLES_TESTPLANS))
+
+production : \
+  production-transcripts \
+  production-transcripts-tap \
+  production-transcripts-html
+
+production-transcripts : \
+  $(patsubst %, production/testresults/%.json, $(PRODUCTION_TESTPLANS))
+
+production-transcripts-tap : \
+  $(patsubst %, production/testresults/%.tap, $(PRODUCTION_TESTPLANS))
+
+production-transcripts-html : \
+  $(patsubst %, examples/testresults/%.sequential.html, $(PRODUCTION_TESTPLANS)) \
+  $(patsubst %, examples/testresults/%.testmatrix.html, $(PRODUCTION_TESTPLANS))
+
+
+########## General rules to make things simpler ##########
+
+# Given a testplan in examples/testplans, run it and generate a testrun JSON transcript in examples/testresults with the same name
+examples/testresults/%.json : examples/testplans/%.json
+	$(FEDITEST) run \
+		--testplan $< \
+		--json $@ \
+	|| echo 'ERRORS in the test run (as expected), so we continue'
+
+# Given a testplan in production/testplans, run it and generate a testrun JSON transcript in production/testresults with the same name
+production/testresults/%.json : production/testplans/%.json
+	$(FEDITEST) run \
+		--testplan $< \
+		--json $@
+	|| echo 'ERRORS in the test run (as expected), so we continue'
+
+# Given a testrun JSON transcript, convert it to TAP format
+%.tap : %.json
+	$(FEDITEST) convert-transcript \
+		--in $< \
+		--tap $@
+
+# Given a testrun JSON transcript, convert it to HTML format with a template that lists everything that happened in sequential order
+%.sequential.html : %.json
+	$(FEDITEST) convert-transcript \
+		--in $< \
+		--html $@ \
+		--template testrun-report-sequential-standalone
+
+# Given a testrun JSON transcript, convert it to HTML format with a template that creates a test matrix
+%.testmatrix.html : %.json
+	$(FEDITEST) convert-transcript \
+		--in $< \
+		--html $@ \
+		--template testrun-report-testmatrix-standalone
+
+########## and the rest ##########
+
+clean :
+	-rm {examples,production}/testresults/*.{json,tap,html}
+
+
+.PHONY : \
+  default all clean \
+  examples examples-transcript examples-transcripts-tap examples-transcripts-html \
+  production production-transcript production-transcripts-tap production-transcripts-html
+

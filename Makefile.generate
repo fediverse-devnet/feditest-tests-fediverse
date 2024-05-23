@@ -1,0 +1,225 @@
+#
+# This Makefile regenerates session template files and test plan files
+# that are checked-in.
+#
+# This attempt to run executable `feditest` in your $PATH. If you'd like
+# to run a different executable, such as one in a virtual environment,
+# invoke this Makefile with extra parameter FEDITEST=path/to/my/feditest
+#
+
+FEDITEST=feditest
+
+default : all
+
+all : examples production
+
+examples : \
+  examples-session-templates \
+  examples-constellations \
+  examples-testplans
+
+production : \
+  production-session-templates \
+  production-constellations \
+  production-testplans
+
+
+########## Example session templates ##########
+
+examples-session-templates : \
+  examples/session-templates/webfinger-server-all.json \
+  examples/session-templates/fediverse-follow.json
+
+examples/session-templates/webfinger-server-all.json : \
+  tests/webfinger/server/*.py
+	$(FEDITEST) generate-session-template \
+		--name 'All WebFinger server tests' \
+		--filter 'webfinger\.server' \
+		--out $@
+
+examples/session-templates/fediverse-follow.json : \
+  tests/*/*/*.py
+	  $(FEDITEST) generate-session-template \
+		--name 'Can a fediverse account follow another' \
+		--filter 'fediverse\.follow\.leader_accepts_follow_request' \
+		--out $@
+
+
+########## Production session templates ##########
+
+production-session-templates : \
+  production/session-templates/webfinger-server-all.json
+
+production/session-templates/webfinger-server-all.json : \
+  tests/webfinger/server/*.py
+	$(FEDITEST) generate-session-template \
+		--name 'All WebFinger server tests' \
+		--filter 'webfinger\.server' \
+		--out $@
+
+
+##### Example constellations ##########
+
+examples-constellations : \
+  examples/constellations/imp-vs-local-mastodon.json \
+  examples/constellations/imp-vs-local-wordpress.json \
+  examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json \
+  examples/constellations/imp-vs-saas-any.json \
+  examples/constellations/saas-any-vs-saas-any.json
+
+examples/constellations/imp-vs-local-mastodon.json : \
+  examples/nodes/imp.json \
+  examples/nodes/local-mastodon.json
+	$(FEDITEST) create-constellation \
+		--name 'Imp vs local Mastodon' \
+		--node client=examples/nodes/imp.json \
+		--node server=examples/nodes/local-mastodon.json \
+		--out $@
+
+examples/constellations/imp-vs-local-wordpress.json : \
+  examples/nodes/imp.json \
+  examples/nodes/local-wordpress.json
+	$(FEDITEST) create-constellation \
+		--name 'Imp vs local WordPress + ActivityPub plugin' \
+		--node client=examples/nodes/imp.json \
+		--node server=examples/nodes/local-wordpress.json \
+		--out $@
+
+examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json : \
+  examples/nodes/imp.json \
+  examples/nodes/mastodon-acct_gargron@mastodon.social.json
+	$(FEDITEST) create-constellation \
+		--name 'Imp vs @gargron@mastodon.social' \
+		--node client=examples/nodes/imp.json \
+		--node server=examples/nodes/mastodon-acct_gargron@mastodon.social.json \
+		--out $@
+
+examples/constellations/imp-vs-saas-any.json : \
+  examples/nodes/imp.json \
+  examples/nodes/saas-any.json
+	$(FEDITEST) create-constellation \
+		--name 'Imp vs any SaaS application' \
+		--node client=examples/nodes/imp.json \
+		--node server=examples/nodes/saas-any.json \
+		--out $@
+
+examples/constellations/saas-any-vs-saas-any.json : \
+  examples/nodes/saas-any.json \
+  examples/nodes/saas-any.json
+	$(FEDITEST) create-constellation \
+		--name 'Any Saas application vs any SaaS application' \
+		--node client=examples/nodes/saas-any.json \
+		--node server=examples/nodes/saas-any.json \
+		--out $@
+
+
+##### Production constellations ##########
+
+PRODUCTION_WEBFINGER_SAAS_NODES = $(patsubst production/nodes/%.json, %, $(wildcard production/nodes/*@*.json))
+PRODUCTION_WEBFINGER_CONSTELLATIONS = $(patsubst %, production/constellations/imp-vs-%.json, $(PRODUCTION_WEBFINGER_SAAS_NODES))
+
+production-constellations : \
+  $(PRODUCTION_WEBFINGER_CONSTELLATIONS) \
+  production/constellations/imp-vs-local-mastodon.json \
+  production/constellations/imp-vs-local-wordpress.json
+
+production/constellations/imp-vs-%.json : production/nodes/%.json
+	$(FEDITEST) create-constellation \
+		--name "Imp vs$(patsubst production/nodes/%.json, %, $<)" \
+		--node client=production/nodes/imp.json \
+		--node server=$< \
+		--out $@
+
+production/constellations/imp-vs-local-mastodon.json : \
+  production/nodes/imp.json \
+  production/nodes/local-mastodon.json
+	$(FEDITEST) create-constellation \
+		--name 'Imp vs local Mastodon' \
+		--node client=production/nodes/imp.json \
+		--node server=production/nodes/local-mastodon.json \
+		--out $@
+
+production/constellations/imp-vs-local-wordpress.json : \
+  production/nodes/imp.json \
+  production/nodes/local-wordpress.json
+	$(FEDITEST) create-constellation \
+		--name 'Imp vs local WordPress + ActivityPub plugin' \
+		--node client=production/nodes/imp.json \
+		--node server=production/nodes/local-wordpress.json \
+		--out $@
+
+
+##### Example test plans ##########
+
+examples-testplans : \
+  examples/testplans/fediverse-follow-manual-saas.json \
+  examples/testplans/webfinger-server-gargron-mastodon-social-saas-imp.json \
+  examples/testplans/webfinger-server-ubos-mastodon-imp.json \
+  examples/testplans/webfinger-server-ubos-mastodon-wordpress-imp.json \
+  examples/testplans/webfinger-server-ubos-wordpress-imp.json
+
+examples/testplans/fediverse-follow-manual-saas.json : \
+  examples/session-templates/webfinger-server-all.json \
+  examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json
+	$(FEDITEST) generate-testplan \
+		--session-template examples/session-templates/fediverse-follow.json \
+		--constellation examples/constellations/saas-any-vs-saas-any.json \
+		--out $@
+
+examples/testplans/webfinger-server-gargron-mastodon-social-saas-imp.json : \
+  examples/session-templates/webfinger-server-all.json \
+  examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json
+	$(FEDITEST) generate-testplan \
+		--session-template examples/session-templates/webfinger-server-all.json \
+		--constellation examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json \
+		--out $@
+
+examples/testplans/webfinger-server-ubos-mastodon-imp.json : \
+  examples/session-templates/webfinger-server-all.json \
+  examples/constellations/imp-vs-local-mastodon.json
+	$(FEDITEST) generate-testplan \
+		--session-template examples/session-templates/webfinger-server-all.json \
+		--constellation examples/constellations/imp-vs-local-mastodon.json \
+		--out $@
+
+examples/testplans/webfinger-server-ubos-mastodon-wordpress-imp.json : \
+  examples/session-templates/webfinger-server-all.json \
+  examples/constellations/imp-vs-local-mastodon.json \
+  examples/constellations/imp-vs-local-wordpress.json
+	$(FEDITEST) generate-testplan \
+		--session-template examples/session-templates/webfinger-server-all.json \
+		--constellation examples/constellations/imp-vs-local-mastodon.json examples/constellations/imp-vs-local-wordpress.json \
+		--out $@
+
+examples/testplans/webfinger-server-ubos-wordpress-imp.json : \
+  examples/session-templates/webfinger-server-all.json \
+  examples/constellations/imp-vs-local-wordpress.json
+	$(FEDITEST) generate-testplan \
+		--session-template examples/session-templates/webfinger-server-all.json \
+		--constellation examples/constellations/imp-vs-local-wordpress.json \
+		--out $@
+
+##### Production test plans ##########
+
+production-testplans : \
+  production/testplans/webfinger-server-all-wellknown-saas-imp.json
+
+production/testplans/webfinger-server-all-wellknown-saas-imp.json : \
+  production/session-templates/webfinger-server-all.json \
+  $(PRODUCTION_WEBFINGER_CONSTELLATIONS)
+	$(FEDITEST) generate-testplan \
+		--session-template production/session-templates/webfinger-server-all.json \
+		--constellation $(PRODUCTION_WEBFINGER_CONSTELLATIONS) \
+		--out $@
+
+
+.PHONY: \
+  default all \
+  examples examples-session-templates examples-constellations examples-testplans \
+  production production-session-templates production-constellations production-testplans
+
+
+########## and the rest ##########
+
+clean :
+	-rm {examples,production}/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1

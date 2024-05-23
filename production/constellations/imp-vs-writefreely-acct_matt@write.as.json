@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "WriteFreely",
+                "hostname": "write.as",
+                "existing-account-uri": "acct:matt@write.as",
+                "nonexisting-account-uri": "acct:does-not-exist@write.as"
+            }
+        }
+    },
+    "name": "Imp vs writefreely-acct_matt@write.as"
+}
