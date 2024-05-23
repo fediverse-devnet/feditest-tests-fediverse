@@ -1,0 +1,18 @@
+{
+    "roles": [
+        {
+            "name": "client",
+            "nodedriver": "imp.ImpInProcessNodeDriver"
+        },
+        {
+            "name": "server",
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Bridgy-Fed",
+                "hostname": "fed.brid.gy",
+                "existing-account-uri": "acct:fed.brid.gy@fed.brid.gy",
+                "nonexisting-account-uri": "acct:does.not.exist@fed.brid.gy"
+            }
+        }
+    ]
+}
