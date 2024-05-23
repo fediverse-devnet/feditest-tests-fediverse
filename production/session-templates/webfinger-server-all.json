@@ -48,6 +48,14 @@
             "disabled": null
         },
         {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+            "rolemapping": {
+                "server": "server",
+                "client": "client"
+            },
+            "disabled": null
+        },
+        {
             "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
             "rolemapping": {
                 "server": "server",
