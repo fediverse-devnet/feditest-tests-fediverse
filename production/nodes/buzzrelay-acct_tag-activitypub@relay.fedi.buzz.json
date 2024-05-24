@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app": "BuzzRelay",
+        "hostname": "relay.fedi.buzz",
+        "existing-account-uri": "acct:tag-activitypub@relay.fedi.buzz",
+        "nonexisting-account-uri": "acct:does-not-exist@relay.fedi.buzz"
+    }
+}

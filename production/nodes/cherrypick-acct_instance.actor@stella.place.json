@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app": "Cherrypick",
+        "hostname": "stella.place",
+        "existing-account-uri": "acct:instance.actor@stella.place",
+        "nonexisting-account-uri": "acct:does-not-exist@stella.place"
+    }
+}

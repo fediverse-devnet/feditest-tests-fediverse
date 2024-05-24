@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app": "Gitea",
+        "hostname": "gitea.moe",
+        "existing-account-uri": "acct:av18@gitea.moe",
+        "nonexisting-account-uri": "acct:does-not-exist@gitea.moe"
+    }
+}
