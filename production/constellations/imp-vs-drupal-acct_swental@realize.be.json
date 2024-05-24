@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Drupal",
+                "hostname": "realize.be",
+                "existing-account-uri": "acct:swental@realize.be",
+                "nonexisting-account-uri": "acct:does-not-exist@realize.be"
+            }
+        }
+    },
+    "name": "Imp vs drupal-acct_swental@realize.be"
+}

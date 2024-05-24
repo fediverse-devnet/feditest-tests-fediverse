@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app": "Forgejo",
+        "hostname": "git.exozy.me",
+        "existing-account-uri": "acct:exozyme@git.exozy.me",
+        "nonexisting-account-uri": "acct:does-not-exist@git.exozy.me"
+    }
+}

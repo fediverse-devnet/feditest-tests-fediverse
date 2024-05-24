@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app": "Fedipage",
+        "hostname": "jeffreyfreeman.me",
+        "existing-account-uri": "acct:freemo@jeffreyfreeman.me",
+        "nonexisting-account-uri": "acct:does-not-exist@jeffreyfreeman.me"
+    }
+}

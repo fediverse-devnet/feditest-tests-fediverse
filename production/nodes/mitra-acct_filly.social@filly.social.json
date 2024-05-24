@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app": "Mitra",
+        "hostname": "filly.social",
+        "existing-account-uri": "acct:filly.social@filly.social",
+        "nonexisting-account-uri": "acct:does-not-exist@filly.social"
+    }
+}
