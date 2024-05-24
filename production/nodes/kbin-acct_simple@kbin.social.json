@@ -1,0 +1,9 @@
+{
+    "nodedriver": "saas.SaasFediverseNodeDriver",
+    "parameters": {
+        "app" : "kbin",
+        "hostname": "kbin.social",
+        "existing-account-uri": "acct:simple@kbin.social",
+        "nonexisting-account-uri": "acct:does-not-exist@kbin.social"
+    }
+}

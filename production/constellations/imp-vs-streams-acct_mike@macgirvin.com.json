@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Streams",
+                "hostname": "macgirvin.com",
+                "existing-account-uri": "acct:mike@macgirvin.com",
+                "nonexisting-account-uri": "acct:does-not-exist@macgirvin.com"
+            }
+        }
+    },
+    "name": "Imp vs streams-acct_mike@macgirvin.com"
+}

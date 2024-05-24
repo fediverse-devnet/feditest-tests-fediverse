@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Threads",
+                "hostname": "threads.net",
+                "existing-account-uri": "acct:mosseri@threads.net",
+                "nonexisting-account-uri": "acct:does-not-exist@threads.net"
+            }
+        }
+    },
+    "name": "Imp vs threads-acct_mosseri@threads.net"
+}

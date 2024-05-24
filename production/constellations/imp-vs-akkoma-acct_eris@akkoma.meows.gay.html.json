@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Akkoma",
+                "hostname": "akkoma.meows.gay",
+                "existing-account-uri": "acct:eris@akkoma.meows.gay",
+                "nonexisting-account-uri": "acct:does-not-exist@akkoma.meows.gay"
+            }
+        }
+    },
+    "name": "Imp vs akkoma-acct_eris@akkoma.meows.gay.html"
+}
