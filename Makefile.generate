@@ -108,8 +108,8 @@ examples/constellations/saas-any-vs-saas-any.json : \
   examples/nodes/saas-any.json
 	$(FEDITEST) create-constellation \
 		--name 'Any Saas application vs any SaaS application' \
-		--node client=examples/nodes/saas-any.json \
-		--node server=examples/nodes/saas-any.json \
+		--node leader_node=examples/nodes/saas-any.json \
+		--node follower_node=examples/nodes/saas-any.json \
 		--out $@
 
 
