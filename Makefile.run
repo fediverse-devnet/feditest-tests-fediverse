@@ -51,8 +51,8 @@ production-transcripts-tap : \
   $(patsubst %, production/testresults/%.tap, $(PRODUCTION_TESTPLANS))
 
 production-transcripts-html : \
-  $(patsubst %, examples/testresults/%.sequential.html, $(PRODUCTION_TESTPLANS)) \
-  $(patsubst %, examples/testresults/%.testmatrix.html, $(PRODUCTION_TESTPLANS))
+  $(patsubst %, production/testresults/%.sequential.html, $(PRODUCTION_TESTPLANS)) \
+  $(patsubst %, production/testresults/%.testmatrix.html, $(PRODUCTION_TESTPLANS))
 
 
 ########## General rules to make things simpler ##########
