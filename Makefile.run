@@ -68,7 +68,7 @@ examples/testresults/%.json : examples/testplans/%.json
 production/testresults/%.json : production/testplans/%.json
 	$(FEDITEST) run \
 		--testplan $< \
-		--json $@
+		--json $@ \
 	|| echo 'ERRORS in the test run (as expected), so we continue'
 
 # Given a testrun JSON transcript, convert it to TAP format
@@ -94,7 +94,7 @@ production/testresults/%.json : production/testplans/%.json
 ########## and the rest ##########
 
 clean :
-	-rm {examples,production}/testresults/*.{json,tap,html}
+	-rm {examples,production}/testresults/*.{json,tap,html} >/dev/null 2>&1
 
 
 .PHONY : \
