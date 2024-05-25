@@ -162,6 +162,7 @@ examples/testplans/fediverse-follow-manual-saas.json : \
   examples/session-templates/webfinger-server-all.json \
   examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json
 	$(FEDITEST) generate-testplan \
+		--name 'Manual follow' \
 		--session-template examples/session-templates/fediverse-follow.json \
 		--constellation examples/constellations/saas-any-vs-saas-any.json \
 		--out $@
@@ -170,6 +171,7 @@ examples/testplans/webfinger-server-gargron-mastodon-social-saas-imp.json : \
   examples/session-templates/webfinger-server-all.json \
   examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json
 	$(FEDITEST) generate-testplan \
+		--name 'WebFinger server test (gargron@mastodon.social)' \
 		--session-template examples/session-templates/webfinger-server-all.json \
 		--constellation examples/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json \
 		--out $@
@@ -178,6 +180,7 @@ examples/testplans/webfinger-server-ubos-mastodon-imp.json : \
   examples/session-templates/webfinger-server-all.json \
   examples/constellations/imp-vs-local-mastodon.json
 	$(FEDITEST) generate-testplan \
+		--name 'Local Mastodon WebFinger server test' \
 		--session-template examples/session-templates/webfinger-server-all.json \
 		--constellation examples/constellations/imp-vs-local-mastodon.json \
 		--out $@
@@ -187,6 +190,7 @@ examples/testplans/webfinger-server-ubos-mastodon-wordpress-imp.json : \
   examples/constellations/imp-vs-local-mastodon.json \
   examples/constellations/imp-vs-local-wordpress.json
 	$(FEDITEST) generate-testplan \
+		--name 'Local WordPress + ActivityPub plugin WebFinger server test' \
 		--session-template examples/session-templates/webfinger-server-all.json \
 		--constellation examples/constellations/imp-vs-local-mastodon.json examples/constellations/imp-vs-local-wordpress.json \
 		--out $@
@@ -195,6 +199,7 @@ examples/testplans/webfinger-server-ubos-wordpress-imp.json : \
   examples/session-templates/webfinger-server-all.json \
   examples/constellations/imp-vs-local-wordpress.json
 	$(FEDITEST) generate-testplan \
+		--name 'WebFinger server test for local Mastodon and WordPress in one run' \
 		--session-template examples/session-templates/webfinger-server-all.json \
 		--constellation examples/constellations/imp-vs-local-wordpress.json \
 		--out $@
@@ -208,6 +213,7 @@ production/testplans/webfinger-server-all-wellknown-saas-imp.json : \
   production/session-templates/webfinger-server-all.json \
   $(PRODUCTION_WEBFINGER_CONSTELLATIONS)
 	$(FEDITEST) generate-testplan \
+		--name 'Webfinger server tests of hosted Fediverse applications' \
 		--session-template production/session-templates/webfinger-server-all.json \
 		--constellation $(PRODUCTION_WEBFINGER_CONSTELLATIONS) \
 		--out $@
