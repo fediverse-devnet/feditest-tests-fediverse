@@ -27,7 +27,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
@@ -35,7 +35,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
@@ -43,7 +43,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
@@ -51,15 +51,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
-                },
-                {
-                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
-                    "rolemapping": {
-                        "server": "server",
-                        "client": "client"
-                    },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
@@ -67,7 +59,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
@@ -75,7 +67,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
@@ -83,7 +75,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
@@ -91,7 +83,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
@@ -99,7 +91,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
@@ -107,7 +99,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
@@ -115,7 +107,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
@@ -123,7 +115,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 },
                 {
                     "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
@@ -131,7 +123,7 @@
                         "server": "server",
                         "client": "client"
                     },
-                    "disabled": null
+                    "skip": null
                 }
             ],
             "name": null
