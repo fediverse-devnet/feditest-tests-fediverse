@@ -10,6 +10,141 @@
                     "server": {
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": {
+                            "app": "ActivityRelay",
+                            "hostname": "relay.libranet.de",
+                            "existing-account-uri": "acct:relay@relay.libranet.de",
+                            "nonexisting-account-uri": "acct:does-not-exist@relay.libranet.de"
+                        }
+                    }
+                },
+                "name": "Imp vs activityrelay-acct_relay@relay.libranet.de"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
                             "app": "Akkoma",
                             "hostname": "akkoma.meows.gay",
                             "existing-account-uri": "acct:eris@akkoma.meows.gay",
@@ -415,6 +550,681 @@
                     "server": {
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": {
+                            "app": "BuzzRelay",
+                            "hostname": "relay.fedi.buzz",
+                            "existing-account-uri": "acct:tag-activitypub@relay.fedi.buzz",
+                            "nonexisting-account-uri": "acct:does-not-exist@relay.fedi.buzz"
+                        }
+                    }
+                },
+                "name": "Imp vs buzzrelay-acct_tag-activitypub@relay.fedi.buzz"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
+                            "app": "Cherrypick",
+                            "hostname": "stella.place",
+                            "existing-account-uri": "acct:instance.actor@stella.place",
+                            "nonexisting-account-uri": "acct:does-not-exist@stella.place"
+                        }
+                    }
+                },
+                "name": "Imp vs cherrypick-acct_instance.actor@stella.place"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
+                            "app": "Drupal",
+                            "hostname": "realize.be",
+                            "existing-account-uri": "acct:swental@realize.be",
+                            "nonexisting-account-uri": "acct:does-not-exist@realize.be"
+                        }
+                    }
+                },
+                "name": "Imp vs drupal-acct_swental@realize.be"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
+                            "app": "Fedipage",
+                            "hostname": "jeffreyfreeman.me",
+                            "existing-account-uri": "acct:freemo@jeffreyfreeman.me",
+                            "nonexisting-account-uri": "acct:does-not-exist@jeffreyfreeman.me"
+                        }
+                    }
+                },
+                "name": "Imp vs fedipage-acct_freemo@jeffreyfreeman.me"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
+                            "app": "Forgejo",
+                            "hostname": "git.exozy.me",
+                            "existing-account-uri": "acct:exozyme@git.exozy.me",
+                            "nonexisting-account-uri": "acct:does-not-exist@git.exozy.me"
+                        }
+                    }
+                },
+                "name": "Imp vs forgejo-acct_exozyme@git.exozy.me"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
                             "app": "Friendica",
                             "hostname": "friendi.ca",
                             "existing-account-uri": "acct:tobias@friendi.ca",
@@ -693,6 +1503,141 @@
                     }
                 },
                 "name": "Imp vs gancio-acct_gancio@gancio.cisti.org"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
+                            "app": "Gitea",
+                            "hostname": "gitea.moe",
+                            "existing-account-uri": "acct:av18@gitea.moe",
+                            "nonexisting-account-uri": "acct:does-not-exist@gitea.moe"
+                        }
+                    }
+                },
+                "name": "Imp vs gitea-acct_av18@gitea.moe"
             },
             "tests": [
                 {
@@ -1765,6 +2710,141 @@
                     "server": {
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": {
+                            "app": "Microblogpub",
+                            "hostname": "bow.st",
+                            "existing-account-uri": "acct:c@bow.st",
+                            "nonexisting-account-uri": "acct:does-not-exist@bow.st"
+                        }
+                    }
+                },
+                "name": "Imp vs microblogpub-acct_c@bow.st"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
                             "app": "Misskey",
                             "hostname": "misskey.io",
                             "existing-account-uri": "acct:syuilo@misskey.io",
@@ -1773,6 +2853,141 @@
                     }
                 },
                 "name": "Imp vs misskey-acct_syulio@misskey.io"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
+                            "app": "Mitra",
+                            "hostname": "filly.social",
+                            "existing-account-uri": "acct:filly.social@filly.social",
+                            "nonexisting-account-uri": "acct:does-not-exist@filly.social"
+                        }
+                    }
+                },
+                "name": "Imp vs mitra-acct_filly.social@filly.social"
             },
             "tests": [
                 {
@@ -3123,6 +4338,141 @@
                     }
                 },
                 "name": "Imp vs streams-acct_mike@macgirvin.com"
+            },
+            "tests": [
+                {
+                    "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::not_percent_encoded",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                },
+                {
+                    "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
+                    "rolemapping": {
+                        "server": "server",
+                        "client": "client"
+                    },
+                    "disabled": null
+                }
+            ],
+            "name": null
+        },
+        {
+            "constellation": {
+                "roles": {
+                    "client": {
+                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "parameters": null
+                    },
+                    "server": {
+                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "parameters": {
+                            "app": "Sutty",
+                            "hostname": "sutty.nl",
+                            "existing-account-uri": "acct:sutty@sutty.nl",
+                            "nonexisting-account-uri": "acct:does-not-exist@sutty.nl"
+                        }
+                    }
+                },
+                "name": "Imp vs sutty-distributed-press-acct_sutty@sutty.nl"
             },
             "tests": [
                 {
