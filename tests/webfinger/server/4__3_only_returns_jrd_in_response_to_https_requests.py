@@ -12,10 +12,10 @@ def only_returns_jrd_in_response_to_https(
     test_id = server.obtain_account_identifier()
 
     correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
-    http_webfinger_uri = correct_webfinger_uri.replace('https:', 'http:')
-
     hard_assert_that(correct_webfinger_uri, starts_with('https://'))
-    hard_assert_that(http_webfinger_uri, starts_with('http://'))
+
+    http_webfinger_uri = correct_webfinger_uri.replace('https:', 'http:')
+    assert(http_webfinger_uri.startswith('http://'))
 
     correct_https_response : HttpResponse = client.http_get(correct_webfinger_uri).response
     hard_assert_that(correct_https_response.http_status, equal_to(200))

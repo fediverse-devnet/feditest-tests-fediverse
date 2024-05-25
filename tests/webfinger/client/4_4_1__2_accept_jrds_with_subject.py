@@ -1,7 +1,6 @@
 import json
-from hamcrest import assert_that
 
-from feditest import test
+from feditest import hard_assert_that, test
 from feditest.protocols.web.traffic import ParsedUri
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
@@ -27,4 +26,4 @@ def accept_jrds_with_subject(
                 test_id : json.dumps(json_with_subject)
             }
         )
-        assert_that(with_subject_response.jrd.validate())
+        hard_assert_that(with_subject_response.jrd.validate())

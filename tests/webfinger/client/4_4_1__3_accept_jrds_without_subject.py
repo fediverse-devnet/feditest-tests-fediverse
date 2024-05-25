@@ -1,7 +1,6 @@
 import json
-from hamcrest import assert_that
 
-from feditest import test
+from feditest import hard_assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
@@ -12,7 +11,6 @@ def accept_jrds_without_subject(
 ) -> None:
 
     test_id = server.obtain_account_identifier()
-    webfinger_uri = client.construct_webfinger_uri_for(test_id)
 
     normal_response : WebFingerQueryResponse = client.perform_webfinger_query(test_id)
 
@@ -26,4 +24,4 @@ def accept_jrds_without_subject(
                 test_id : json.dumps(json_without_subject)
             }
         )
-        assert_that(without_subject_response.jrd.validate())
+        hard_assert_that(without_subject_response.jrd.validate())

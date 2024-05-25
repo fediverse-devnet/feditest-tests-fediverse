@@ -3,11 +3,11 @@
         {
             "constellation": {
                 "roles": {
-                    "client": {
+                    "leader_node": {
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": null
                     },
-                    "server": {
+                    "follower_node": {
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": null
                     }
@@ -18,8 +18,8 @@
                 {
                     "name": "fediverse.follow.leader_accepts_follow_request::AcceptFollowTest",
                     "rolemapping": {
-                        "follower_node": "follower_node",
-                        "leader_node": "leader_node"
+                        "leader_node": "leader_node",
+                        "follower_node": "follower_node"
                     },
                     "disabled": null
                 }
@@ -27,5 +27,5 @@
             "name": null
         }
     ],
-    "name": null
+    "name": "Manual follow"
 }

@@ -1,6 +1,5 @@
-from feditest import step, test, HardAssertionFailure
+from feditest import hard_assert_that, step, test, HardAssertionFailure
 from feditest.protocols.fediverse import FediverseNode
-from hamcrest import assert_that
 
 
 @test
@@ -51,7 +50,7 @@ class ReplyTest:
 
     @step
     def reply_isreply_on_follower_node(self):
-        assert_that(self.follower_node.is_reply_to( self.reply_uri_on_follower_node, self.post_uri_on_follower_node))
+        hard_assert_that(self.follower_node.is_reply_to( self.reply_uri_on_follower_node, self.post_uri_on_follower_node))
         # FIXME check for the right content
 
 
