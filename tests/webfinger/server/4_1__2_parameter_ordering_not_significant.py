@@ -1,4 +1,4 @@
-from feditest import test
+from feditest import SkipTestException, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
 
@@ -7,4 +7,5 @@ def parameter_ordering(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
-    pass # FIXME not such an important test
+    raise SkipTestException()
+    # not such an important test

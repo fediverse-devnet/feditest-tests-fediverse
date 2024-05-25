@@ -1,7 +1,6 @@
 import json
-from hamcrest import assert_that
 
-from feditest import test
+from feditest import hard_assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
@@ -50,4 +49,4 @@ def accept_unknown_entries(
                 test_id : overridden_jrd_json_string
             }
     )
-    assert_that(webfinger_response.jrd.validate())
+    hard_assert_that(webfinger_response.jrd.validate())

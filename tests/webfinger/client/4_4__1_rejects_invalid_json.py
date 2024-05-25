@@ -1,4 +1,4 @@
-from feditest import test
+from feditest import hard_assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
@@ -41,4 +41,4 @@ def rejects_invalid_json(
                 test_id : overridden_jrd_json_string
             }
     )
-    assert_that(not webfinger_response.jrd.validate())
+    hard_assert_that(not webfinger_response.jrd.validate())

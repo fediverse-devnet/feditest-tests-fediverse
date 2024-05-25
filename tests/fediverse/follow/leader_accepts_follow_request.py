@@ -16,18 +16,18 @@ class AcceptFollowTest(AbstractFollowTest):
 
     @step
     def get_actors(self):
-        super.get_actors()
+        super().get_actors()
 
 
     @step
     def get_collections(self):
-        super.get_collections();
+        super().get_collections();
 
 
     @step
     def initially_unrelated(self):
         # Initially they are unrelated
-        super.test_unrelated();
+        super().test_unrelated();
 
 
     @step
@@ -38,5 +38,5 @@ class AcceptFollowTest(AbstractFollowTest):
     @step
     def now_related(self):
         # The follow relationship has been established on both sides
-        super.test_following()
+        super().test_following()
 

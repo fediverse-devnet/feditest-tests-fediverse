@@ -17,18 +17,18 @@ class ReceivesFollowTest(AbstractFollowTest):
 
     @step
     def get_actors(self):
-        super.get_actors()
+        super().get_actors()
 
 
     @step
     def get_collections(self):
-        super.get_collections();
+        super().get_collections();
 
 
     @step
     def initially_unrelated(self):
         # Initially they are unrelated
-        super.test_unrelated();
+        super().test_unrelated();
 
 
     @step
@@ -44,4 +44,4 @@ class ReceivesFollowTest(AbstractFollowTest):
     @step
     def still_unrelated(self):
         # Initially they are unrelated
-        super.test_unrelated();
+        super().test_unrelated();
