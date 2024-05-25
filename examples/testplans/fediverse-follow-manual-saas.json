@@ -3,11 +3,11 @@
         {
             "constellation": {
                 "roles": {
-                    "client": {
+                    "leader_node": {
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": null
                     },
-                    "server": {
+                    "follower_node": {
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": null
                     }
