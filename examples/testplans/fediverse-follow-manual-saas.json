@@ -21,7 +21,7 @@
                         "leader_node": "leader_node",
                         "follower_node": "follower_node"
                     },
-                    "disabled": null
+                    "skip": null
                 }
             ],
             "name": null

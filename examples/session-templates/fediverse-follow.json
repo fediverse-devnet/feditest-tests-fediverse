@@ -1,8 +1,8 @@
 {
     "constellation": {
         "roles": {
-            "follower_node": null,
-            "leader_node": null
+            "leader_node": null,
+            "follower_node": null
         },
         "name": null
     },
@@ -10,10 +10,10 @@
         {
             "name": "fediverse.follow.leader_accepts_follow_request::AcceptFollowTest",
             "rolemapping": {
-                "follower_node": "follower_node",
-                "leader_node": "leader_node"
+                "leader_node": "leader_node",
+                "follower_node": "follower_node"
             },
-            "disabled": null
+            "skip": null
         }
     ],
     "name": "Can a fediverse account follow another"
