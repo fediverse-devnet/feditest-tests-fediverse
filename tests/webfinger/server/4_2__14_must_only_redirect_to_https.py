@@ -10,7 +10,10 @@ def must_only_redirect_to_https(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    Test that if the server redirected, the final URL is an HTTPS URL.
+    """
     test_id = server.obtain_account_identifier()
 
     response : WebFingerQueryResponse = client.perform_webfinger_query(test_id)
-    hard_assert_that(response.http_request_response_pair.final_request.uri.scheme, equal_to('https'))
+    hard_assert_that(response.http_request_response_pair.final_request.uri.scheme, equal_to('https'), 'Not https')

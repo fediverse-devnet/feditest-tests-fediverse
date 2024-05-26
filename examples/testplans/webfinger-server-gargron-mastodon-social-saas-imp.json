@@ -101,7 +101,7 @@
                     "skip": null
                 },
                 {
-                    "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::does_not_return_jrd_in_response_to_http",
                     "rolemapping": {
                         "server": "server",
                         "client": "client"
@@ -109,7 +109,7 @@
                     "skip": null
                 },
                 {
-                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::returns_jrd_in_response_to_https",
                     "rolemapping": {
                         "server": "server",
                         "client": "client"

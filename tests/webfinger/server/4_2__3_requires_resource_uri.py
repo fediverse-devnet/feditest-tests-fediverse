@@ -26,20 +26,27 @@ def requires_resource_uri(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    Do not accept requests with missing resource parameter.
+    """
     test_id = server.obtain_account_identifier()
 
     correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
     q = correct_webfinger_uri.find('?resource=')
-    hard_assert_that(q, greater_than_or_equal_to(0))
+    assert(q>0)
     uri_without = correct_webfinger_uri[0:q]
 
     response_without : HttpResponse = client.http_get(uri_without).response
-    hard_assert_that(response_without.http_status, equal_to(400))
+    hard_assert_that(response_without.http_status, equal_to(400), 'Not HTTP status 400')
+
     content_type = response_without.response_headers.get('content-type', "")
     hard_assert_that(content_type,
         is_not(any_of(
                 equal_to('application/jrd+json'),
-                starts_with('application/jrd+json;'))))
+                starts_with('application/jrd+json;'))),
+        "Provided content of type JRD anyway")
     if "application/json" in content_type:
-        hard_assert_that(calling( lambda: interpret_payload_as_jrd(response_without.payload)), raises(RuntimeError))
-
+        hard_assert_that(calling(
+                lambda: interpret_payload_as_jrd(response_without.payload)),
+                raises(RuntimeError),
+            "Provided JRD anyway")

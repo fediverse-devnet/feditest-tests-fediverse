@@ -50,6 +50,10 @@ def accepts_known_link_rels_in_query(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    A server must accept all link rels in the query, even if it does not understand them.
+    Tests one known link rel at a time.
+    """
     test_id = server.obtain_account_identifier()
     response_without_rel : WebFingerQueryResponse = client.perform_webfinger_query(test_id)
     for rel in KNOWN_RELS:
@@ -64,6 +68,10 @@ def accepts_unknown_link_rels_in_query(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    A server must accept all link rels in the query, even if it does not understand them.
+    Tests one unknown link rels at a time.
+    """
     test_id = server.obtain_account_identifier()
 
     response_without_rel = client.perform_webfinger_query(test_id)
@@ -78,6 +86,10 @@ def accepts_combined_link_rels_in_query(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    A server must accept all link rels in the query, even if it does not understand them.
+    Tests several known an unknown link rels at a time.
+    """
     test_id = server.obtain_account_identifier()
 
     response_without_rel = client.perform_webfinger_query(test_id)
@@ -86,6 +98,10 @@ def accepts_combined_link_rels_in_query(
         for rel2 in UNKNOWN_RELS:
             rels = [rel1, rel2] if count % 2 else [rel2, rel1]
             response_with_rel = client.perform_webfinger_query(test_id, rels)
-            hard_assert_that(response_with_rel.http_request_response_pair.response.http_status, equal_to(200))
-            hard_assert_that(response_with_rel.jrd, link_subset_or_equal_to(response_without_rel.jrd))
-            ++count
+            hard_assert_that(response_with_rel.http_request_response_pair.response.http_status,
+                             equal_to(200),
+                             'Not HTTP status 200')
+            hard_assert_that(response_with_rel.jrd,
+                             link_subset_or_equal_to(response_without_rel.jrd),
+                             'Not the same or subset of links')
+            count += 1

@@ -11,6 +11,9 @@ def any_uri_scheme_for_resource_identifiers(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    The server must but returns a "404 not found" for URI schemes it does not understand.
+    """
     # We use the lower-level API from WebClient because we can't make the WebFingerClient do something
     # with a scheme it does not understand
     hostname : str = server.hostname

@@ -10,6 +10,9 @@ def requires_valid_resource_uri(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    Do not accept malformed resource parameters. Test missing acct: scheme.
+    """
     # We use the lower-level API from WebClient because we can't make the WebFingerClient do something invalid
     test_id : str = server.obtain_account_identifier()
     hostname : str = server.hostname
@@ -18,6 +21,12 @@ def requires_valid_resource_uri(
     malformed_webfinger_uri : str = f"https://{hostname}/.well-known/webfinger?resource={test_id_no_scheme}"
 
     response : HttpResponse = client.http_get(malformed_webfinger_uri).response
+
+    hard_assert_that(response.http_status,
+			all_of(
+                greater_than_or_equal_to(400),
+                less_than(500)),
+			'Not HTTP status 4xx')
     soft_assert_that(response.http_status, equal_to(400), 'Not HTTP status 400')
 
 
@@ -26,8 +35,10 @@ def double_equals(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    Do not accept malformed resource parameters. Insert an extra = character.
+    """
     # We use the lower-level API from WebClient because we can't make the WebFingerClient do something invalid
-
     test_id = server.obtain_account_identifier()
     hostname : str = server.hostname
 
@@ -35,8 +46,9 @@ def double_equals(
 
     response : HttpResponse = client.http_get(malformed_webfinger_uri).response
 
-    hard_assert_that(response.http_status, all_of(
-		    greater_than_or_equal_to(400),
-			less_than(500)
-	))
+    hard_assert_that(response.http_status,
+			all_of(
+                greater_than_or_equal_to(400),
+                less_than(500)),
+			'Not HTTP status 4xx')
     soft_assert_that(response.http_status, equal_to(400), 'Not HTTP status 400')

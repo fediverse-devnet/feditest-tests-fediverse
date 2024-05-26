@@ -9,6 +9,9 @@ def cors_header_required(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
+    """
+    The server must provide a valid value for HTTP Header "Access-Control-Allow-Origin".
+    """
     test_id = server.obtain_account_identifier()
 
     response : HttpResponse = client.perform_webfinger_query(test_id).http_request_response_pair.response
