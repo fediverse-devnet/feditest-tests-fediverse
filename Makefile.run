@@ -7,6 +7,12 @@
 #
 
 FEDITEST=feditest
+Q=
+# Could set from the command-line to something like: 'Q=.$(shell git branch --show-current)'
+
+EX=examples$(Q)
+PROD=production$(Q)
+
 
 EXAMPLES_TESTPLANS= \
   webfinger-server-gargron-mastodon-social-saas-imp \
@@ -18,54 +24,54 @@ PRODUCTION_TESTPLANS= \
   webfinger-server-all-wellknown-saas-imp \
 
 default :
-	@echo "Choose a target, such as 'examples' or 'production'."
+	@echo "Choose a target, such as '$(EX)' or '$(PROD)'."
 
 all : \
-  examples \
-  production
+  $(EX) \
+  $(PROD)
 
-examples : \
-  examples-transcripts \
-  examples-transcripts-tap \
-  examples-transcripts-html
+$(EX) : \
+  $(EX)-transcripts \
+  $(EX)-transcripts-tap \
+  $(EX)-transcripts-html
 
-examples-transcripts : \
-  $(patsubst %, examples/testresults/%.json, $(EXAMPLES_TESTPLANS))
+$(EX)-transcripts : \
+  $(patsubst %, $(EX)/testresults/%.json, $(EXAMPLES_TESTPLANS))
 
-examples-transcripts-tap : \
-  $(patsubst %, examples/testresults/%.tap, $(EXAMPLES_TESTPLANS))
+$(EX)-transcripts-tap : \
+  $(patsubst %, $(EX)/testresults/%.tap, $(EXAMPLES_TESTPLANS))
 
-examples-transcripts-html : \
-  $(patsubst %, examples/testresults/%.sequential.html, $(EXAMPLES_TESTPLANS)) \
-  $(patsubst %, examples/testresults/%.testmatrix.html, $(EXAMPLES_TESTPLANS))
+$(EX)-transcripts-html : \
+  $(patsubst %, $(EX)/testresults/%.sequential.html, $(EXAMPLES_TESTPLANS)) \
+  $(patsubst %, $(EX)/testresults/%.testmatrix.html, $(EXAMPLES_TESTPLANS))
 
-production : \
-  production-transcripts \
-  production-transcripts-tap \
-  production-transcripts-html
+$(PROD) : \
+  $(PROD)-transcripts \
+  $(PROD)-transcripts-tap \
+  $(PROD)-transcripts-html
 
-production-transcripts : \
-  $(patsubst %, production/testresults/%.json, $(PRODUCTION_TESTPLANS))
+$(PROD)-transcripts : \
+  $(patsubst %, $(PROD)/testresults/%.json, $(PRODUCTION_TESTPLANS))
 
-production-transcripts-tap : \
-  $(patsubst %, production/testresults/%.tap, $(PRODUCTION_TESTPLANS))
+$(PROD)-transcripts-tap : \
+  $(patsubst %, $(PROD)/testresults/%.tap, $(PRODUCTION_TESTPLANS))
 
-production-transcripts-html : \
-  $(patsubst %, production/testresults/%.sequential.html, $(PRODUCTION_TESTPLANS)) \
-  $(patsubst %, production/testresults/%.testmatrix.html, $(PRODUCTION_TESTPLANS))
+$(PROD)-transcripts-html : \
+  $(patsubst %, $(PROD)/testresults/%.sequential.html, $(PRODUCTION_TESTPLANS)) \
+  $(patsubst %, $(PROD)/testresults/%.testmatrix.html, $(PRODUCTION_TESTPLANS))
 
 
 ########## General rules to make things simpler ##########
 
-# Given a testplan in examples/testplans, run it and generate a testrun JSON transcript in examples/testresults with the same name
-examples/testresults/%.json : examples/testplans/%.json
+# Given a testplan in $(EX)/testplans, run it and generate a testrun JSON transcript in $(EX)/testresults with the same name
+$(EX)/testresults/%.json : $(EX)/testplans/%.json $(EX)/testresults
 	$(FEDITEST) run \
 		--testplan $< \
 		--json $@ \
 	|| echo 'ERRORS in the test run (as expected), so we continue'
 
-# Given a testplan in production/testplans, run it and generate a testrun JSON transcript in production/testresults with the same name
-production/testresults/%.json : production/testplans/%.json
+# Given a testplan in $(PROD)/testplans, run it and generate a testrun JSON transcript in $(PROD)/testresults with the same name
+$(PROD)/testresults/%.json : $(PROD)/testplans/%.json $(PROD)/testresults
 	$(FEDITEST) run \
 		--testplan $< \
 		--json $@ \
@@ -93,12 +99,14 @@ production/testresults/%.json : production/testplans/%.json
 
 ########## and the rest ##########
 
-clean :
-	-rm {examples,production}/testresults/*.{json,tap,html} >/dev/null 2>&1
+%.testresults :
+	mkdir -p $<
 
+clean :
+	-rm {$(EX),$(PROD)}/testresults/*.{json,tap,html} >/dev/null 2>&1
 
 .PHONY : \
   default all clean \
-  examples examples-transcript examples-transcripts-tap examples-transcripts-html \
-  production production-transcript production-transcripts-tap production-transcripts-html
+  $(EX) $(EX)-transcript $(EX)-transcripts-tap $(EX)-transcripts-html \
+  $(PROD) $(PROD)-transcript $(PROD)-transcripts-tap $(PROD)-transcripts-html
 
