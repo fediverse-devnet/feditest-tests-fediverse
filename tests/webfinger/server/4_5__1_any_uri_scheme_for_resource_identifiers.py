@@ -12,7 +12,7 @@ def any_uri_scheme_for_resource_identifiers(
         server: WebFingerServer
 ) -> None:
     """
-    The server must but returns a "404 not found" for URI schemes it does not understand.
+    The server must accept resource identifiers provided in the query that use any scheme.
     """
     # We use the lower-level API from WebClient because we can't make the WebFingerClient do something
     # with a scheme it does not understand
@@ -22,5 +22,8 @@ def any_uri_scheme_for_resource_identifiers(
         url : str = f"https://{ hostname }/.well-known/webfinger?resource={ quote(test_id) }"
 
         response : HttpResponse = client.http_get(url).response
-        soft_assert_that(response.http_status, equal_to(404), 'Not HTTP status 404')
+        soft_assert_that(
+                response.http_status,
+                equal_to(404),
+                f'Not HTTP status 404.\nAccessed URI: "{ url }".')
 

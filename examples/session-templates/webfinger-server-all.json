@@ -1,8 +1,8 @@
 {
     "constellation": {
         "roles": {
-            "server": null,
-            "client": null
+            "client": null,
+            "server": null
         },
         "name": null
     },
@@ -10,104 +10,136 @@
         {
             "name": "webfinger.server.4_1__2_parameter_ordering_not_significant::parameter_ordering",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.4_2__14_must_only_redirect_to_https::must_only_redirect_to_https",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
-            "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+            "name": "webfinger.server.4_2__2_perform_query::normal_query",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
-            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+            "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri_http_status",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
-            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+            "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri_jrd",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals_http_status",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals_jrd",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri_http_status",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri_jrd",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__9_content_type::returns_jrd_in_response_to_https",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.4_5__1_any_uri_scheme_for_resource_identifiers::any_uri_scheme_for_resource_identifiers",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_combined_link_rels_in_query",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_known_link_rels_in_query",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.4__1_accepts_all_link_rels_in_query::accepts_unknown_link_rels_in_query",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::does_not_return_jrd_in_response_to_http",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
-            },
-            "skip": null
-        },
-        {
-            "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::returns_jrd_in_response_to_https",
-            "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         },
         {
             "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
             "rolemapping": {
-                "server": "server",
-                "client": "client"
+                "client": "client",
+                "server": "server"
             },
             "skip": null
         }

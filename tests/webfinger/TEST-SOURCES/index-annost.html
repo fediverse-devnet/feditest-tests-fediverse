@@ -673,9 +673,8 @@ Server produces the same response regardless of parameter ordering.
 The client issues the query to the right URI.
 Tested there already.
 </annost-xref>
-<annost-note>
-   4.2/2 removed, didn't do much
-</annost-note>
+<annost-test testid="4.2/2" name="Perform a normal query" role="Server" level="MUST">
+</annost-test>
 <annost-xref target="4/4">
 Resource parameter (client)
 </annost-xref>
@@ -773,10 +772,10 @@ of a query when it shouldn't?
    <a href="#section-10.2">10.2</a>).
 
 </pre>
-<annost-xref target="4/3">
-A server must return the <code>application/jrd+json</code> content type.
-We test this already and don't need 4.2/9.
-</annost-xref>
+<annost-test testid="4.2/9" name="Server must return JRD content type" role="Server" level="MUST">
+    A server must return the <code>application/jrd+json</code> content type.
+</annost-test>
+
 <pre>
    The properties, titles, and link relation types returned by the
    server in a JRD might be varied and numerous.  For example, the
@@ -1331,7 +1330,8 @@ Already tested there.
 </pre>
 <annost-test testid="4.5/1" name="Any URI scheme for resource identifiers" role="Server" level="MUST">
 The server must accept resource identifiers provided in the query that use any scheme.
-The server must but returns a "404 not found" for URI schemes it does not understand.
+It appears that this implies it must return "404 not found" for URI schemes it does not understand.
+(It accepts the query, so it can't be 400, but has no knowledge about the acct.)
 </annost-test>
 <pre>
 

@@ -17,4 +17,7 @@ def status_404_for_nonexisting_resources(
     webfinger_uri = client.construct_webfinger_uri_for(test_id)
 
     response : HttpResponse = client.http_get(webfinger_uri).response
-    hard_assert_that(response.http_status, equal_to(404), 'Not HTTP status 404')
+    hard_assert_that(
+            response.http_status,
+            equal_to(404),
+            f'Not HTTP status 404.\nAccessed URI: "{ webfinger_uri }".')
