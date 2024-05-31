@@ -58,7 +58,7 @@ $(PROD)-session-templates : \
   $(PROD)/session-templates/webfinger-server-all.json
 
 $(PROD)/session-templates/webfinger-server-all.json : \
-  tests/webfinger/server/*.py
+  tests/webfinger/server/*.py \
   $(PROD)/session-templates
 	$(FEDITEST) generate-session-template \
 		--name 'All WebFinger server tests' \
@@ -244,11 +244,11 @@ $(PROD)/testplans/webfinger-server-all-wellknown-saas-imp.json : \
 
 ########## and the rest ##########
 
-%.session-templates %.constellations %.testplans :
-	mkdir -p $<
+$(EX)/session-templates $(EX)/constellations $(EX)/testplans $(PROD)/session-templates $(PROD)/constellations $(PROD)/testplans :
+	mkdir -p $@
 
 clean :
-	-rm {$(EX),$(PROD)}/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1
+	rm {$(EX),$(PROD)}/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1 || true
 
 
 .PHONY: \

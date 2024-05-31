@@ -99,11 +99,11 @@ $(PROD)/testresults/%.json : $(PROD)/testplans/%.json $(PROD)/testresults
 
 ########## and the rest ##########
 
-%.testresults :
-	mkdir -p $<
+$(EX)/testresults :
+	mkdir -p $@
 
 clean :
-	-rm {$(EX),$(PROD)}/testresults/*.{json,tap,html} >/dev/null 2>&1
+	rm {$(EX),$(PROD)}/testresults/*.{json,tap,html} >/dev/null 2>&1 || true
 
 .PHONY : \
   default all clean \
