@@ -9,7 +9,7 @@
             "parameters": {
                 "app": "Drupal",
                 "hostname": "realize.be",
-                "existing-account-uri": "acct:swental@realize.be",
+                "existing-account-uri": "acct:swentel@realize.be",
                 "nonexisting-account-uri": "acct:does-not-exist@realize.be"
             }
         }

@@ -24,7 +24,7 @@
             "skip": null
         },
         {
-            "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri",
+            "name": "webfinger.server.4_2__2_perform_query::normal_query",
             "rolemapping": {
                 "client": "client",
                 "server": "server"
@@ -32,7 +32,7 @@
             "skip": null
         },
         {
-            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals",
+            "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri_http_status",
             "rolemapping": {
                 "client": "client",
                 "server": "server"
@@ -40,7 +40,39 @@
             "skip": null
         },
         {
-            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri",
+            "name": "webfinger.server.4_2__3_requires_resource_uri::requires_resource_uri_jrd",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals_http_status",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::double_equals_jrd",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri_http_status",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__4_do_not_accept_malformed_resource_parameters::requires_valid_resource_uri_jrd",
             "rolemapping": {
                 "client": "client",
                 "server": "server"
@@ -49,6 +81,14 @@
         },
         {
             "name": "webfinger.server.4_2__5_status_404_for_nonexisting_resources::status_404_for_nonexisting_resources",
+            "rolemapping": {
+                "client": "client",
+                "server": "server"
+            },
+            "skip": null
+        },
+        {
+            "name": "webfinger.server.4_2__9_content_type::returns_jrd_in_response_to_https",
             "rolemapping": {
                 "client": "client",
                 "server": "server"
@@ -88,15 +128,7 @@
             "skip": null
         },
         {
-            "name": "webfinger.server.4__2_returns_valid_jrd::returns_valid_jrd",
-            "rolemapping": {
-                "client": "client",
-                "server": "server"
-            },
-            "skip": null
-        },
-        {
-            "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::only_returns_jrd_in_response_to_https",
+            "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::does_not_return_jrd_in_response_to_http",
             "rolemapping": {
                 "client": "client",
                 "server": "server"
