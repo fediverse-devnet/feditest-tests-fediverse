@@ -1819,7 +1819,13 @@ Already tested over there.
      In particular, because <a href="./rfc4627">RFC 4627</a> already defines the character
      encoding for JSON, no "charset" parameter is used.
 
-   Encoding considerations: See <a href="./rfc6839#section-3.1">RFC 6839, Section&nbsp;3.1</a>.
+<annost-note>
+  It's unclear whether this is supposed to be a MUST requirement. However, given that RFC 4627 only says &quot;UTF&quot;
+  but not UTF-8 or UTF-16, and while apparently one can guess by looking at the first 4 octets, it seems perfectly
+  acceptable to specify an encoding here.
+</annost-note><pre>
+
+    Encoding considerations: See <a href="./rfc6839#section-3.1">RFC 6839, Section&nbsp;3.1</a>.
 
 
 

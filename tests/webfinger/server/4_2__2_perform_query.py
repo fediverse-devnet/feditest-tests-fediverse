@@ -10,7 +10,7 @@ def normal_query(
         server: WebFingerServer
 ) -> None:
     """
-    Parameter ordering is not significant.
+    Perform a normal, simple query on an existing account.
     """
     test_id = server.obtain_account_identifier()
 
