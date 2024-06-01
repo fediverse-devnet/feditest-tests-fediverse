@@ -3,7 +3,7 @@
     "parameters": {
         "app" : "Wildebeest",
         "hostname": "cloudflare.social",
-        "existing-account-uri": "acct:gargron@cloudflare.social",
+        "existing-account-uri": "acct:cloudflare@cloudflare.social",
         "nonexisting-account-uri": "acct:does-not-exist@cloudflare.social"
     }
 }
