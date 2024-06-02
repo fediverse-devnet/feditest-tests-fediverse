@@ -64,7 +64,7 @@ $(PROD)-transcripts-html : \
 ########## General rules to make things simpler ##########
 
 # Given a testplan in $(EX)/testplans, run it and generate a testrun JSON transcript in $(EX)/testresults with the same name
-$(EX)/testresults/%.json : $(EX)/testplans/%.json $(EX)/testresults
+$(EX)/testresults/%.json : $(EX)/testplans/%.json $(EX)/testresults/.touch
 	$(FEDITEST) run \
 		--testplan $< \
 		--json $@ \
@@ -99,8 +99,9 @@ $(PROD)/testresults/%.json : $(PROD)/testplans/%.json $(PROD)/testresults
 
 ########## and the rest ##########
 
-$(EX)/testresults :
-	mkdir -p $@
+$(EX)/testresults/.touch :
+	[[ -d $(EX)/testresults ]] || mkdir -p $(EX)/testresults
+	touch $@
 
 clean :
 	rm {$(EX),$(PROD)}/testresults/*.{json,tap,html} >/dev/null 2>&1 || true
