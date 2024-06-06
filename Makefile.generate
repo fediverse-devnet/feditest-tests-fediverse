@@ -247,12 +247,17 @@ $(PROD)/testplans/webfinger-server-all-wellknown-saas-imp.json : \
 $(EX)/session-templates $(EX)/constellations $(EX)/testplans $(PROD)/session-templates $(PROD)/constellations $(PROD)/testplans :
 	mkdir -p $@
 
-clean :
-	rm {$(EX),$(PROD)}/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1 || true
+clean : clean-examples clean-production
+
+clean-examples:
+	rm $(EX)/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1 || true
+
+clean-production:
+	rm $(PROD)/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1 || true
 
 
 .PHONY: \
-  default all \
+  default all clean clean-examples clean-production \
   $(EX) $(EX)-session-templates $(EX)-constellations $(EX)-testplans \
   $(PROD) $(PROD)-session-templates $(PROD)-constellations $(PROD)-testplans
 
