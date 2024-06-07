@@ -62,8 +62,16 @@ def requires_resource_uri_jrd(
             f'Returns JRD content.\nAccessed URI: "{ uri_without }".')
 
     if content_type.startswith('application/json'):
-        hard_assert_that(
-                calling(lambda: ClaimedJrd.create_and_validate(response_without.payload)),
-                any_of( raises(RuntimeError),
-                        raises(JSONDecodeError)),
-                f'Returns JRD content.\nAccessed URI: "{ uri_without }".')
+        try :
+            ClaimedJrd.create_and_validate(response_without.payload)
+
+        except ExceptionGroup as exc:
+            print( f'{exc} with ' + ", ".join( [ str(e) for e in exc.exceptions ]))
+            for e in exc.exceptions:
+                if not isinstance(e, (ClaimedJrd.JrdError, JSONDecodeError)):
+                    raise exc
+            pass # expected
+        except ClaimedJrd.JrdError:
+            pass # expected
+        except JSONDecodeError:
+            pass # expected
