@@ -66,7 +66,6 @@ def requires_resource_uri_jrd(
             ClaimedJrd.create_and_validate(response_without.payload)
 
         except ExceptionGroup as exc:
-            print( f'{exc} with ' + ", ".join( [ str(e) for e in exc.exceptions ]))
             for e in exc.exceptions:
                 if not isinstance(e, (ClaimedJrd.JrdError, JSONDecodeError)):
                     raise exc
