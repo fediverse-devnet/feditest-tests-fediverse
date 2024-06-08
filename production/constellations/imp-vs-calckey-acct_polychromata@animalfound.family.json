@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "calckey",
+                "hostname": "animalfound.family",
+                "existing-account-uri": "acct:polychromata@animalfound.family",
+                "nonexisting-account-uri": "acct:does-not-exist@animalfound.family"
+            }
+        }
+    },
+    "name": "calckey"
+}

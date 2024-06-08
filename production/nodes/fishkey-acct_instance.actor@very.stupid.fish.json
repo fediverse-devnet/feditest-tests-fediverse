@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "fishkey",
+    "hostname": "very.stupid.fish",
+    "existing-account-uri": "acct:instance.actor@very.stupid.fish",
+    "nonexisting-account-uri": "acct:does-not-exist@very.stupid.fish"
+  }
+}

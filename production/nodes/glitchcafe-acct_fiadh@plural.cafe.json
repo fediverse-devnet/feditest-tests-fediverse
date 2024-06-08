@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "glitchcafe",
+    "hostname": "plural.cafe",
+    "existing-account-uri": "acct:fiadh@plural.cafe",
+    "nonexisting-account-uri": "acct:does-not-exist@plural.cafe"
+  }
+}

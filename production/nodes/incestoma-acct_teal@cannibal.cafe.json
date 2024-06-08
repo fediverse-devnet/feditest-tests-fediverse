@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "incestoma",
+    "hostname": "cannibal.cafe",
+    "existing-account-uri": "acct:teal@cannibal.cafe",
+    "nonexisting-account-uri": "acct:does-not-exist@cannibal.cafe"
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "mbin",
+                "hostname": "fedia.io",
+                "existing-account-uri": "acct:NoodleHeadRed@fedia.io",
+                "nonexisting-account-uri": "acct:does-not-exist@fedia.io"
+            }
+        }
+    },
+    "name": "mbin"
+}

@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "Immers Space",
+    "hostname": "immers.space",
+    "existing-account-uri": "acct:immerser@immers.space",
+    "nonexisting-account-uri": "acct:does-not-exist@immers.space"
+  }
+}

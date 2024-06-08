@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "lockpick",
+                "hostname": "eepy.zone",
+                "existing-account-uri": "acct:instance.actor@eepy.zone",
+                "nonexisting-account-uri": "acct:does-not-exist@eepy.zone"
+            }
+        }
+    },
+    "name": "lockpick"
+}

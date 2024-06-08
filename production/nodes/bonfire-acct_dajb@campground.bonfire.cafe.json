@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "bonfire",
+    "hostname": "campground.bonfire.cafe",
+    "existing-account-uri": "acct:dajb@campground.bonfire.cafe",
+    "nonexisting-account-uri": "acct:does-not-exist@campground.bonfire.cafe"
+  }
+}

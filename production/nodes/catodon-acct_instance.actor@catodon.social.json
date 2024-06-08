@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "catodon",
+    "hostname": "catodon.social",
+    "existing-account-uri": "acct:instance.actor@catodon.social",
+    "nonexisting-account-uri": "acct:does-not-exist@catodon.social"
+  }
+}

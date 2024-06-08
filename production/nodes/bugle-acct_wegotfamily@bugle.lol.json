@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "Bugle",
+    "hostname": "bugle.lol",
+    "existing-account-uri": "acct:wegotfamily@bugle.lol",
+    "nonexisting-account-uri": "acct:does-not-exist@bugle.lol"
+  }
+}

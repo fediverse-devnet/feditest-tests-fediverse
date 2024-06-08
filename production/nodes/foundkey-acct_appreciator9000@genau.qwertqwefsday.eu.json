@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "foundkey",
+    "hostname": "genau.qwertqwefsday.eu",
+    "existing-account-uri": "acct:appreciator9000@genau.qwertqwefsday.eu",
+    "nonexisting-account-uri": "acct:does-not-exist@genau.qwertqwefsday.eu"
+  }
+}

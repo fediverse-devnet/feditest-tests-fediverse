@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "socialhome",
+    "hostname": "jase.social",
+    "existing-account-uri": "acct:alain@jase.social",
+    "nonexisting-account-uri": "acct:does-not-exist@jase.social"
+  }
+}

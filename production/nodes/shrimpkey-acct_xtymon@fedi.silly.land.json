@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "shrimpkey",
+    "hostname": "fedi.silly.land",
+    "existing-account-uri": "acct:xtymon@fedi.silly.land",
+    "nonexisting-account-uri": "acct:does-not-exist@fedi.silly.land"
+  }
+}

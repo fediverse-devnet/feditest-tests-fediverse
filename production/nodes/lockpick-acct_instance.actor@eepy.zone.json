@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "lockpick",
+    "hostname": "eepy.zone",
+    "existing-account-uri": "acct:instance.actor@eepy.zone",
+    "nonexisting-account-uri": "acct:does-not-exist@eepy.zone"
+  }
+}

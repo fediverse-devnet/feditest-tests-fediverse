@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "moon-eyed",
+                "hostname": "social.mooneyed.de",
+                "existing-account-uri": "acct:kromonos@social.mooneyed.de",
+                "nonexisting-account-uri": "acct:does-not-exist@social.mooneyed.de"
+            }
+        }
+    },
+    "name": "moon-eyed"
+}

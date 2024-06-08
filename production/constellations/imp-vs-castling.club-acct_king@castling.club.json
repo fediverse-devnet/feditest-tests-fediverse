@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "castling.club",
+                "hostname": "castling.club",
+                "existing-account-uri": "acct:king@castling.club",
+                "nonexisting-account-uri": "acct:does-not-exist@castling.club"
+            }
+        }
+    },
+    "name": "castling.club"
+}

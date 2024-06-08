@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "apogee",
+    "hostname": "apogee.polaris-1.work",
+    "existing-account-uri": "acct:teknomunk@apogee.polaris-1.work",
+    "nonexisting-account-uri": "acct:does-not-exist@apogee.polaris-1.work"
+  }
+}

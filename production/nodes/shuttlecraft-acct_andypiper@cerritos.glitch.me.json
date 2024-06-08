@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "shuttlecraft",
+    "hostname": "cerritos.glitch.me",
+    "existing-account-uri": "acct:andypiper@cerritos.glitch.me",
+    "nonexisting-account-uri": "acct:does-not-exist@cerritos.glitch.me"
+  }
+}
