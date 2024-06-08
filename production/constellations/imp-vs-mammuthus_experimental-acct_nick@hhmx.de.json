@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "Mammuthus (Experimental)",
+                "hostname": "hhmx.de",
+                "existing-account-uri": "acct:nick@hhmx.de",
+                "nonexisting-account-uri": "acct:does-not-exist@hhmx.de"
+            }
+        }
+    },
+    "name": "Mammuthus (Experimental)"
+}

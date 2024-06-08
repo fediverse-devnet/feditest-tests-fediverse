@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "catnip",
+                "hostname": "foxgirl.land",
+                "existing-account-uri": "acct:instance.actor@foxgirl.land",
+                "nonexisting-account-uri": "acct:does-not-exist@foxgirl.land"
+            }
+        }
+    },
+    "name": "catnip"
+}

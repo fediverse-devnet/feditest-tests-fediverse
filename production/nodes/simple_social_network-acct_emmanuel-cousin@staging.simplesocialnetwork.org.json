@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "Simple Social Network",
+    "hostname": "staging.simplesocialnetwork.org",
+    "existing-account-uri": "acct:emmanuel-cousin@staging.simplesocialnetwork.org",
+    "nonexisting-account-uri": "acct:does-not-exist@staging.simplesocialnetwork.org"
+  }
+}

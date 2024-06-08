@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "Guppe Groups",
+    "hostname": "a.gup.pe",
+    "existing-account-uri": "acct:mechanobiology@a.gup.pe",
+    "nonexisting-account-uri": "acct:does-not-exist@a.gup.pe"
+  }
+}

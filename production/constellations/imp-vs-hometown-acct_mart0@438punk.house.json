@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "hometown",
+                "hostname": "438punk.house",
+                "existing-account-uri": "acct:mart0@438punk.house",
+                "nonexisting-account-uri": "acct:does-not-exist@438punk.house"
+            }
+        }
+    },
+    "name": "hometown"
+}

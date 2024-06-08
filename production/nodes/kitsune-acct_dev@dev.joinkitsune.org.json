@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "kitsune",
+    "hostname": "dev.joinkitsune.org",
+    "existing-account-uri": "acct:dev@dev.joinkitsune.org",
+    "nonexisting-account-uri": "acct:does-not-exist@dev.joinkitsune.org"
+  }
+}

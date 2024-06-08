@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "openlink-virtuoso",
+    "hostname": "fediverse.demo.openlinksw.com",
+    "existing-account-uri": "acct:demo@fediverse.demo.openlinksw.com",
+    "nonexisting-account-uri": "acct:does-not-exist@fediverse.demo.openlinksw.com"
+  }
+}

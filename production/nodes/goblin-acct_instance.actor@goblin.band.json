@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "goblin",
+    "hostname": "goblin.band",
+    "existing-account-uri": "acct:instance.actor@goblin.band",
+    "nonexisting-account-uri": "acct:does-not-exist@goblin.band"
+  }
+}

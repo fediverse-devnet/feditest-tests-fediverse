@@ -1,0 +1,9 @@
+{
+  "nodedriver": "saas.SaasFediverseNodeDriver",
+  "parameters": {
+    "app": "Codename Merp",
+    "hostname": "arcanican.is",
+    "existing-account-uri": "acct:dev@arcanican.is",
+    "nonexisting-account-uri": "acct:does-not-exist@arcanican.is"
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "parameters": {
+                "app": "bovine",
+                "hostname": "bovine.social",
+                "existing-account-uri": "acct:fediverseideas@bovine.social",
+                "nonexisting-account-uri": "acct:does-not-exist@bovine.social"
+            }
+        }
+    },
+    "name": "bovine"
+}
