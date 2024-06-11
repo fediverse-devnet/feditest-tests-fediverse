@@ -1,7 +1,7 @@
 from urllib.parse import quote
 from hamcrest import equal_to
 
-from feditest import soft_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
@@ -22,8 +22,10 @@ def any_uri_scheme_for_resource_identifiers(
         url : str = f"https://{ hostname }/.well-known/webfinger?resource={ quote(test_id) }"
 
         response : HttpResponse = client.http_get(url).response
-        soft_assert_that(
+        assert_that(
                 response.http_status,
                 equal_to(404),
-                f'Not HTTP status 404.\nAccessed URI: "{ url }".')
+                f'Not HTTP status 404.\nAccessed URI: "{ url }".',
+                spec_Level=SpecLevel.MUST,
+                interop_level=InteropLevel.UNAFFECTED)
 
