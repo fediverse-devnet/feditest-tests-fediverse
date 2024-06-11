@@ -1,6 +1,6 @@
 import json
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
@@ -42,4 +42,4 @@ def accept_example_response(
                 test_id : overridden_jrd_json_string
             }
     )
-    hard_assert_that(webfinger_response.jrd.validate())
+    assert_that(webfinger_response.jrd.validate(), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)

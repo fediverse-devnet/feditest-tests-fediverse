@@ -1,17 +1,10 @@
 from json import JSONDecodeError
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import ClaimedJrd
-from hamcrest import (
-    any_of,
-    calling,
-    equal_to,
-    is_not,
-    raises,
-    starts_with,
-)
+from hamcrest import any_of, equal_to, is_not, starts_with
 
 
 @test
@@ -30,10 +23,12 @@ def requires_resource_uri_http_status(
     uri_without = correct_webfinger_uri[0:q]
 
     response_without : HttpResponse = client.http_get(uri_without).response
-    hard_assert_that(
+    assert_that(
             response_without.http_status,
             equal_to(400),
-            f'Not HTTP status 400.\nAccessed URI: "{ uri_without }".')
+            f'Not HTTP status 400.\nAccessed URI: "{ uri_without }".',
+            spec_Level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
 
 @test
@@ -54,12 +49,14 @@ def requires_resource_uri_jrd(
     response_without : HttpResponse = client.http_get(uri_without).response
 
     content_type = response_without.response_headers.get('content-type', "")
-    hard_assert_that(
+    assert_that(
             content_type,
             is_not( any_of(
                     equal_to('application/jrd+json'),
                     starts_with('application/jrd+json;'))),
-            f'Returns JRD content.\nAccessed URI: "{ uri_without }".')
+            f'Returns JRD content.\nAccessed URI: "{ uri_without }".',
+            spec_Level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
     if content_type.startswith('application/json'):
         try :

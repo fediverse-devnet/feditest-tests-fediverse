@@ -1,6 +1,6 @@
 import json
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
@@ -24,4 +24,4 @@ def accept_jrds_without_subject(
                 test_id : json.dumps(json_without_subject)
             }
         )
-        hard_assert_that(without_subject_response.jrd.validate())
+        assert_that(without_subject_response.jrd.validate(), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)

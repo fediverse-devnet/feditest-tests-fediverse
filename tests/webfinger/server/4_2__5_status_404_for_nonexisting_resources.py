@@ -1,6 +1,6 @@
 from hamcrest import equal_to
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
@@ -17,7 +17,9 @@ def status_404_for_nonexisting_resources(
     webfinger_uri = client.construct_webfinger_uri_for(test_id)
 
     response : HttpResponse = client.http_get(webfinger_uri).response
-    hard_assert_that(
+    assert_that(
             response.http_status,
             equal_to(404),
-            f'Not HTTP status 404.\nAccessed URI: "{ webfinger_uri }".')
+            f'Not HTTP status 404.\nAccessed URI: "{ webfinger_uri }".',
+            spec_Level=SpecLevel.MUST,
+            interop_level=InteropLevel.UNAFFECTED)

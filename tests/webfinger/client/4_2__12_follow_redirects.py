@@ -1,7 +1,7 @@
 from hamcrest import equal_to
 from multidict import MultiDict
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
@@ -31,7 +31,7 @@ def follow_redirects(
                 redirect_https_uri : HttpResponse( 200, jrd_headers, normal_response.http_request_response_pair.response.payload)
             }
     )
-    hard_assert_that(overridden_redirect_to_https_response, equal_to(normal_response))
+    assert_that(overridden_redirect_to_https_response, equal_to(normal_response), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)
 
     overridden_redirect_to_http_response : WebFingerQueryResponse = server.override_http_response(
             lambda: client.perform_webfinger_query(test_id),
@@ -40,4 +40,4 @@ def follow_redirects(
                 redirect_http_uri : HttpResponse( 200, jrd_headers, normal_response.http_request_response_pair.response.payload)
             }
     )
-    hard_assert_that(not overridden_redirect_to_http_response.validate())
+    assert_that(not overridden_redirect_to_http_response.validate(), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)

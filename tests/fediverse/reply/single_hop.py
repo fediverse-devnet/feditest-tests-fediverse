@@ -1,4 +1,4 @@
-from feditest import hard_assert_that, step, test, HardAssertionFailure
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, step, test
 from feditest.protocols.fediverse import FediverseNode
 
 
@@ -16,6 +16,7 @@ class ReplyTest:
 
        self.post_content = "Nothing much happening."
        self.reply_content = "Join us here, we are having fun!"
+
 
     @step
     def get_actors(self):
@@ -40,7 +41,7 @@ class ReplyTest:
             # FIXME check for the right content
 
         except TimeoutError as e:
-            raise HardAssertionFailure(e)
+            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, e)
 
 
     @step
@@ -50,7 +51,8 @@ class ReplyTest:
 
     @step
     def reply_isreply_on_follower_node(self):
-        hard_assert_that(self.follower_node.is_reply_to( self.reply_uri_on_follower_node, self.post_uri_on_follower_node))
+        # FIXME: decide on SpecLevel, InteropLevel for these assertions
+        assert_that(self.follower_node.is_reply_to( self.reply_uri_on_follower_node, self.post_uri_on_follower_node))
         # FIXME check for the right content
 
 

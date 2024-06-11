@@ -1,4 +1,4 @@
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.traffic import HttpRequestResponsePair
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.utils import multi_dict_has_key
@@ -16,7 +16,9 @@ def cors_header_required(
 
     pair : HttpRequestResponsePair = client.perform_webfinger_query(test_id).http_request_response_pair
 
-    hard_assert_that(
-        'access-control-allow-origin' in pair.response.response_headers,
-        f'Missing CORS header.\nAccessed URI: "{ pair.request.uri.get_uri() }".\nNot present: "access-control-allow-origin".')
+    assert_that(
+            'access-control-allow-origin' in pair.response.response_headers,
+            f'Missing CORS header.\nAccessed URI: "{ pair.request.uri.get_uri() }".\nNot present: "access-control-allow-origin".',
+            spec_Level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
     # FIXME not checking for a correct value. How?

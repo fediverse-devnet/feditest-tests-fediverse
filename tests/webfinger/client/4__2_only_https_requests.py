@@ -1,6 +1,6 @@
-from hamcrest import any_of, equal_to, is_not, all_of
+from hamcrest import equal_to, is_not, all_of
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.utils import uri_parse_validate
 from feditest.protocols.web.traffic import HttpResponse, ParsedUri
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
@@ -21,12 +21,12 @@ def only_https_requests(
         response = responses[i]
         test_id = test_ids[i]
 
-        hard_assert_that(response.request.uri.scheme, equal_to('https'))
-        hard_assert_that(response.request.uri.query, all_of(is_not(None), is_not('')))
-        hard_assert_that(response.request.uri.has_param('resource'))
-        hard_assert_that(uri_parse_validate(response.request.uri.param_single('resource')))
+        assert_that(response.request.uri.scheme, equal_to('https'), SpecLevel.MUST, InteropLevel.UNKNOWN)
+        assert_that(response.request.uri.query, all_of(is_not(None), is_not('')), SpecLevel.MUST, InteropLevel.PROBLEM)
+        assert_that(response.request.uri.has_param('resource'), SpecLevel.MUST, InteropLevel.PROBLEM)
+        assert_that(uri_parse_validate(response.request.uri.param_single('resource')), SpecLevel.MUST, InteropLevel.PROBLEM)
 
         parsed_test_id = ParsedUri.parse(test_id)
-        hard_assert_that(response.request.uri.netloc, equal_to(parsed_test_id.netloc))
-        hard_assert_that(response.request.uri.path, equal_to('/.well-known/webfinger'))
+        assert_that(response.request.uri.netloc, equal_to(parsed_test_id.netloc), SpecLevel.MUST, InteropLevel.PROBLEM)
+        assert_that(response.request.uri.path, equal_to('/.well-known/webfinger'), SpecLevel.MUST, InteropLevel.PROBLEM)
 
