@@ -20,7 +20,7 @@ def does_not_return_jrd_in_response_to_http(
             correct_webfinger_uri,
             starts_with('https://'),
             f'Incorrect WebFinger URI.',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
 
     http_webfinger_uri = correct_webfinger_uri.replace('https:', 'http:')
@@ -31,13 +31,13 @@ def does_not_return_jrd_in_response_to_http(
             http_response.http_status,
             is_not(equal_to(200)),
             f'HTTP status 200.\nAccessed URI: "{ http_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
-            interop_level=InteropLevel.PROBLEM)
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.UNAFFECTED) # if a server also responds to http, nothing bad happens
     assert_that(
             http_response.response_headers.get('content-type'),
             is_not(any_of(
                     equal_to('application/jrd+json'),
                     starts_with('application/jrd+json;'))),
             f'Returns JRD content.\nAccessed URI: "{ http_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
-            interop_level=InteropLevel.PROBLEM)
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.UNAFFECTED) # if a server also responds to http, nothing bad happens

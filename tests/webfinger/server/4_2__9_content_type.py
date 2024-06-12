@@ -15,24 +15,31 @@ def returns_jrd_in_response_to_https(
     test_id = server.obtain_account_identifier()
 
     correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
-    assert_that(
-            correct_webfinger_uri,
-            starts_with('https://'),
-            spec_Level=SpecLevel.MUST,
-            interop_level=InteropLevel.PROBLEM)
+    assert(correct_webfinger_uri.startswith('https://')) # This is a server-side test, we not testing the client
 
     correct_https_response : HttpResponse = client.http_get(correct_webfinger_uri).response
     assert_that(
             correct_https_response.http_status,
             equal_to(200),
             f'Not HTTP status 200.\nAccessed URI: "{ correct_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
+
+    assert_that(
+            correct_https_response.response_headers.get('content-type'),
+            any_of(
+                    equal_to('application/jrd+json'),
+                    starts_with('application/jrd+json;'),
+                    starts_with('application/xml')),
+            f'Wrong content type.\nAccessed URI: "{ correct_webfinger_uri }".',
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
+
     assert_that(
             correct_https_response.response_headers.get('content-type'),
             any_of(
                     equal_to('application/jrd+json'),
                     starts_with('application/jrd+json;')),
             f'Wrong content type.\nAccessed URI: "{ correct_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
-            interop_level=InteropLevel.PROBLEM)
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.DEGRADED)

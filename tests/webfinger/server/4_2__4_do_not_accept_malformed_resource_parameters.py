@@ -31,13 +31,13 @@ def requires_valid_resource_uri_http_status(
                 greater_than_or_equal_to(400),
                 less_than(500)),
 			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED)
     assert_that(
             response.http_status,
             equal_to(400),
             f'Not HTTP status 400\nAccessed URI: "{ malformed_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED)
 
 
@@ -63,7 +63,7 @@ def requires_valid_resource_uri_jrd(
         assert_that(
                 False,
                 f'Returns JRD content.\nAccessed URI: "{ malformed_webfinger_uri }".',
-                spec_Level=SpecLevel.MUST,
+                spec_level=SpecLevel.MUST,
                 interop_level=InteropLevel.UNAFFECTED)
 
     except ExceptionGroup as exc:
@@ -98,13 +98,13 @@ def double_equals_http_status(
                 greater_than_or_equal_to(400),
                 less_than(500)),
 			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED)
     assert_that(
             response.http_status,
             equal_to(400),
             f'Not HTTP status 400\nAccessed URI: "{ malformed_webfinger_uri }".',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED)
 
 
@@ -129,7 +129,7 @@ def double_equals_jrd(
         assert_that(
                 False,
                 f'Returns JRD content.\nAccessed URI: "{ malformed_webfinger_uri }".',
-                spec_Level=SpecLevel.MUST,
+                spec_level=SpecLevel.MUST,
                 interop_level=InteropLevel.UNAFFECTED)
 
     except ExceptionGroup as exc:

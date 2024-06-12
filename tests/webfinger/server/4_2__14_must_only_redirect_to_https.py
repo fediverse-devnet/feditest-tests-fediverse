@@ -22,5 +22,5 @@ def must_only_redirect_to_https(
             f'Not https.\n'
             + 'Identifier: "{ test_id }" leads to'
             + f' final request URI { response.http_request_response_pair.final_request.uri.get_uri() }.',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)

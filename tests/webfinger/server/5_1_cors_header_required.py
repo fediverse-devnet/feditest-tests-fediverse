@@ -19,6 +19,6 @@ def cors_header_required(
     assert_that(
             'access-control-allow-origin' in pair.response.response_headers,
             f'Missing CORS header.\nAccessed URI: "{ pair.request.uri.get_uri() }".\nNot present: "access-control-allow-origin".',
-            spec_Level=SpecLevel.MUST,
+            spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
     # FIXME not checking for a correct value. How?
