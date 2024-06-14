@@ -3,7 +3,7 @@ import urllib
 
 from hamcrest import all_of, equal_to, greater_than_or_equal_to, less_than
 
-from feditest import hard_assert_that, soft_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.traffic import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import ClaimedJrd
@@ -25,16 +25,20 @@ def requires_valid_resource_uri_http_status(
     malformed_webfinger_uri : str = f"https://{hostname}/.well-known/webfinger?resource={test_id_no_scheme}"
 
     response : HttpResponse = client.http_get(malformed_webfinger_uri).response
-    soft_assert_that(
+    assert_that(
             response.http_status,
 			all_of(
                 greater_than_or_equal_to(400),
                 less_than(500)),
-			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".')
-    soft_assert_that(
+			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".',
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.UNAFFECTED)
+    assert_that(
             response.http_status,
             equal_to(400),
-            f'Not HTTP status 400\nAccessed URI: "{ malformed_webfinger_uri }".')
+            f'Not HTTP status 400\nAccessed URI: "{ malformed_webfinger_uri }".',
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.UNAFFECTED)
 
 
 @test
@@ -56,7 +60,11 @@ def requires_valid_resource_uri_jrd(
     try: # we do not use the pyhamcrest any_of(raises, raises) because the error message is incomprehensible
         ClaimedJrd.create_and_validate(response.payload)
 
-        soft_assert_that(False, f'Returns JRD content.\nAccessed URI: "{ malformed_webfinger_uri }".')
+        assert_that(
+                False,
+                f'Returns JRD content.\nAccessed URI: "{ malformed_webfinger_uri }".',
+                spec_level=SpecLevel.MUST,
+                interop_level=InteropLevel.UNAFFECTED)
 
     except ExceptionGroup as exc:
         for e in exc.exceptions:
@@ -84,16 +92,20 @@ def double_equals_http_status(
     malformed_webfinger_uri = f"https://{hostname}/.well-known/webfinger?resource=={urllib.parse.quote(test_id)}"
 
     response : HttpResponse = client.http_get(malformed_webfinger_uri).response
-    hard_assert_that(
+    assert_that(
             response.http_status,
 			all_of(
                 greater_than_or_equal_to(400),
                 less_than(500)),
-			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".')
-    soft_assert_that(
+			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".',
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.UNAFFECTED)
+    assert_that(
             response.http_status,
             equal_to(400),
-            f'Not HTTP status 400\nAccessed URI: "{ malformed_webfinger_uri }".')
+            f'Not HTTP status 400\nAccessed URI: "{ malformed_webfinger_uri }".',
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.UNAFFECTED)
 
 
 @test
@@ -114,7 +126,11 @@ def double_equals_jrd(
     try: # we do not use the pyhamcrest any_of(raises, raises) because the error message is incomprehensible
         ClaimedJrd.create_and_validate(response.payload)
 
-        soft_assert_that(False, f'Returns JRD content.\nAccessed URI: "{ malformed_webfinger_uri }".')
+        assert_that(
+                False,
+                f'Returns JRD content.\nAccessed URI: "{ malformed_webfinger_uri }".',
+                spec_level=SpecLevel.MUST,
+                interop_level=InteropLevel.UNAFFECTED)
 
     except ExceptionGroup as exc:
         for e in exc.exceptions:

@@ -1,4 +1,4 @@
-from feditest import step, test, HardAssertionFailure
+from feditest import AssertionFailure, InteropLevel, SpecLevel, step, test
 from feditest.protocols.fediverse import FediverseNode
 
 
@@ -37,4 +37,4 @@ class DeliverToInboxTest:
             # FIXME check for the right content
 
         except TimeoutError as e:
-            raise HardAssertionFailure(e)
+            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, e)

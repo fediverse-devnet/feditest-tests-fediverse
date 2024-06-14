@@ -1,6 +1,6 @@
 from hamcrest import none, not_none
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.utils import wf_error
 
@@ -16,18 +16,23 @@ def normal_query(
 
     webfinger_response = client.perform_webfinger_query(test_id)
 
-    hard_assert_that(
+    assert_that(
             webfinger_response.exc,
             none(),
-            wf_error(webfinger_response))
+            wf_error(webfinger_response),
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
-    hard_assert_that(
+    assert_that(
             webfinger_response.jrd,
             not_none(),
-            wf_error(webfinger_response))
+            wf_error(webfinger_response),
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
     try:
         webfinger_response.jrd.validate()
 
     except Exception as e:
-        hard_assert_that(False, wf_error(webfinger_response))
+        assert_that(False, wf_error(webfinger_response), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)
+

@@ -1,4 +1,6 @@
-from feditest import hard_assert_that, test
+from hamcrest import none
+
+from feditest import InteropLevel, SkipTestException, SpecLevel, assert_that, test
 from feditest.protocols.web import WebClient
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import ClaimedJrd, WebFingerQueryResponse
@@ -56,23 +58,34 @@ def accepts_known_link_rels_in_query(
     """
     test_id = server.obtain_account_identifier()
     response_without_rel : WebFingerQueryResponse = client.perform_webfinger_query(test_id)
-    hard_assert_that(
+    if ( response_without_rel.exc
+         and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+    ):
+        raise SkipTestException('Error covered by another test')
+
+    assert_that(
             response_without_rel.exc,
-            none_except(WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError),
-            wf_error(response_without_rel))
+            none(),
+            wf_error(response_without_rel),
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
     for rel in KNOWN_RELS:
         info(f'WebFinger query for resource "{test_id}" with rel "{rel}"')
         response_with_rel : WebFingerQueryResponse = client.perform_webfinger_query(test_id, [rel])
-        hard_assert_that(
+        assert_that(
                 response_without_rel.exc,
-                none_except(WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError),
-                wf_error(response_with_rel))
-        hard_assert_that(
+                none(),
+                wf_error(response_with_rel),
+                spec_level=SpecLevel.MUST,
+                interop_level=InteropLevel.PROBLEM)
+        assert_that(
                 response_with_rel.jrd,
                 link_subset_or_equal_to(response_without_rel.jrd),
                 'Not same or subset of links.'
-                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }" with rel { rel } vs none.' )
+                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }" with rel { rel } vs none.',
+                spec_level=SpecLevel.MUST,
+                interop_level=InteropLevel.PROBLEM)
 
 
 @test
@@ -87,22 +100,33 @@ def accepts_unknown_link_rels_in_query(
     test_id = server.obtain_account_identifier()
 
     response_without_rel = client.perform_webfinger_query(test_id)
-    hard_assert_that(
+    if ( response_without_rel.exc
+         and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+    ):
+        raise SkipTestException('Error covered by another test')
+
+    assert_that(
             response_without_rel.exc,
-            none_except(WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError),
-            wf_error(response_without_rel))
+            none(),
+            wf_error(response_without_rel),
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
     for rel in UNKNOWN_RELS:
         response_with_rel = client.perform_webfinger_query(test_id, [rel])
-        hard_assert_that(
+        assert_that(
                 response_without_rel.exc,
-                none_except(WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError),
-                wf_error(response_with_rel))
-        hard_assert_that(
+                none(),
+                wf_error(response_with_rel),
+                spec_level=SpecLevel.MUST,
+                interop_level=InteropLevel.PROBLEM)
+        assert_that(
                 response_with_rel.jrd,
                 link_subset_or_equal_to(response_without_rel.jrd),
                 'Not same or subset of links.'
-                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }" with rel { rel } vs none.' )
+                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }" with rel { rel } vs none.',
+                spec_level=SpecLevel.MUST,
+                interop_level=InteropLevel.PROBLEM)
 
 
 @test
@@ -117,24 +141,35 @@ def accepts_combined_link_rels_in_query(
     test_id = server.obtain_account_identifier()
 
     response_without_rel = client.perform_webfinger_query(test_id)
-    hard_assert_that(
+    if ( response_without_rel.exc
+         and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+    ):
+        raise SkipTestException('Error covered by another test')
+
+    assert_that(
             response_without_rel.exc,
-            none_except(WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError),
-            wf_error(response_without_rel))
+            none(),
+            wf_error(response_without_rel),
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
     count = 0
     for rel1 in KNOWN_RELS:
         for rel2 in UNKNOWN_RELS:
             rels = [rel1, rel2] if count % 2 else [rel2, rel1]
             response_with_rel = client.perform_webfinger_query(test_id, rels)
-            hard_assert_that(
+            assert_that(
                     response_without_rel.exc,
-                    none_except(WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError),
-                    wf_error(response_with_rel))
-            hard_assert_that(
+                    none(),
+                    wf_error(response_with_rel),
+                    spec_level=SpecLevel.MUST,
+                    interop_level=InteropLevel.PROBLEM)
+            assert_that(
                     response_with_rel.jrd,
                     link_subset_or_equal_to(response_without_rel.jrd),
                     'Not same or subset of links.'
                     + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }"'
-                    + f' with rels { rels[0] } and { rels[1] } vs none.' )
+                    + f' with rels { rels[0] } and { rels[1] } vs none.',
+                    spec_level=SpecLevel.MUST,
+                    interop_level=InteropLevel.PROBLEM)
             count += 1

@@ -1,7 +1,7 @@
 import json
 from hamcrest import calling, is_not, raises
 
-from feditest import hard_assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
@@ -21,7 +21,7 @@ def test_one(
                 test_id : overridden_jrd_json_string
             }
     )
-    hard_assert_that(calling(webfinger_response.jrd.validate()), is_not(raises(Exception)))
+    assert_that(calling(webfinger_response.jrd.validate()), is_not(raises(Exception)), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)
 
 
 @test
