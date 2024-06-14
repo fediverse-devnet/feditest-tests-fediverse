@@ -4940,9 +4940,9 @@
                         "nodedriver": "saas.SaasFediverseNodeDriver",
                         "parameters": {
                             "app": "Friendica",
-                            "hostname": "friendi.ca",
-                            "existing-account-uri": "acct:tobias@friendi.ca",
-                            "nonexisting-account-uri": "acct:does-not-exist@friendi.ca"
+                            "hostname": "forum.friendi.ca",
+                            "existing-account-uri": "acct:helpers@forum.friendi.ca",
+                            "nonexisting-account-uri": "acct:does-not-exist@forum.friendi.ca"
                         }
                     }
                 },
