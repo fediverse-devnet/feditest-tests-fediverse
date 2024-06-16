@@ -1,9 +1,0 @@
-{
-    "nodedriver": "saas.SaasFediverseNodeDriver",
-    "parameters": {
-        "app" : "Pleroma",
-        "hostname": "stereophonic.space",
-        "existing-account-uri": "acct:karolat@stereophonic.space",
-        "nonexisting-account-uri": "acct:does-not-exist@stereophonic.space"
-    }
-}

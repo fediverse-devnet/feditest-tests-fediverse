@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "archivedon",
-    "hostname": "mstdn.mizunashi.work",
-    "existing-account-uri": "acct:mizunashi_mana@mstdn.mizunashi.work",
-    "nonexisting-account-uri": "acct:does-not-exist@mstdn.mizunashi.work"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "PieFed",
-    "hostname": "piefed.social",
-    "existing-account-uri": "acct:rimu@piefed.social",
-    "nonexisting-account-uri": "acct:does-not-exist@piefed.social"
-  }
-}

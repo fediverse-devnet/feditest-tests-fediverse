@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "paul.kinlan.me",
-    "hostname": "paul.kinlan.me",
-    "existing-account-uri": "acct:paul@paul.kinlan.me",
-    "nonexisting-account-uri": "acct:does-not-exist@paul.kinlan.me"
-  }
-}

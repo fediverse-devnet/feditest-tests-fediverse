@@ -1,0 +1,18 @@
+{
+    "roles": {
+        "client": {
+            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "parameters": null
+        },
+        "server": {
+            "nodedriver": "wordpress.WordPressPlusActivityPubPluginUbosNodeDriver",
+            "parameters": {
+                "hostname": "wordpress.123.lan",
+                "backupfile": "ubos-sites/wordpress.123.lan.ubos-backup",
+                "siteid": "se2e53e9fdbbad1431e6618540568874b5714b15b",
+                "adminid": "j12t"
+            }
+        }
+    },
+    "name": "WordPress + ActivityPub plugin (local, UBOS)"
+}

@@ -1,6 +1,7 @@
 #
 # This Makefile regenerates session template files and test plan files
-# that are checked-in.
+# that are checked-in. They are checked-in (yes, we know about best practice)
+# because that lowers the barrier for new users.
 #
 # This attempt to run executable `feditest` in your $PATH. If you'd like
 # to run a different executable, such as one in a virtual environment,
@@ -9,24 +10,18 @@
 
 FEDITEST=feditest
 Q=
-# Could set from the command-line to something like: 'Q=.$(shell git branch --show-current)'
+# Could set from the command-line to something like: 'Q=$(shell git branch --show-current)'
 
 EX=examples$(Q)
-PROD=production$(Q)
 
 default : all
 
-all : $(EX) $(PROD)
+all : $(EX)
 
 $(EX) : \
   $(EX)-session-templates \
   $(EX)-constellations \
   $(EX)-testplans
-
-$(PROD) : \
-  $(PROD)-session-templates \
-  $(PROD)-constellations \
-  $(PROD)-testplans
 
 
 ########## Example session templates ##########
@@ -36,79 +31,35 @@ $(EX)-session-templates : \
   $(EX)/session-templates/fediverse-follow.json
 
 $(EX)/session-templates/webfinger-server-all.json : \
-  tests/webfinger/server/*.py \
-  $(EX)/session-templates
+  dirs \
+  tests/webfinger/server/*.py
 	$(FEDITEST) generate-session-template \
 		--name 'All WebFinger server tests' \
 		--filter 'webfinger\.server' \
 		--out $@
 
 $(EX)/session-templates/fediverse-follow.json : \
-  tests/*/*/*.py \
-  $(EX)/session-templates
+  dirs \
+  tests/*/*/*.py
 	  $(FEDITEST) generate-session-template \
-		--name 'Can a fediverse account follow another' \
+		--name 'Can a Fediverse account follow another' \
 		--filter 'fediverse\.follow\.leader_accepts_follow_request' \
-		--out $@
-
-
-########## Production session templates ##########
-
-$(PROD)-session-templates : \
-  $(PROD)/session-templates/webfinger-server-all.json
-
-$(PROD)/session-templates/webfinger-server-all.json : \
-  tests/webfinger/server/*.py \
-  $(PROD)/session-templates
-	$(FEDITEST) generate-session-template \
-		--name 'All WebFinger server tests' \
-		--filter 'webfinger\.server' \
 		--out $@
 
 
 ##### Example constellations ##########
 
 $(EX)-constellations : \
-  $(EX)/constellations/imp-vs-local-mastodon.json \
-  $(EX)/constellations/imp-vs-local-wordpress.json \
-  $(EX)/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json \
   $(EX)/constellations/imp-vs-saas-any.json \
-  $(EX)/constellations/saas-any-vs-saas-any.json
-
-$(EX)/constellations/imp-vs-local-mastodon.json : \
-  examples/nodes/imp.json \
-  examples/nodes/local-mastodon.json \
-  $(EX)/constellations
-	$(FEDITEST) create-constellation \
-		--name 'Local Mastodon' \
-		--node client=examples/nodes/imp.json \
-		--node server=examples/nodes/local-mastodon.json \
-		--out $@
-
-$(EX)/constellations/imp-vs-local-wordpress.json : \
-  examples/nodes/imp.json \
-  examples/nodes/local-wordpress.json \
-  $(EX)/constellations
-	$(FEDITEST) create-constellation \
-		--name 'Local WordPress + ActivityPub plugin' \
-		--node client=examples/nodes/imp.json \
-		--node server=examples/nodes/local-wordpress.json \
-		--out $@
-
-$(EX)/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json : \
-  examples/nodes/imp.json \
-  examples/nodes/mastodon-acct_gargron@mastodon.social.json \
-  $(EX)/constellations
-	$(FEDITEST) create-constellation \
-		--name '@gargron@mastodon.social' \
-		--node client=examples/nodes/imp.json \
-		--node server=examples/nodes/mastodon-acct_gargron@mastodon.social.json \
-		--out $@
+  $(EX)/constellations/saas-any-vs-saas-any.json \
+  $(EX)/constellations/imp-vs-mastodon-local-ubos.json \
+  $(EX)/constellations/imp-vs-wordpress-local-ubos.json \
+  $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json
 
 $(EX)/constellations/imp-vs-saas-any.json : \
+  dirs \
   examples/nodes/imp.json \
-  examples/nodes/saas-any.json \
-  $(EX)/constellations
+  examples/nodes/saas-any.json
 	$(FEDITEST) create-constellation \
 		--name 'Any SaaS application' \
 		--node client=examples/nodes/imp.json \
@@ -116,148 +67,119 @@ $(EX)/constellations/imp-vs-saas-any.json : \
 		--out $@
 
 $(EX)/constellations/saas-any-vs-saas-any.json : \
+  dirs \
   examples/nodes/saas-any.json \
-  examples/nodes/saas-any.json \
-  $(EX)/constellations
+  examples/nodes/saas-any.json
 	$(FEDITEST) create-constellation \
 		--name 'Any Saas application vs any SaaS application' \
 		--node leader_node=examples/nodes/saas-any.json \
 		--node follower_node=examples/nodes/saas-any.json \
 		--out $@
 
-
-##### Production constellations ##########
-
-PRODUCTION_WEBFINGER_SAAS_NODES = $(patsubst production/nodes/%.json, %, $(wildcard production/nodes/*@*.json))
-PRODUCTION_WEBFINGER_CONSTELLATIONS = $(patsubst %, $(PROD)/constellations/imp-vs-%.json, $(PRODUCTION_WEBFINGER_SAAS_NODES))
-
-$(PROD)-constellations : \
-  $(PRODUCTION_WEBFINGER_CONSTELLATIONS) \
-  $(PROD)/constellations/imp-vs-local-mastodon.json \
-  $(PROD)/constellations/imp-vs-local-wordpress.json
-
-$(PROD)/constellations/imp-vs-%.json : \
-  production/nodes/%.json \
-  $(PROD)/constellations
+$(EX)/constellations/imp-vs-mastodon-local-ubos.json : \
+  dirs \
+  examples/nodes/imp.json \
+  examples/nodes/mastodon-local-ubos.json
 	$(FEDITEST) create-constellation \
-		--name $(shell jq '.parameters.app // "$(patsubst production/nodes/%.json, %, $<)"' $<) \
-		--node client=production/nodes/imp.json \
-		--node server=$< \
+		--name 'Mastodon (local, UBOS)' \
+		--node client=examples/nodes/imp.json \
+		--node server=examples/nodes/mastodon-local-ubos.json \
 		--out $@
 
-$(PROD)/constellations/imp-vs-local-mastodon.json : \
-  production/nodes/imp.json \
-  production/nodes/local-mastodon.json \
-  $(PROD)/constellations
+$(EX)/constellations/imp-vs-wordpress-local-ubos.json : \
+  dirs \
+  examples/nodes/imp.json \
+  examples/nodes/wordpress-local-ubos.json
 	$(FEDITEST) create-constellation \
-		--name 'Local Mastodon' \
-		--node client=production/nodes/imp.json \
-		--node server=production/nodes/local-mastodon.json \
+		--name 'WordPress + ActivityPub plugin (local, UBOS)' \
+		--node client=examples/nodes/imp.json \
+		--node server=examples/nodes/wordpress-local-ubos.json \
 		--out $@
 
-$(PROD)/constellations/imp-vs-local-wordpress.json : \
-  production/nodes/imp.json \
-  production/nodes/local-wordpress.json \
-  $(PROD)/constellations
+$(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json : \
+  dirs \
+  examples/nodes/mastodon-local-ubos.json \
+  examples/nodes/wordpress-local-ubos.json
 	$(FEDITEST) create-constellation \
-		--name 'Local WordPress + ActivityPub plugin' \
-		--node client=production/nodes/imp.json \
-		--node server=production/nodes/local-wordpress.json \
+		--name 'Mastodon vs WordPress + ActivityPub plugin (local, UBOS)' \
+		--node follower_node=examples/nodes/mastodon-local-ubos.json \
+		--node leader_node=examples/nodes/wordpress-local-ubos.json \
 		--out $@
 
 
 ##### Example test plans ##########
 
 $(EX)-testplans : \
-  $(EX)/testplans/fediverse-follow-manual-saas.json \
-  $(EX)/testplans/webfinger-server-gargron-mastodon-social-saas-imp.json \
-  $(EX)/testplans/webfinger-server-ubos-mastodon-imp.json \
-  $(EX)/testplans/webfinger-server-ubos-mastodon-wordpress-imp.json \
-  $(EX)/testplans/webfinger-server-ubos-wordpress-imp.json
+  $(EX)/testplans/webfinger-server-imp-vs-saas-any.json \
+  $(EX)/testplans/webfinger-server-imp-vs-mastodon-local-ubos.json \
+  $(EX)/testplans/webfinger-server-imp-vs-wordpress-local-ubos.json \
+  $(EX)/testplans/fediverse-follow-saas-any-vs-saas-any.json \
+  $(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-wordpress-local-ubos.json
 
-$(EX)/testplans/fediverse-follow-manual-saas.json : \
+$(EX)/testplans/webfinger-server-imp-vs-saas-any.json : \
+  dirs \
   $(EX)/session-templates/webfinger-server-all.json \
-  $(EX)/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json \
-  $(EX)/testplans
+  $(EX)/constellations/imp-vs-saas-any.json
 	$(FEDITEST) generate-testplan \
-		--name 'Manual follow' \
+		--name 'WebFinger server tests (any SaaS)' \
+		--session-template $(EX)/session-templates/webfinger-server-all.json \
+		--constellation $(EX)/constellations/imp-vs-saas-any.json \
+		--out $@
+
+$(EX)/testplans/webfinger-server-imp-vs-mastodon-local-ubos.json : \
+  dirs \
+  $(EX)/session-templates/webfinger-server-all.json \
+  $(EX)/constellations/imp-vs-mastodon-local-ubos.json
+	$(FEDITEST) generate-testplan \
+		--name 'Mastodon WebFinger server tests (local, UBOS))' \
+		--session-template $(EX)/session-templates/webfinger-server-all.json \
+		--constellation $(EX)/constellations/imp-vs-mastodon-local-ubos.json \
+		--out $@
+
+$(EX)/testplans/webfinger-server-imp-vs-wordpress-local-ubos.json : \
+  dirs \
+  $(EX)/session-templates/webfinger-server-all.json \
+  $(EX)/constellations/imp-vs-wordpress-local-ubos.json
+	$(FEDITEST) generate-testplan \
+		--name 'WordPress + ActivityPub WebFinger server tests (local, UBOS)' \
+		--session-template $(EX)/session-templates/webfinger-server-all.json \
+		--constellation $(EX)/constellations/imp-vs-wordpress-local-ubos.json \
+		--out $@
+
+$(EX)/testplans/fediverse-follow-saas-any-vs-saas-any.json : \
+  dirs \
+  $(EX)/session-templates/fediverse-follow.json \
+  $(EX)/constellations/saas-any-vs-saas-any.json
+	$(FEDITEST) generate-testplan \
+		--name 'Manual follow (any two SaaS)' \
 		--session-template $(EX)/session-templates/fediverse-follow.json \
 		--constellation $(EX)/constellations/saas-any-vs-saas-any.json \
 		--out $@
 
-$(EX)/testplans/webfinger-server-gargron-mastodon-social-saas-imp.json : \
-  $(EX)/session-templates/webfinger-server-all.json \
-  $(EX)/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json \
-  $(EX)/testplans
+$(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-wordpress-local-ubos.json : \
+  dirs \
+  $(EX)/session-templates/fediverse-follow.json \
+  $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json
 	$(FEDITEST) generate-testplan \
-		--name 'WebFinger server test (gargron@mastodon.social)' \
-		--session-template $(EX)/session-templates/webfinger-server-all.json \
-		--constellation $(EX)/constellations/imp-vs-mastodon-acct_gargron@mastodon.social.json \
-		--out $@
-
-$(EX)/testplans/webfinger-server-ubos-mastodon-imp.json : \
-  $(EX)/session-templates/webfinger-server-all.json \
-  $(EX)/constellations/imp-vs-local-mastodon.json \
-  $(EX)/testplans
-	$(FEDITEST) generate-testplan \
-		--name 'Local Mastodon WebFinger server test' \
-		--session-template $(EX)/session-templates/webfinger-server-all.json \
-		--constellation $(EX)/constellations/imp-vs-local-mastodon.json \
-		--out $@
-
-$(EX)/testplans/webfinger-server-ubos-mastodon-wordpress-imp.json : \
-  $(EX)/session-templates/webfinger-server-all.json \
-  $(EX)/constellations/imp-vs-local-mastodon.json \
-  $(EX)/constellations/imp-vs-local-wordpress.json \
-  $(EX)/testplans
-	$(FEDITEST) generate-testplan \
-		--name 'Local WordPress + ActivityPub plugin WebFinger server test' \
-		--session-template $(EX)/session-templates/webfinger-server-all.json \
-		--constellation $(EX)/constellations/imp-vs-local-mastodon.json $(EX)/constellations/imp-vs-local-wordpress.json \
-		--out $@
-
-$(EX)/testplans/webfinger-server-ubos-wordpress-imp.json : \
-  $(EX)/session-templates/webfinger-server-all.json \
-  $(EX)/constellations/imp-vs-local-wordpress.json \
-  $(EX)/testplans
-	$(FEDITEST) generate-testplan \
-		--name 'WebFinger server test for local Mastodon and WordPress in one run' \
-		--session-template $(EX)/session-templates/webfinger-server-all.json \
-		--constellation $(EX)/constellations/imp-vs-local-wordpress.json \
-		--out $@
-
-##### Production test plans ##########
-
-$(PROD)-testplans : \
-  $(PROD)/testplans/webfinger-server-all-wellknown-saas-imp.json
-
-$(PROD)/testplans/webfinger-server-all-wellknown-saas-imp.json : \
-  $(PROD)/session-templates/webfinger-server-all.json \
-  $(PRODUCTION_WEBFINGER_CONSTELLATIONS) \
-  $(PROD)/testplans
-	$(FEDITEST) generate-testplan \
-		--name 'Webfinger server tests of hosted Fediverse applications' \
-		--session-template $(PROD)/session-templates/webfinger-server-all.json \
-		--constellation $(PRODUCTION_WEBFINGER_CONSTELLATIONS) \
+		--name 'Manual follow Mastodon vs WordPress + ActivityPub (local, UBOS)' \
+		--session-template $(EX)/session-templates/fediverse-follow.json \
+		--constellation $(EX)/constellations/saas-any-vs-saas-any.json \
 		--out $@
 
 
 ########## and the rest ##########
 
-$(EX)/session-templates $(EX)/constellations $(EX)/testplans $(PROD)/session-templates $(PROD)/constellations $(PROD)/testplans :
-	mkdir -p $@
+dirs :
+	[[ -d $(EX)/session-templates ]] || mkdir -p $(EX)/session-templates
+	[[ -d $(EX)/constellations ]] || mkdir -p $(EX)/constellations
+	[[ -d $(EX)/testplans ]] || mkdir -p $(EX)/testplans
 
-clean : clean-examples clean-production
+clean : clean-examples
 
 clean-examples:
 	rm $(EX)/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1 || true
 
-clean-production:
-	rm $(PROD)/{session-templates,constellations,testplans}/*.json >/dev/null 2>&1 || true
-
-
 .PHONY: \
-  default all clean clean-examples clean-production \
-  $(EX) $(EX)-session-templates $(EX)-constellations $(EX)-testplans \
-  $(PROD) $(PROD)-session-templates $(PROD)-constellations $(PROD)-testplans
+  default all dirs clean clean-examples \
+  $(EX) $(EX)-session-templates $(EX)-constellations $(EX)-testplans
 

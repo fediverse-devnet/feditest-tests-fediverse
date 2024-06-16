@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "momostr",
-    "hostname": "momostr.pink",
-    "existing-account-uri": "acct:npub15jnttpymeytm80hatjqcvhhqhzrhx6gxp8pq0wn93rhnu8s9h9dsha32lx@momostr.pink",
-    "nonexisting-account-uri": "acct:does-not-exist@momostr.pink"
-  }
-}

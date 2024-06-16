@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "wafrn",
-    "hostname": "app.wafrn.net",
-    "existing-account-uri": "acct:gabboman@app.wafrn.net",
-    "nonexisting-account-uri": "acct:does-not-exist@app.wafrn.net"
-  }
-}

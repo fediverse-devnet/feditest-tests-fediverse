@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "Comal",
-    "hostname": "comal.app",
-    "existing-account-uri": "acct:erik@comal.app",
-    "nonexisting-account-uri": "acct:does-not-exist@comal.app"
-  }
-}

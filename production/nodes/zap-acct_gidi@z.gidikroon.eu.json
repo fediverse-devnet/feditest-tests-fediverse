@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "zap",
-    "hostname": "z.gidikroon.eu",
-    "existing-account-uri": "acct:gidi@z.gidikroon.eu",
-    "nonexisting-account-uri": "acct:does-not-exist@z.gidikroon.eu"
-  }
-}
