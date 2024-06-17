@@ -1,9 +1,0 @@
-{
-    "nodedriver": "saas.SaasFediverseNodeDriver",
-    "parameters": {
-        "app" : "NodeBB",
-        "hostname": "community.nodebb.org",
-        "existing-account-uri": "acct:baris@community.nodebb.org",
-        "nonexisting-account-uri": "acct:does-not-exist@community.nodebb.org"
-    }
-}

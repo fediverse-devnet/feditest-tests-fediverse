@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "Transit Fedilerts",
-    "hostname": "transit.alerts.social",
-    "existing-account-uri": "acct:kingcountymetro@transit.alerts.social",
-    "nonexisting-account-uri": "acct:does-not-exist@transit.alerts.social"
-  }
-}

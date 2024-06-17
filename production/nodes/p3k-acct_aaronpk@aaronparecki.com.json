@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "p3k",
-    "hostname": "aaronparecki.com",
-    "existing-account-uri": "acct:aaronpk@aaronparecki.com",
-    "nonexisting-account-uri": "acct:does-not-exist@aaronparecki.com"
-  }
-}

@@ -1,9 +1,0 @@
-{
-    "nodedriver": "saas.SaasFediverseNodeDriver",
-    "parameters": {
-        "app": "Microblogpub",
-        "hostname": "bow.st",
-        "existing-account-uri": "acct:c@bow.st",
-        "nonexisting-account-uri": "acct:does-not-exist@bow.st"
-    }
-}

@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "capubara",
-    "hostname": "testserver.capubara.com",
-    "existing-account-uri": "acct:testperson@testserver.capubara.com",
-    "nonexisting-account-uri": "acct:does-not-exist@testserver.capubara.com"
-  }
-}

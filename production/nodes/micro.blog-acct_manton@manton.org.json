@@ -1,9 +1,0 @@
-{
-    "nodedriver": "saas.SaasFediverseNodeDriver",
-    "parameters": {
-        "hostname": "manton.org",
-        "app" : "Micro.blog",
-        "existing-account-uri": "acct:manton@manton.org",
-        "nonexisting-account-uri": "acct:does-not-exist@manton.org"
-    }
-}

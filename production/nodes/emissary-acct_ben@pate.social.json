@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "Emissary",
-    "hostname": "pate.social",
-    "existing-account-uri": "acct:ben@pate.social",
-    "nonexisting-account-uri": "acct:does-not-exist@pate.social"
-  }
-}

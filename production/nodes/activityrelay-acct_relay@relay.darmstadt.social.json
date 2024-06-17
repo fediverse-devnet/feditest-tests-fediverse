@@ -1,9 +1,0 @@
-{
-    "nodedriver": "saas.SaasFediverseNodeDriver",
-    "parameters": {
-        "app": "ActivityRelay",
-        "hostname": "relay.darmstadt.social",
-        "existing-account-uri": "acct:relay@relay.darmstadt.social",
-        "nonexisting-account-uri": "acct:does-not-exist@relay.darmstadt.social"
-    }
-}

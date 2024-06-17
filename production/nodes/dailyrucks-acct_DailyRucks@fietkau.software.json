@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "dailyrucks",
-    "hostname": "fietkau.software",
-    "existing-account-uri": "acct:DailyRucks@fietkau.software",
-    "nonexisting-account-uri": "acct:does-not-exist@fietkau.software"
-  }
-}

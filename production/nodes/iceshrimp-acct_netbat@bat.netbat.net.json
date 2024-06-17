@@ -1,9 +1,0 @@
-{
-  "nodedriver": "saas.SaasFediverseNodeDriver",
-  "parameters": {
-    "app": "iceshrimp",
-    "hostname": "bat.netbat.net",
-    "existing-account-uri": "acct:netbat@bat.netbat.net",
-    "nonexisting-account-uri": "acct:does-not-exist@bat.netbat.net"
-  }
-}
