@@ -5,6 +5,7 @@ From https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/24
 """
 
 from feditest import step, test
+
 from . import AbstractFollowTest
 
 
@@ -21,18 +22,18 @@ class AcceptFollowTest(AbstractFollowTest):
 
     @step
     def get_collections(self):
-        super().get_collections();
+        super().get_collections()
 
 
     @step
     def initially_unrelated(self):
         # Initially they are unrelated
-        super().test_unrelated();
+        super().test_unrelated()
 
 
     @step
     def setup_follow(self):
-        self.follower_node_node.make_a_follow_b(self.follower_actor_uri, self.leader_actor_uri, self.leader_node)
+        self.follower_node.make_a_follow_b(self.follower_actor_uri, self.leader_actor_uri, self.leader_node)
 
 
     @step
