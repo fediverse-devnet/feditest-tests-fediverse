@@ -11,24 +11,19 @@ Q=
 # Could set from the command-line to something like: 'Q=.$(shell git branch --show-current)'
 
 EX=examples$(Q)
-PROD=production$(Q)
-
 
 EXAMPLES_TESTPLANS= \
-  webfinger-server-gargron-mastodon-social-saas-imp \
-  webfinger-server-ubos-mastodon-imp \
-  webfinger-server-ubos-mastodon-wordpress-imp \
-  webfinger-server-ubos-wordpress-imp
+  webfinger-server-imp-vs-mastodon-local-ubos \
+  webfinger-server-imp-vs-saas-any \
+  webfinger-server-imp-wordpress-local-ubos
 
 PRODUCTION_TESTPLANS= \
   webfinger-server-all-wellknown-saas-imp \
 
-default :
-	@echo "Choose a target, such as '$(EX)' or '$(PROD)'."
+default : all
 
 all : \
-  $(EX) \
-  $(PROD)
+  $(EX)
 
 $(EX) : \
   $(EX)-transcripts \
@@ -42,36 +37,12 @@ $(EX)-transcripts-tap : \
   $(patsubst %, $(EX)/testresults/%.tap, $(EXAMPLES_TESTPLANS))
 
 $(EX)-transcripts-html : \
-  $(patsubst %, $(EX)/testresults/%.sequential.html, $(EXAMPLES_TESTPLANS)) \
-  $(patsubst %, $(EX)/testresults/%.testmatrix.html, $(EXAMPLES_TESTPLANS))
-
-$(PROD) : \
-  $(PROD)-transcripts \
-  $(PROD)-transcripts-tap \
-  $(PROD)-transcripts-html
-
-$(PROD)-transcripts : \
-  $(patsubst %, $(PROD)/testresults/%.json, $(PRODUCTION_TESTPLANS))
-
-$(PROD)-transcripts-tap : \
-  $(patsubst %, $(PROD)/testresults/%.tap, $(PRODUCTION_TESTPLANS))
-
-$(PROD)-transcripts-html : \
-  $(patsubst %, $(PROD)/testresults/%.sequential.html, $(PRODUCTION_TESTPLANS)) \
-  $(patsubst %, $(PROD)/testresults/%.testmatrix.html, $(PRODUCTION_TESTPLANS))
-
+  $(patsubst %, $(EX)/testresults/%.html, $(EXAMPLES_TESTPLANS))
 
 ########## General rules to make things simpler ##########
 
 # Given a testplan in $(EX)/testplans, run it and generate a testrun JSON transcript in $(EX)/testresults with the same name
 $(EX)/testresults/%.json : $(EX)/testplans/%.json $(EX)/testresults/.touch
-	$(FEDITEST) run \
-		--testplan $< \
-		--json $@ \
-	|| echo 'ERRORS in the test run (as expected), so we continue'
-
-# Given a testplan in $(PROD)/testplans, run it and generate a testrun JSON transcript in $(PROD)/testresults with the same name
-$(PROD)/testresults/%.json : $(PROD)/testplans/%.json $(PROD)/testresults
 	$(FEDITEST) run \
 		--testplan $< \
 		--json $@ \
@@ -83,19 +54,11 @@ $(PROD)/testresults/%.json : $(PROD)/testplans/%.json $(PROD)/testresults
 		--in $< \
 		--tap $@
 
-# Given a testrun JSON transcript, convert it to HTML format with a template that lists everything that happened in sequential order
-%.sequential.html : %.json
+# Given a testrun JSON transcript, convert it to HTML format with the default template
+%.html : %.json
 	$(FEDITEST) convert-transcript \
 		--in $< \
-		--html $@ \
-		--template testrun-report-sequential-standalone
-
-# Given a testrun JSON transcript, convert it to HTML format with a template that creates a test matrix
-%.testmatrix.html : %.json
-	$(FEDITEST) convert-transcript \
-		--in $< \
-		--html $@ \
-		--template testrun-report-testmatrix-standalone
+		--html $@
 
 ########## and the rest ##########
 
@@ -104,10 +67,9 @@ $(EX)/testresults/.touch :
 	touch $@
 
 clean :
-	rm {$(EX),$(PROD)}/testresults/*.{json,tap,html} >/dev/null 2>&1 || true
+	rm $(EX)/testresults/*.{json,tap,html} >/dev/null 2>&1 || true
 
 .PHONY : \
   default all clean \
-  $(EX) $(EX)-transcript $(EX)-transcripts-tap $(EX)-transcripts-html \
-  $(PROD) $(PROD)-transcript $(PROD)-transcripts-tap $(PROD)-transcripts-html
+  $(EX) $(EX)-transcript $(EX)-transcripts-tap $(EX)-transcripts-html
 
