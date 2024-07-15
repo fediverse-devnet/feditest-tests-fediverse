@@ -38,7 +38,7 @@ class AbstractFollowTest:
 
     def test_following(self):
         # FIXME: decide on SpecLevel, InteropLevel for these assertions
-        self.to_be_leader_node.assert_member_of_collection_at(self.follower_actor_uri, self.leader_actor_followers_collection_uri)
-        self.to_be_leader_node.assert_not_member_of_collection_at(self.follower_actor_uri, self.leader_actor_following_collection_uri)
-        self.to_be_follower_node.assert_not_member_of_collection_at(self.leader_actor_uri, self.follower_actor_followers_collection_uri)
-        self.to_be_follower_node.assert_member_of_collection_at(self.leader_actor_uri, self.follower_actor_following_collection_uri)
+        self.leader_node.assert_member_of_collection_at(self.follower_actor_uri, self.leader_actor_followers_collection_uri)
+        self.leader_node.assert_not_member_of_collection_at(self.follower_actor_uri, self.leader_actor_following_collection_uri)
+        self.follower_node.assert_not_member_of_collection_at(self.leader_actor_uri, self.follower_actor_followers_collection_uri)
+        self.follower_node.assert_member_of_collection_at(self.leader_actor_uri, self.follower_actor_following_collection_uri)
