@@ -110,5 +110,6 @@
             "name": "Mastodon (local, UBOS)"
         }
     ],
-    "name": "Mastodon WebFinger server tests (local, UBOS))"
+    "name": "Mastodon WebFinger server tests (local, UBOS)",
+    "feditest_version": "0.3"
 }

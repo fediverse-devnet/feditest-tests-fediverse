@@ -131,7 +131,7 @@ $(EX)/testplans/webfinger-server-imp-vs-mastodon-local-ubos.json : \
   $(EX)/session-templates/webfinger-server-all.json \
   $(EX)/constellations/imp-vs-mastodon-local-ubos.json
 	$(FEDITEST) generate-testplan \
-		--name 'Mastodon WebFinger server tests (local, UBOS))' \
+		--name 'Mastodon WebFinger server tests (local, UBOS)' \
 		--session-template $(EX)/session-templates/webfinger-server-all.json \
 		--constellation $(EX)/constellations/imp-vs-mastodon-local-ubos.json \
 		--out $@

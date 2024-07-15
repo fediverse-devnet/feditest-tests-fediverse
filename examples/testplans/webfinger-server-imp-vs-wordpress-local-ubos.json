@@ -109,5 +109,6 @@
             "name": "WordPress + ActivityPub plugin (local, UBOS)"
         }
     ],
-    "name": "WordPress + ActivityPub WebFinger server tests (local, UBOS)"
+    "name": "WordPress + ActivityPub WebFinger server tests (local, UBOS)",
+    "feditest_version": "0.3"
 }
