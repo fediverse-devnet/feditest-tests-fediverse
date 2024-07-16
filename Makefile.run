@@ -15,7 +15,7 @@ EX=examples$(Q)
 EXAMPLES_TESTPLANS= \
   webfinger-server-imp-vs-mastodon-local-ubos \
   webfinger-server-imp-vs-saas-any \
-  webfinger-server-imp-wordpress-local-ubos
+  webfinger-server-imp-vs-wordpress-local-ubos
 
 PRODUCTION_TESTPLANS= \
   webfinger-server-all-wellknown-saas-imp \

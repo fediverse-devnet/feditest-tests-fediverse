@@ -104,5 +104,6 @@
             "name": "Any SaaS application"
         }
     ],
-    "name": "WebFinger server tests (any SaaS)"
+    "name": "WebFinger server tests (any SaaS)",
+    "feditest_version": "0.3"
 }
