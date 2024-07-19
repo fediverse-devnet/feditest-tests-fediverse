@@ -7,6 +7,9 @@
 # to run a different executable, such as one in a virtual environment,
 # invoke this Makefile with extra parameter FEDITEST=path/to/my/feditest
 #
+# Note: some of these scripts specify a --name and some don't. That's intentional.
+# We give it names if we are certain what apps run. If leave them out, if the
+# user specifies the name of the app (e.g. for SaasNodes)
 
 FEDITEST=feditest
 Q=
@@ -33,7 +36,7 @@ $(EX)-session-templates : \
 $(EX)/session-templates/webfinger-server-all.json : \
   dirs \
   tests/webfinger/server/*.py
-	$(FEDITEST) generate-session-template \
+	$(FEDITEST) create-session-template \
 		--name 'All WebFinger server tests' \
 		--filter 'webfinger\.server' \
 		--out $@
@@ -41,7 +44,7 @@ $(EX)/session-templates/webfinger-server-all.json : \
 $(EX)/session-templates/fediverse-follow.json : \
   dirs \
   tests/*/*/*.py
-	  $(FEDITEST) generate-session-template \
+	  $(FEDITEST) create-session-template \
 		--name 'Can a Fediverse account follow another' \
 		--filter 'fediverse\.follow\.leader_accepts_follow_request' \
 		--out $@
@@ -61,7 +64,6 @@ $(EX)/constellations/imp-vs-saas-any.json : \
   examples/nodes/imp.json \
   examples/nodes/saas-any.json
 	$(FEDITEST) create-constellation \
-		--name 'Any SaaS application' \
 		--node client=examples/nodes/imp.json \
 		--node server=examples/nodes/saas-any.json \
 		--out $@
@@ -71,7 +73,6 @@ $(EX)/constellations/saas-any-vs-saas-any.json : \
   examples/nodes/saas-any.json \
   examples/nodes/saas-any.json
 	$(FEDITEST) create-constellation \
-		--name 'Any Saas application vs any SaaS application' \
 		--node leader_node=examples/nodes/saas-any.json \
 		--node follower_node=examples/nodes/saas-any.json \
 		--out $@
@@ -120,8 +121,7 @@ $(EX)/testplans/webfinger-server-imp-vs-saas-any.json : \
   dirs \
   $(EX)/session-templates/webfinger-server-all.json \
   $(EX)/constellations/imp-vs-saas-any.json
-	$(FEDITEST) generate-testplan \
-		--name 'WebFinger server tests (any SaaS)' \
+	$(FEDITEST) create-testplan \
 		--session-template $(EX)/session-templates/webfinger-server-all.json \
 		--constellation $(EX)/constellations/imp-vs-saas-any.json \
 		--out $@
@@ -130,7 +130,7 @@ $(EX)/testplans/webfinger-server-imp-vs-mastodon-local-ubos.json : \
   dirs \
   $(EX)/session-templates/webfinger-server-all.json \
   $(EX)/constellations/imp-vs-mastodon-local-ubos.json
-	$(FEDITEST) generate-testplan \
+	$(FEDITEST) create-testplan \
 		--name 'Mastodon WebFinger server tests (local, UBOS)' \
 		--session-template $(EX)/session-templates/webfinger-server-all.json \
 		--constellation $(EX)/constellations/imp-vs-mastodon-local-ubos.json \
@@ -140,7 +140,7 @@ $(EX)/testplans/webfinger-server-imp-vs-wordpress-local-ubos.json : \
   dirs \
   $(EX)/session-templates/webfinger-server-all.json \
   $(EX)/constellations/imp-vs-wordpress-local-ubos.json
-	$(FEDITEST) generate-testplan \
+	$(FEDITEST) create-testplan \
 		--name 'WordPress + ActivityPub WebFinger server tests (local, UBOS)' \
 		--session-template $(EX)/session-templates/webfinger-server-all.json \
 		--constellation $(EX)/constellations/imp-vs-wordpress-local-ubos.json \
@@ -150,8 +150,7 @@ $(EX)/testplans/fediverse-follow-saas-any-vs-saas-any.json : \
   dirs \
   $(EX)/session-templates/fediverse-follow.json \
   $(EX)/constellations/saas-any-vs-saas-any.json
-	$(FEDITEST) generate-testplan \
-		--name 'Manual follow (any two SaaS)' \
+	$(FEDITEST) create-testplan \
 		--session-template $(EX)/session-templates/fediverse-follow.json \
 		--constellation $(EX)/constellations/saas-any-vs-saas-any.json \
 		--out $@
@@ -160,10 +159,10 @@ $(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-wordpress-local-ubos.jso
   dirs \
   $(EX)/session-templates/fediverse-follow.json \
   $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json
-	$(FEDITEST) generate-testplan \
+	$(FEDITEST) create-testplan \
 		--name 'Manual follow Mastodon vs WordPress + ActivityPub (local, UBOS)' \
 		--session-template $(EX)/session-templates/fediverse-follow.json \
-		--constellation $(EX)/constellations/saas-any-vs-saas-any.json \
+		--constellation $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json \
 		--out $@
 
 
