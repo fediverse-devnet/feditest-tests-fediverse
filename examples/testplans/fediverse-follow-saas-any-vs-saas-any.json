@@ -12,7 +12,7 @@
                         "parameters": null
                     }
                 },
-                "name": "Any Saas application vs any SaaS application"
+                "name": null
             },
             "tests": [
                 {
@@ -21,9 +21,9 @@
                     "skip": null
                 }
             ],
-            "name": "Any Saas application vs any SaaS application"
+            "name": null
         }
     ],
-    "name": "Manual follow (any two SaaS)",
+    "name": null,
     "feditest_version": "0.3"
 }

@@ -1,6 +1,7 @@
 from hamcrest import none
 
-from feditest import InteropLevel, SkipTestException, SpecLevel, assert_that, test
+from feditest import InteropLevel, SpecLevel, assert_that, test
+from feditest.protocols import SkipTestException
 from feditest.protocols.web import WebClient
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import ClaimedJrd

@@ -12,7 +12,7 @@
                         "parameters": null
                     }
                 },
-                "name": "Any Saas application vs any SaaS application"
+                "name": "Mastodon vs WordPress + ActivityPub plugin (local, UBOS)"
             },
             "tests": [
                 {
@@ -21,7 +21,7 @@
                     "skip": null
                 }
             ],
-            "name": "Any Saas application vs any SaaS application"
+            "name": "Mastodon vs WordPress + ActivityPub plugin (local, UBOS)"
         }
     ],
     "name": "Manual follow Mastodon vs WordPress + ActivityPub (local, UBOS)",
