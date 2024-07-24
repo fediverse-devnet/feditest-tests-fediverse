@@ -62,4 +62,5 @@ def uses_valid_https_certificate(client: WebFingerClient, server: WebFingerServe
                     'Must use a valid HTTPS certificate.\n'
                     f'Accessed URI: "{ webfinger_request }".',
                 )
+        raise
 
