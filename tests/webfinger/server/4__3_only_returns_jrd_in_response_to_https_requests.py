@@ -1,8 +1,10 @@
-from hamcrest import any_of, equal_to, is_not, starts_with
+import ssl
 
-from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
+import httpx
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
+from feditest.protocols.web.traffic import HttpRequest, HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
+from hamcrest import any_of, equal_to, is_not, starts_with
 
 
 @test
@@ -41,3 +43,23 @@ def does_not_return_jrd_in_response_to_http(
             f'Returns JRD content.\nAccessed URI: "{ http_webfinger_uri }".',
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED) # if a server also responds to http, nothing bad happens
+
+
+@test
+def uses_valid_https_certificate(client: WebFingerClient, server: WebFingerServer):
+    account_id = server.obtain_account_identifier()
+    webfinger_request = client.construct_webfinger_uri_for(account_id)
+    try:
+        client.http_get(webfinger_request, verify=True)
+    except httpx.ConnectError as ex:
+        # Unpack the cause of the exception
+        cause = ex
+        while cause := getattr(cause, "__cause__", None):
+            if isinstance(cause, ssl.SSLCertVerificationError):
+                raise AssertionFailure(
+                    SpecLevel.MUST,
+                    InteropLevel.PROBLEM,
+                    'Must use a valid HTTPS certificate.\n'
+                    f'Accessed URI: "{ webfinger_request }".',
+                )
+
