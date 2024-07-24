@@ -1,9 +1,9 @@
-from hamcrest import equal_to, is_not, all_of
-
 from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.utils import uri_parse_validate
 from feditest.protocols.web.traffic import HttpResponse, ParsedUri
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
+from feditest.utils import uri_parse_validate
+from hamcrest import all_of, equal_to, is_not
+
 
 @test
 def only_https_requests(
@@ -13,7 +13,7 @@ def only_https_requests(
     test_ids =[ server.obtain_account_identifier() ]
 
     responses : list[HttpResponse] = server.transaction(
-            lambda:[ client.perform_webfinger_query(test_id) for test_id in test_ids ]
+            lambda:[ client.perform_webfinger_query(server, test_id) for test_id in test_ids ]
     ).entries()
 
     assert(len(responses) == len(test_ids))

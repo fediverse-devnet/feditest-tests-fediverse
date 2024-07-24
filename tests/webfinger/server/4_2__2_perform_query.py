@@ -1,8 +1,8 @@
-from hamcrest import none, not_none
-
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.utils import wf_error
+from hamcrest import none, not_none
+
 
 @test
 def normal_query(
@@ -14,7 +14,7 @@ def normal_query(
     """
     test_id = server.obtain_account_identifier()
 
-    webfinger_response = client.perform_webfinger_query(test_id)
+    webfinger_response = client.perform_webfinger_query(server, test_id)
 
     assert_that(
             webfinger_response.exc,
