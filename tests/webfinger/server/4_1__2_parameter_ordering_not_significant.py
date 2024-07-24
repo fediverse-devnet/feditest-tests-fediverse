@@ -1,11 +1,10 @@
-from hamcrest import none
-
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols import SkipTestException
 from feditest.protocols.web import WebClient
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import ClaimedJrd
 from feditest.protocols.webfinger.utils import none_except, recursive_equal_to, wf_error
+from hamcrest import none
 
 RELS = [
     'http://webfinger.net/rel/profile-page',
@@ -26,7 +25,7 @@ def parameter_ordering(
     first_webfinger_response = None
     for i in range(0, len(RELS)):
         rels = RELS[i:] + RELS[0:i]
-        webfinger_response = client.perform_webfinger_query(test_id, rels)
+        webfinger_response = client.perform_webfinger_query(server, test_id, rels)
 
         assert_that(
                 webfinger_response.exc,

@@ -4,6 +4,7 @@ from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
 
+
 @test
 def accept_example_response(
         client: WebFingerClient,
@@ -37,7 +38,7 @@ def accept_example_response(
 
     webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
             lambda:
-                client.perform_webfinger_query(test_id),
+                client.perform_webfinger_query(server, test_id),
             {
                 test_id : overridden_jrd_json_string
             }
