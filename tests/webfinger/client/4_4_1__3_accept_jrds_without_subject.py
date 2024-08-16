@@ -13,7 +13,7 @@ def accept_jrds_without_subject(
 
     test_id = server.obtain_account_identifier()
 
-    normal_response : WebFingerQueryResponse = client.perform_webfinger_query(test_id)
+    normal_response : WebFingerQueryResponse = client.perform_webfinger_query(server, test_id)
 
     if 'subject' in normal_response.jrd.subject():
         json_without_subject = json.loads(normal_response.jrd.as_json_string())
