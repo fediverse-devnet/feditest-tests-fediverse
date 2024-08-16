@@ -1,11 +1,11 @@
 {
     "roles": {
         "client": {
-            "nodedriver": "imp.ImpInProcessNodeDriver",
+            "nodedriver": "ImpInProcessNodeDriver",
             "parameters": null
         },
         "server": {
-            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "nodedriver": "SaasFediverseNodeDriver",
             "parameters": null
         }
     },

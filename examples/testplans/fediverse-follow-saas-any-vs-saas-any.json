@@ -4,11 +4,11 @@
             "constellation": {
                 "roles": {
                     "leader_node": {
-                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "nodedriver": "SaasFediverseNodeDriver",
                         "parameters": null
                     },
                     "follower_node": {
-                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                        "nodedriver": "SaasFediverseNodeDriver",
                         "parameters": null
                     }
                 },
@@ -25,5 +25,6 @@
         }
     ],
     "name": null,
+    "type": "feditest-testplan",
     "feditest_version": "0.3"
 }

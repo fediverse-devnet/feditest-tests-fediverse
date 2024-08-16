@@ -4,18 +4,12 @@
             "constellation": {
                 "roles": {
                     "client": {
-                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "nodedriver": "ImpInProcessNodeDriver",
                         "parameters": null
                     },
                     "server": {
-                        "nodedriver": "mastodon.MastodonUbosNodeDriver",
-                        "parameters": {
-                            "hostname": "mastodon.123.lan",
-                            "sitejsonfile": "ubos-sites/site-mastodon.json",
-                            "siteid": "s8fc9473a43ee638c4351137742764bc53d4c8d6c",
-                            "adminid": "j12t",
-                            "start-delay": 10
-                        }
+                        "nodedriver": "MastodonUbosNodeDriver",
+                        "parameters": null
                     }
                 },
                 "name": "Mastodon (local, UBOS)"
@@ -102,6 +96,11 @@
                     "skip": null
                 },
                 {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::uses_valid_https_certificate",
+                    "rolemapping": null,
+                    "skip": null
+                },
+                {
                     "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
                     "rolemapping": null,
                     "skip": null
@@ -111,5 +110,6 @@
         }
     ],
     "name": "Mastodon WebFinger server tests (local, UBOS)",
+    "type": "feditest-testplan",
     "feditest_version": "0.3"
 }

@@ -3,12 +3,12 @@
         {
             "constellation": {
                 "roles": {
-                    "leader_node": {
-                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                    "follower_node": {
+                        "nodedriver": "MastodonUbosNodeDriver",
                         "parameters": null
                     },
-                    "follower_node": {
-                        "nodedriver": "saas.SaasFediverseNodeDriver",
+                    "leader_node": {
+                        "nodedriver": "WordPressPlusActivityPubPluginUbosNodeDriver",
                         "parameters": null
                     }
                 },
@@ -25,5 +25,6 @@
         }
     ],
     "name": "Manual follow Mastodon vs WordPress + ActivityPub (local, UBOS)",
+    "type": "feditest-testplan",
     "feditest_version": "0.3"
 }
