@@ -1,11 +1,11 @@
 {
     "roles": {
         "leader_node": {
-            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "nodedriver": "SaasFediverseNodeDriver",
             "parameters": null
         },
         "follower_node": {
-            "nodedriver": "saas.SaasFediverseNodeDriver",
+            "nodedriver": "SaasFediverseNodeDriver",
             "parameters": null
         }
     },

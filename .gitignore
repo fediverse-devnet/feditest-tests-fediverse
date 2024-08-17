@@ -2,3 +2,4 @@ __pycache__/
 *.local/
 examples.*/
 production.*/
+.DS_Store

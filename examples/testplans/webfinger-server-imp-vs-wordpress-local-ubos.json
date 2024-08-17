@@ -4,17 +4,12 @@
             "constellation": {
                 "roles": {
                     "client": {
-                        "nodedriver": "imp.ImpInProcessNodeDriver",
+                        "nodedriver": "ImpInProcessNodeDriver",
                         "parameters": null
                     },
                     "server": {
-                        "nodedriver": "wordpress.WordPressPlusActivityPubPluginUbosNodeDriver",
-                        "parameters": {
-                            "hostname": "wordpress.123.lan",
-                            "backupfile": "ubos-sites/wordpress.123.lan.ubos-backup",
-                            "siteid": "se2e53e9fdbbad1431e6618540568874b5714b15b",
-                            "adminid": "j12t"
-                        }
+                        "nodedriver": "WordPressPlusActivityPubPluginUbosNodeDriver",
+                        "parameters": null
                     }
                 },
                 "name": "WordPress + ActivityPub plugin (local, UBOS)"
@@ -101,6 +96,11 @@
                     "skip": null
                 },
                 {
+                    "name": "webfinger.server.4__3_only_returns_jrd_in_response_to_https_requests::uses_valid_https_certificate",
+                    "rolemapping": null,
+                    "skip": null
+                },
+                {
                     "name": "webfinger.server.5_1_cors_header_required::cors_header_required",
                     "rolemapping": null,
                     "skip": null
@@ -110,5 +110,6 @@
         }
     ],
     "name": "WordPress + ActivityPub WebFinger server tests (local, UBOS)",
+    "type": "feditest-testplan",
     "feditest_version": "0.3"
 }
