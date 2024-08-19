@@ -20,7 +20,7 @@ def accept_jrds_without_subject(
         json_without_subject.pop('subject')
 
         without_subject_response : WebFingerQueryResponse = server.override_webfinger_response(
-            lambda: client.perform_webfinger_query(server, test_id),
+            lambda: client.perform_webfinger_query(test_id),
             {
                 test_id : json.dumps(json_without_subject)
             }

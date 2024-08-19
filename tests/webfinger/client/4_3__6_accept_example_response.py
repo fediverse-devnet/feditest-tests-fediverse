@@ -38,7 +38,7 @@ def accept_example_response(
 
     webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
             lambda:
-                client.perform_webfinger_query(server, test_id),
+                client.perform_webfinger_query(test_id),
             {
                 test_id : overridden_jrd_json_string
             }

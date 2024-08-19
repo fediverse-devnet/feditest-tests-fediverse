@@ -61,7 +61,7 @@ def accepts_known_link_rels_in_query(
     Tests one known link rel at a time.
     """
     test_id = server.obtain_account_identifier()
-    response_without_rel = client.perform_webfinger_query(server, test_id)
+    response_without_rel = client.perform_webfinger_query(test_id)
     if ( response_without_rel.exc
          and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
     ):
@@ -76,7 +76,7 @@ def accepts_known_link_rels_in_query(
 
     for rel in KNOWN_RELS:
         info(f'WebFinger query for resource "{test_id}" with rel "{rel}"')
-        response_with_rel : WebFingerQueryResponse = client.perform_webfinger_query(test_id, [rel])
+        response_with_rel : WebFingerQueryResponse = client.perform_webfinger_query(test_id, rels=[rel])
         assert_that(
                 response_without_rel.exc,
                 none(),
@@ -103,7 +103,7 @@ def accepts_unknown_link_rels_in_query(
     """
     test_id = server.obtain_account_identifier()
 
-    response_without_rel = client.perform_webfinger_query(server, test_id)
+    response_without_rel = client.perform_webfinger_query(test_id)
     if ( response_without_rel.exc
          and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
     ):
@@ -117,7 +117,7 @@ def accepts_unknown_link_rels_in_query(
             interop_level=InteropLevel.PROBLEM)
 
     for rel in UNKNOWN_RELS:
-        response_with_rel = client.perform_webfinger_query(test_id, [rel])
+        response_with_rel = client.perform_webfinger_query(test_id, rels=[rel])
         assert_that(
                 response_without_rel.exc,
                 none(),
@@ -144,7 +144,7 @@ def accepts_combined_link_rels_in_query(
     """
     test_id = server.obtain_account_identifier()
 
-    response_without_rel = client.perform_webfinger_query(server, test_id)
+    response_without_rel = client.perform_webfinger_query(test_id)
     if ( response_without_rel.exc
          and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
     ):
@@ -161,7 +161,7 @@ def accepts_combined_link_rels_in_query(
     for rel1 in KNOWN_RELS:
         for rel2 in UNKNOWN_RELS:
             rels = [rel1, rel2] if count % 2 else [rel2, rel1]
-            response_with_rel = client.perform_webfinger_query(test_id, rels)
+            response_with_rel = client.perform_webfinger_query(test_id, rels=rels)
             assert_that(
                     response_without_rel.exc,
                     none(),

@@ -25,7 +25,7 @@ def parameter_ordering(
     first_webfinger_response = None
     for i in range(0, len(RELS)):
         rels = RELS[i:] + RELS[0:i]
-        webfinger_response = client.perform_webfinger_query(server, test_id, rels)
+        webfinger_response = client.perform_webfinger_query(test_id, rels=rels)
 
         assert_that(
                 webfinger_response.exc,

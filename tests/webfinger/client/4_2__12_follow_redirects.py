@@ -16,7 +16,7 @@ def follow_redirects(
     webfinger_uri = client.construct_webfinger_uri_for(test_id)
     hostname = server.hostname
 
-    normal_response = client.perform_webfinger_query(server, test_id)
+    normal_response = client.perform_webfinger_query(test_id)
 
     # can have any arguments per section 7
     redirect_https_uri = f'https://{ hostname }/foo?abc=def&ghi=jkl'
@@ -25,7 +25,7 @@ def follow_redirects(
     jrd_headers = MultiDict([('content-type', 'application/jrd+json')])
 
     overridden_redirect_to_https_response : WebFingerQueryResponse = server.override_http_response(
-            lambda: client.perform_webfinger_query(server, test_id),
+            lambda: client.perform_webfinger_query(test_id),
             {
                 webfinger_uri : HttpResponse(301,  MultiDict([('location', redirect_https_uri)]).extend(jrd_headers), None ),
                 redirect_https_uri : HttpResponse( 200, jrd_headers, normal_response.http_request_response_pair.response.payload)
@@ -34,7 +34,7 @@ def follow_redirects(
     assert_that(overridden_redirect_to_https_response, equal_to(normal_response), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)
 
     overridden_redirect_to_http_response : WebFingerQueryResponse = server.override_http_response(
-            lambda: client.perform_webfinger_query(server, test_id),
+            lambda: client.perform_webfinger_query(test_id),
             {
                 webfinger_uri : HttpResponse(301, MultiDict([('location', redirect_http_uri)]).extend(jrd_headers), None ),
                 redirect_http_uri : HttpResponse( 200, jrd_headers, normal_response.http_request_response_pair.response.payload)

@@ -14,7 +14,7 @@ def normal_query(
     """
     test_id = server.obtain_account_identifier()
 
-    webfinger_response = client.perform_webfinger_query(server, test_id)
+    webfinger_response = client.perform_webfinger_query(test_id)
 
     assert_that(
             webfinger_response.exc,

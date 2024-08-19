@@ -22,7 +22,7 @@ def accept_jrds_with_subject(
 
         with_subject_response = server.override_webfinger_response(
             lambda:
-                client.perform_webfinger_query(server, test_id),
+                client.perform_webfinger_query(test_id),
             {
                 test_id : json.dumps(json_with_subject)
             }
