@@ -14,7 +14,7 @@ def must_only_redirect_to_https(
     """
     test_id = server.obtain_account_identifier()
 
-    response : WebFingerQueryResponse = client.perform_webfinger_query(server, test_id)
+    response : WebFingerQueryResponse = client.perform_webfinger_query(test_id)
     assert_that(
             response.http_request_response_pair.final_request.uri.scheme,
             equal_to('https'),

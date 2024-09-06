@@ -14,7 +14,7 @@ def cors_header_required(
     """
     test_id = server.obtain_account_identifier()
 
-    pair = client.perform_webfinger_query(server, test_id).http_request_response_pair
+    pair = client.perform_webfinger_query(test_id).http_request_response_pair
 
     assert_that(
             'access-control-allow-origin' in pair.response.response_headers,

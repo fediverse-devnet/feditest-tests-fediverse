@@ -10,10 +10,10 @@ def only_https_requests(
         client: WebFingerClient,
         server: WebFingerServer
 ) -> None:
-    test_ids =[ server.obtain_account_identifier() ]
+    test_ids = [ server.obtain_account_identifier() ]
 
     responses : list[HttpResponse] = server.transaction(
-            lambda:[ client.perform_webfinger_query(server, test_id) for test_id in test_ids ]
+            lambda:[ client.perform_webfinger_query(test_id) for test_id in test_ids ]
     ).entries()
 
     assert(len(responses) == len(test_ids))
