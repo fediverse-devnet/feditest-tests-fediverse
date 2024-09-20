@@ -5,11 +5,15 @@
                 "roles": {
                     "client": {
                         "nodedriver": "ImpInProcessNodeDriver",
-                        "parameters": null
+                        "parameters": null,
+                        "accounts": null,
+                        "non_existing_accounts": null
                     },
                     "server": {
                         "nodedriver": "MastodonUbosNodeDriver",
-                        "parameters": null
+                        "parameters": null,
+                        "accounts": null,
+                        "non_existing_accounts": null
                     }
                 },
                 "name": "Mastodon (local, UBOS)"

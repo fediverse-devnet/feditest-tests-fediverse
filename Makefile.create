@@ -31,7 +31,9 @@ $(EX) : \
 
 $(EX)-session-templates : \
   $(EX)/session-templates/webfinger-server-all.json \
-  $(EX)/session-templates/fediverse-follow.json
+  $(EX)/session-templates/fediverse-follow.json \
+  $(EX)/session-templates/fediverse-note-delivery.json
+
 
 $(EX)/session-templates/webfinger-server-all.json : \
   dirs \
@@ -57,6 +59,7 @@ $(EX)-constellations : \
   $(EX)/constellations/saas-any-vs-saas-any.json \
   $(EX)/constellations/imp-vs-mastodon-local-ubos.json \
   $(EX)/constellations/imp-vs-wordpress-local-ubos.json \
+  $(EX)/constellations/mastodon-local-ubos-vs-mastodon-local-ubos.json \
   $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json
 
 $(EX)/constellations/imp-vs-saas-any.json : \
@@ -97,6 +100,16 @@ $(EX)/constellations/imp-vs-wordpress-local-ubos.json : \
 		--node server=examples/nodes/wordpress-local-ubos.json \
 		--out $@
 
+$(EX)/constellations/mastodon-local-ubos-vs-mastodon-local-ubos.json : \
+  dirs \
+  examples/nodes/mastodon-local-ubos.json \
+  examples/nodes/mastodon-local-ubos.json
+	$(FEDITEST) create-constellation \
+		--name 'Mastodon vs Mastodon (local, UBOS)' \
+		--node follower_node=examples/nodes/mastodon-local-ubos.json \
+		--node leader_node=examples/nodes/mastodon-local-ubos.json \
+		--out $@
+
 $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json : \
   dirs \
   examples/nodes/mastodon-local-ubos.json \
@@ -107,7 +120,6 @@ $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json : \
 		--node leader_node=examples/nodes/wordpress-local-ubos.json \
 		--out $@
 
-
 ##### Example test plans ##########
 
 $(EX)-testplans : \
@@ -115,7 +127,9 @@ $(EX)-testplans : \
   $(EX)/testplans/webfinger-server-imp-vs-mastodon-local-ubos.json \
   $(EX)/testplans/webfinger-server-imp-vs-wordpress-local-ubos.json \
   $(EX)/testplans/fediverse-follow-saas-any-vs-saas-any.json \
-  $(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-wordpress-local-ubos.json
+  $(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-mastodon-local-ubos.json \
+  $(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-wordpress-local-ubos.json \
+  $(EX)/testplans/fediverse-note-delivery-mastodon-local-ubos-vs-mastodon-local-ubos.json
 
 $(EX)/testplans/webfinger-server-imp-vs-saas-any.json : \
   dirs \
@@ -155,16 +169,35 @@ $(EX)/testplans/fediverse-follow-saas-any-vs-saas-any.json : \
 		--constellation $(EX)/constellations/saas-any-vs-saas-any.json \
 		--out $@
 
+$(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-mastodon-local-ubos.json : \
+  dirs \
+  $(EX)/session-templates/fediverse-follow.json \
+  $(EX)/constellations/mastodon-local-ubos-vs-mastodon-local-ubos.json
+	$(FEDITEST) create-testplan \
+		--name 'Follow Mastodon vs Mastodon (local, UBOS)' \
+		--session-template $(EX)/session-templates/fediverse-follow.json \
+		--constellation $(EX)/constellations/mastodon-local-ubos-vs-mastodon-local-ubos.json \
+		--out $@
+
 $(EX)/testplans/fediverse-follow-mastodon-local-ubos-vs-wordpress-local-ubos.json : \
   dirs \
   $(EX)/session-templates/fediverse-follow.json \
   $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json
 	$(FEDITEST) create-testplan \
-		--name 'Manual follow Mastodon vs WordPress + ActivityPub (local, UBOS)' \
+		--name 'Follow Mastodon vs WordPress + ActivityPub (local, UBOS)' \
 		--session-template $(EX)/session-templates/fediverse-follow.json \
 		--constellation $(EX)/constellations/mastodon-local-ubos-vs-wordpress-local-ubos.json \
 		--out $@
 
+$(EX)/testplans/fediverse-note-delivery-mastodon-local-ubos-vs-mastodon-local-ubos.json : \
+  dirs \
+  $(EX)/session-templates/fediverse-note-delivery.json \
+  $(EX)/constellations/mastodon-local-ubos-vs-mastodon-local-ubos.json
+	$(FEDITEST) create-testplan \
+		--name 'Note delivery Mastodon vs Mastodon (local, UBOS)' \
+		--session-template $(EX)/session-templates/fediverse-note-delivery.json \
+		--constellation $(EX)/constellations/mastodon-local-ubos-vs-mastodon-local-ubos.json \
+		--out $@
 
 ########## and the rest ##########
 

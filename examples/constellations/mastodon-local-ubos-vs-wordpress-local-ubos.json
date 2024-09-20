@@ -2,11 +2,15 @@
     "roles": {
         "follower_node": {
             "nodedriver": "MastodonUbosNodeDriver",
-            "parameters": null
+            "parameters": null,
+            "accounts": null,
+            "non_existing_accounts": null
         },
         "leader_node": {
             "nodedriver": "WordPressPlusActivityPubPluginUbosNodeDriver",
-            "parameters": null
+            "parameters": null,
+            "accounts": null,
+            "non_existing_accounts": null
         }
     },
     "name": "Mastodon vs WordPress + ActivityPub plugin (local, UBOS)"
