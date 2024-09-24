@@ -1,12 +1,16 @@
 {
     "roles": {
         "leader_node": {
-            "nodedriver": "SaasFediverseNodeDriver",
-            "parameters": null
+            "nodedriver": "FediverseSaasNodeDriver",
+            "parameters": null,
+            "accounts": null,
+            "non_existing_accounts": null
         },
         "follower_node": {
-            "nodedriver": "SaasFediverseNodeDriver",
-            "parameters": null
+            "nodedriver": "FediverseSaasNodeDriver",
+            "parameters": null,
+            "accounts": null,
+            "non_existing_accounts": null
         }
     },
     "name": null

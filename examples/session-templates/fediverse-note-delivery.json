@@ -8,13 +8,13 @@
     },
     "tests": [
         {
-            "name": "fediverse.follow.leader_accepts_follow_request::AcceptFollowTest",
+            "name": "fediverse.create.deliver_to_inbox::DeliverToInboxTest",
             "rolemapping": {
-                "follower_node": "follower_node",
-                "leader_node": "leader_node"
+                "sender_node": "leader_node",
+                "receiver_node": "follower_node"
             },
             "skip": null
         }
     ],
-    "name": "Can a Fediverse account follow another"
+    "name": "Do created Notes get delivered"
 }

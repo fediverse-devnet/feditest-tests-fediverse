@@ -9,16 +9,15 @@
 FEDITEST=feditest
 Q=
 # Could set from the command-line to something like: 'Q=.$(shell git branch --show-current)'
-
 EX=examples$(Q)
+VERBOSE=-v
 
 EXAMPLES_TESTPLANS= \
   webfinger-server-imp-vs-mastodon-local-ubos \
   webfinger-server-imp-vs-saas-any \
-  webfinger-server-imp-vs-wordpress-local-ubos
-
-PRODUCTION_TESTPLANS= \
-  webfinger-server-all-wellknown-saas-imp \
+  webfinger-server-imp-vs-wordpress-local-ubos \
+  fediverse-follow-mastodon-local-ubos-vs-mastodon-local-ubos \
+  fediverse-follow-mastodon-local-ubos-vs-wordpress-local-ubos
 
 default : all
 
@@ -43,20 +42,20 @@ $(EX)-transcripts-html : \
 
 # Given a testplan in $(EX)/testplans, run it and generate a testrun JSON transcript in $(EX)/testresults with the same name
 $(EX)/testresults/%.json : $(EX)/testplans/%.json $(EX)/testresults/.touch
-	$(FEDITEST) run \
+	$(FEDITEST) $(VERBOSE) run \
 		--testplan $< \
 		--json $@ \
 	|| echo 'ERRORS in the test run (as expected), so we continue'
 
 # Given a testrun JSON transcript, convert it to TAP format
 %.tap : %.json
-	$(FEDITEST) convert-transcript \
+	$(FEDITEST) $(VERBOSE) convert-transcript \
 		--in $< \
 		--tap $@
 
 # Given a testrun JSON transcript, convert it to HTML format with the default template
 %.html : %.json
-	$(FEDITEST) convert-transcript \
+	$(FEDITEST) $(VERBOSE) convert-transcript \
 		--in $< \
 		--html $@
 
