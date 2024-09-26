@@ -89,6 +89,6 @@ class FollowTest:
     def wait_until_timeoutd(self):
         try :
             self.follower_node.wait_until_actor_has_received_note(self.follower_actor_uri, self.leader_note_after_unfollow_uri, max_wait=5)
-            raise AssertionFailure(SpecLevel.IMPLIED, InteropLevel.DEGRADED, "Received Note from leader after unfollowing")
+            raise AssertionFailure(SpecLevel.IMPLIED, InteropLevel.PROBLEM, "Received Note from leader after unfollowing")
         except TimeoutException as e:
             pass # Correct
