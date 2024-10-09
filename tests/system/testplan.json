@@ -1,0 +1,28 @@
+{
+    "sessions": [
+        {
+            "constellation": {
+                "roles": {
+                    "node1": {
+                        "nodedriver": "MastodonUbosNodeDriver"
+                    },
+                    "node2": {
+                        "nodedriver": "MastodonUbosNodeDriver"
+                    }
+                },
+                "name": null
+            },
+            "tests": [
+                {
+                    "name": "announce::AnnounceTest",
+                    "rolemapping": null,
+                    "skip": null
+                }
+            ],
+            "name": null
+        }
+    ],
+    "name": null,
+    "type": "feditest-testplan",
+    "feditest_version": "0.3"
+}

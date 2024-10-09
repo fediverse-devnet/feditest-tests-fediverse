@@ -1,3 +1,3 @@
 """
-Tests the WebFinger standard.
+Tests conformance to the WebFinger protocol.
 """

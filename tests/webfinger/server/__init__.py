@@ -1,3 +1,3 @@
 """
-Tests for the server side of the WebFinger standard.
+Tests for the server side of the WebFinger protocol.
 """

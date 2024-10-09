@@ -1,4 +1,4 @@
-from feditest import InteropLevel, SpecLevel, assert_that, test
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols import SkipTestException
 from feditest.protocols.web import WebClient
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
@@ -27,12 +27,11 @@ def parameter_ordering(
         rels = RELS[i:] + RELS[0:i]
         webfinger_response = client.perform_webfinger_query(test_id, rels=rels)
 
-        assert_that(
-                webfinger_response.exc,
-                none(),
-                wf_error(webfinger_response),
-                spec_level=SpecLevel.MUST,
-                interop_level=InteropLevel.PROBLEM)
+        if webfinger_response.exc:
+            raise AssertionFailure(
+                    spec_level=SpecLevel.MUST,
+                    interop_level=InteropLevel.PROBLEM,
+                    msg=wf_error(webfinger_response))
 
         if i == 0:
             first_webfinger_response = webfinger_response
