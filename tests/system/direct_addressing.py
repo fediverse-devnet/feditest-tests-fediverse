@@ -6,8 +6,7 @@ Tests that a note by actor A is delivered to an actor B on a different Fediverse
 
 from datetime import datetime
 
-from feditest import AssertionFailure, InteropLevel, SpecLevel, step, test
-from feditest.protocols import TimeoutException
+from feditest import step, test
 from feditest.protocols.fediverse import FediverseNode
 
 @test

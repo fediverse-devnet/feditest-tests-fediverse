@@ -2,13 +2,14 @@ from urllib.parse import quote
 from hamcrest import any_of, equal_to, greater_than_or_equal_to, less_than
 
 from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
+from feditest.protocols.web.diag import HttpResponse
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import WebFingerDiagClient
 
 
 @test
 def any_uri_scheme_for_resource_identifiers(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """

@@ -1,12 +1,11 @@
 from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpRequestResponsePair
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.utils import multi_dict_has_key
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import WebFingerDiagClient
 
 
 @test
 def cors_header_required(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -14,7 +13,7 @@ def cors_header_required(
     """
     test_id = server.obtain_account_identifier()
 
-    pair = client.perform_webfinger_query(test_id).http_request_response_pair
+    pair = client.diag_perform_webfinger_query(test_id).http_request_response_pair
 
     assert_that(
             'access-control-allow-origin' in pair.response.response_headers,

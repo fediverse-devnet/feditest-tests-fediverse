@@ -16,8 +16,7 @@ and both see the Like.
 
 from datetime import datetime
 
-from feditest import AssertionFailure, InteropLevel, SpecLevel, step, test
-from feditest.protocols import TimeoutException
+from feditest import step, test
 from feditest.protocols.fediverse import FediverseNode
 
 @test

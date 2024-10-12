@@ -1,14 +1,15 @@
 from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
+from feditest.protocols.web.diag import HttpResponse
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import WebFingerDiagClient
+from feditest.protocols.webfinger.diag import WebFingerQueryResponse
 from hamcrest import equal_to
 from multidict import MultiDict
 
 
 @test
 def follow_redirects(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
 

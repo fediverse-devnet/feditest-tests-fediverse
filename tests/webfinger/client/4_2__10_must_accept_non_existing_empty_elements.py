@@ -2,7 +2,7 @@ import json
 
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.traffic import WebFingerQueryResponse
+from feditest.protocols.webfinger.diag import WebFingerQueryResponse
 from hamcrest import calling, is_not, raises
 
 

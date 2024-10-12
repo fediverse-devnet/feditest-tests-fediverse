@@ -4,20 +4,20 @@ import urllib
 from hamcrest import all_of, equal_to, greater_than_or_equal_to, less_than
 
 from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.traffic import ClaimedJrd
+from feditest.protocols.web.diag import HttpResponse
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient
 
 
 @test
 def requires_valid_resource_uri_http_status(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
     Do not accept malformed resource parameters. Test HTTP status for missing acct: scheme.
     """
-    # We use the lower-level API from WebClient because we can't make the WebFingerClient do something invalid
+    # We use the lower-level API from WebClient because we can't make the WebFingerDiagClient do something invalid
     test_id : str = server.obtain_account_identifier()
     hostname : str = server.hostname
 
@@ -43,13 +43,13 @@ def requires_valid_resource_uri_http_status(
 
 @test
 def requires_valid_resource_uri_jrd(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
     Do not accept malformed resource parameters. Test JRD content for missing acct: scheme.
     """
-    # We use the lower-level API from WebClient because we can't make the WebFingerClient do something invalid
+    # We use the lower-level API from WebClient because we can't make the WebFingerDiagClient do something invalid
     test_id : str = server.obtain_account_identifier()
     hostname : str = server.hostname
 
@@ -79,7 +79,7 @@ def requires_valid_resource_uri_jrd(
 
 @test
 def double_equals_http_status(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -110,7 +110,7 @@ def double_equals_http_status(
 
 @test
 def double_equals_jrd(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """

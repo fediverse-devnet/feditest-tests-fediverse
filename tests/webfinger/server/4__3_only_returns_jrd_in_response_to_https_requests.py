@@ -1,15 +1,14 @@
-import ssl
-
-import httpx
 from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpRequest, HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
+from feditest.protocols.web.diag import HttpResponse, WebDiagClient
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import WebFingerDiagClient
+from feditest.protocols.webfinger.utils import construct_webfinger_uri_for
 from hamcrest import any_of, equal_to, is_not, starts_with
 
 
 @test
 def does_not_return_jrd_in_response_to_http(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -17,7 +16,7 @@ def does_not_return_jrd_in_response_to_http(
     """
     test_id = server.obtain_account_identifier()
 
-    correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
+    correct_webfinger_uri = construct_webfinger_uri_for(test_id)
     assert_that(
             correct_webfinger_uri,
             starts_with('https://'),
@@ -46,21 +45,17 @@ def does_not_return_jrd_in_response_to_http(
 
 
 @test
-def uses_valid_https_certificate(client: WebFingerClient, server: WebFingerServer):
+def uses_valid_https_certificate(client: WebFingerDiagClient, server: WebFingerServer):
     account_id = server.obtain_account_identifier()
-    webfinger_request = client.construct_webfinger_uri_for(account_id)
+    webfinger_request = construct_webfinger_uri_for(account_id)
     try:
         client.http_get(webfinger_request, verify=True)
-    except httpx.ConnectError as ex:
-        # Unpack the cause of the exception
-        cause = ex
-        while cause := getattr(cause, "__cause__", None):
-            if isinstance(cause, ssl.SSLCertVerificationError):
-                raise AssertionFailure(
-                    SpecLevel.MUST,
-                    InteropLevel.PROBLEM,
-                    'Must use a valid HTTPS certificate.\n'
-                    f'Accessed URI: "{ webfinger_request }".',
-                )
-        raise
+
+    except WebDiagClient.TlsError as ex:
+        raise AssertionFailure(
+            SpecLevel.MUST,
+            InteropLevel.PROBLEM,
+            'Must use a valid HTTPS certificate.\n'
+            f'Accessed URI: "{ webfinger_request }".',
+        )
 

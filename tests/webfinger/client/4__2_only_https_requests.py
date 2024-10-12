@@ -1,7 +1,7 @@
 from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse, ParsedUri
+from feditest.protocols.web.diag import HttpResponse
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.utils import uri_parse_validate
+from feditest.utils import uri_parse_validate, ParsedUri
 from hamcrest import all_of, equal_to, is_not
 
 

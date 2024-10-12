@@ -1,15 +1,14 @@
+from hamcrest import none
+
 from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols import SkipTestException
-from feditest.protocols.web import WebClient
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.traffic import ClaimedJrd, WebFingerQueryResponse
+from feditest.nodedrivers import SkipTestException
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient, WebFingerQueryResponse
 from feditest.protocols.webfinger.utils import (
     link_subset_or_equal_to,
-    none_except,
     wf_error,
 )
 from feditest.reporting import info
-from hamcrest import none
 
 # Note: we do not try all the known rel values, only the ones known to be used in a webfinger context
 # See also https://fedidevs.org/reference/webfinger/
@@ -53,7 +52,7 @@ UNKNOWN_RELS = [ # not known to be used in webfinger files, likely not real
 
 @test
 def accepts_known_link_rels_in_query(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -61,9 +60,9 @@ def accepts_known_link_rels_in_query(
     Tests one known link rel at a time.
     """
     test_id = server.obtain_account_identifier()
-    response_without_rel = client.perform_webfinger_query(test_id)
+    response_without_rel = client.diag_perform_webfinger_query(test_id)
     if ( response_without_rel.exc
-         and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+         and response_without_rel.exc in (WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
     ):
         raise SkipTestException('Error covered by another test')
 
@@ -76,7 +75,7 @@ def accepts_known_link_rels_in_query(
 
     for rel in KNOWN_RELS:
         info(f'WebFinger query for resource "{test_id}" with rel "{rel}"')
-        response_with_rel : WebFingerQueryResponse = client.perform_webfinger_query(test_id, rels=[rel])
+        response_with_rel : WebFingerQueryResponse = client.diag_perform_webfinger_query(test_id, rels=[rel])
         assert_that(
                 response_without_rel.exc,
                 none(),
@@ -94,7 +93,7 @@ def accepts_known_link_rels_in_query(
 
 @test
 def accepts_unknown_link_rels_in_query(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -103,9 +102,9 @@ def accepts_unknown_link_rels_in_query(
     """
     test_id = server.obtain_account_identifier()
 
-    response_without_rel = client.perform_webfinger_query(test_id)
+    response_without_rel = client.diag_perform_webfinger_query(test_id)
     if ( response_without_rel.exc
-         and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+         and response_without_rel.exc in (WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
     ):
         raise SkipTestException('Error covered by another test')
 
@@ -117,7 +116,7 @@ def accepts_unknown_link_rels_in_query(
             interop_level=InteropLevel.PROBLEM)
 
     for rel in UNKNOWN_RELS:
-        response_with_rel = client.perform_webfinger_query(test_id, rels=[rel])
+        response_with_rel = client.diag_perform_webfinger_query(test_id, rels=[rel])
         assert_that(
                 response_without_rel.exc,
                 none(),
@@ -135,7 +134,7 @@ def accepts_unknown_link_rels_in_query(
 
 @test
 def accepts_combined_link_rels_in_query(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -144,9 +143,9 @@ def accepts_combined_link_rels_in_query(
     """
     test_id = server.obtain_account_identifier()
 
-    response_without_rel = client.perform_webfinger_query(test_id)
+    response_without_rel = client.diag_perform_webfinger_query(test_id)
     if ( response_without_rel.exc
-         and response_without_rel.exc in (WebClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+         and response_without_rel.exc in (WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
     ):
         raise SkipTestException('Error covered by another test')
 
@@ -161,7 +160,7 @@ def accepts_combined_link_rels_in_query(
     for rel1 in KNOWN_RELS:
         for rel2 in UNKNOWN_RELS:
             rels = [rel1, rel2] if count % 2 else [rel2, rel1]
-            response_with_rel = client.perform_webfinger_query(test_id, rels=rels)
+            response_with_rel = client.diag_perform_webfinger_query(test_id, rels=rels)
             assert_that(
                     response_without_rel.exc,
                     none(),

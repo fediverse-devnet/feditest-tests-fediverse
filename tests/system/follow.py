@@ -9,7 +9,7 @@ Tests that actors on two different Fediverse Nodes can:
 from datetime import datetime
 
 from feditest import AssertionFailure, InteropLevel, SpecLevel, step, test
-from feditest.protocols import TimeoutException
+from feditest.nodedrivers import TimeoutException
 from feditest.protocols.fediverse import FediverseNode
 
 @test
