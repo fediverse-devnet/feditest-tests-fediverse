@@ -32,7 +32,7 @@ def normal_query(
             interop_level=InteropLevel.PROBLEM)
 
     try:
-        webfinger_response.jrd.validate()
+        webfinger_response.jrd.validate() # type: ignore [union-attr]
 
     except Exception as e:
         assert_that(False, wf_error(webfinger_response), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)

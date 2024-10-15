@@ -16,10 +16,10 @@ def must_only_redirect_to_https(
 
     response : WebFingerQueryResponse = client.diag_perform_webfinger_query(test_id)
     assert_that(
-            response.http_request_response_pair.final_request.uri.scheme,
+            response.http_request_response_pair.final_request.parsed_uri.scheme,
             equal_to('https'),
             f'Not https.\n'
             + 'Identifier: "{ test_id }" leads to'
-            + f' final request URI { response.http_request_response_pair.final_request.uri.get_uri() }.',
+            + f' final request URI { response.http_request_response_pair.final_request.parsed_uri.uri }.',
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)

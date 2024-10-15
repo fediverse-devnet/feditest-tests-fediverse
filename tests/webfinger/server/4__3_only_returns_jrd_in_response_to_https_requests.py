@@ -27,7 +27,10 @@ def does_not_return_jrd_in_response_to_http(
     http_webfinger_uri = correct_webfinger_uri.replace('https:', 'http:')
     assert(http_webfinger_uri.startswith('http://'))
 
-    http_response : HttpResponse = client.http_get(http_webfinger_uri, follow_redirects=False).response
+    http_response = client.http_get(http_webfinger_uri, follow_redirects=False).response
+    if not http_response:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
     assert_that(
             http_response.http_status,
             is_not(equal_to(200)),

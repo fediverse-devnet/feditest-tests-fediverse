@@ -1,6 +1,6 @@
 from hamcrest import any_of, equal_to, is_not, starts_with
 
-from feditest import InteropLevel, SpecLevel, assert_that, test
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.diag import HttpResponse
 from feditest.protocols.webfinger import WebFingerServer
 from feditest.protocols.webfinger.diag import WebFingerDiagClient
@@ -20,7 +20,10 @@ def returns_jrd_in_response_to_https(
     correct_webfinger_uri = construct_webfinger_uri_for(test_id)
     assert(correct_webfinger_uri.startswith('https://')) # This is a server-side test, we are not testing the client
 
-    correct_https_response : HttpResponse = client.http_get(correct_webfinger_uri).response
+    correct_https_response = client.http_get(correct_webfinger_uri).response
+    if not correct_https_response:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
     assert_that(
             correct_https_response.http_status,
             equal_to(200),

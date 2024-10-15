@@ -1,5 +1,4 @@
-__pycache__/
-*.local/
-examples.*/
-production.*/
 .DS_Store
+examples/
+venv.*/
+__pycache__/

@@ -1,6 +1,6 @@
 from hamcrest import none
 
-from feditest import InteropLevel, SpecLevel, assert_that, test
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
 from feditest.nodedrivers import SkipTestException
 from feditest.protocols.webfinger import WebFingerServer
 from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient, WebFingerQueryResponse
@@ -66,6 +66,9 @@ def accepts_known_link_rels_in_query(
     ):
         raise SkipTestException('Error covered by another test')
 
+    if not response_without_rel.jrd:
+        raise SkipTestException('Error covered by another test')
+
     assert_that(
             response_without_rel.exc,
             none(),
@@ -76,6 +79,9 @@ def accepts_known_link_rels_in_query(
     for rel in KNOWN_RELS:
         info(f'WebFinger query for resource "{test_id}" with rel "{rel}"')
         response_with_rel : WebFingerQueryResponse = client.diag_perform_webfinger_query(test_id, rels=[rel])
+        if not response_with_rel.jrd:
+            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, 'JRD cannot be parsed')
+
         assert_that(
                 response_without_rel.exc,
                 none(),
@@ -86,7 +92,7 @@ def accepts_known_link_rels_in_query(
                 response_with_rel.jrd,
                 link_subset_or_equal_to(response_without_rel.jrd),
                 'Not same or subset of links.'
-                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }" with rel { rel } vs none.',
+                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.parsed_uri.uri }" with rel { rel } vs none.',
                 spec_level=SpecLevel.MUST,
                 interop_level=InteropLevel.PROBLEM)
 
@@ -108,6 +114,9 @@ def accepts_unknown_link_rels_in_query(
     ):
         raise SkipTestException('Error covered by another test')
 
+    if not response_without_rel.jrd:
+        raise SkipTestException('Error covered by another test')
+
     assert_that(
             response_without_rel.exc,
             none(),
@@ -117,6 +126,9 @@ def accepts_unknown_link_rels_in_query(
 
     for rel in UNKNOWN_RELS:
         response_with_rel = client.diag_perform_webfinger_query(test_id, rels=[rel])
+        if not response_with_rel.jrd:
+            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, 'JRD cannot be parsed')
+
         assert_that(
                 response_without_rel.exc,
                 none(),
@@ -127,7 +139,7 @@ def accepts_unknown_link_rels_in_query(
                 response_with_rel.jrd,
                 link_subset_or_equal_to(response_without_rel.jrd),
                 'Not same or subset of links.'
-                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }" with rel { rel } vs none.',
+                + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.parsed_uri.uri }" with rel { rel } vs none.',
                 spec_level=SpecLevel.MUST,
                 interop_level=InteropLevel.PROBLEM)
 
@@ -149,6 +161,9 @@ def accepts_combined_link_rels_in_query(
     ):
         raise SkipTestException('Error covered by another test')
 
+    if not response_without_rel.jrd:
+        raise SkipTestException('Error covered by another test')
+
     assert_that(
             response_without_rel.exc,
             none(),
@@ -161,6 +176,10 @@ def accepts_combined_link_rels_in_query(
         for rel2 in UNKNOWN_RELS:
             rels = [rel1, rel2] if count % 2 else [rel2, rel1]
             response_with_rel = client.diag_perform_webfinger_query(test_id, rels=rels)
+
+            if not response_with_rel.jrd:
+                raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, 'JRD cannot be parsed')
+
             assert_that(
                     response_without_rel.exc,
                     none(),
@@ -171,7 +190,7 @@ def accepts_combined_link_rels_in_query(
                     response_with_rel.jrd,
                     link_subset_or_equal_to(response_without_rel.jrd),
                     'Not same or subset of links.'
-                    + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.uri.get_uri() }"'
+                    + f'\nAccessed URI: "{ response_with_rel.http_request_response_pair.request.parsed_uri.uri }"'
                     + f' with rels { rels[0] } and { rels[1] } vs none.',
                     spec_level=SpecLevel.MUST,
                     interop_level=InteropLevel.PROBLEM)
