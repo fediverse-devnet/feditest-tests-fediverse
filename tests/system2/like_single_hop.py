@@ -1,10 +1,3 @@
-"""
-Tests that a note by actor A can be Liked by an actor B on a different Fediverse Node
-and both see the Like. Unlike works the reverse.
-
-https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/149
-"""
-
 from datetime import datetime
 
 from feditest import poll_until, step, test
@@ -13,6 +6,12 @@ from feditest.reporting import info
 
 @test
 class LikeTest:
+    """
+    Tests that actor B can like a note by actor A on a different Fediverse Node
+    and both see the Like. Unlike works the reverse.
+
+    https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/149
+    """
     def __init__(self,
         sender_node: FediverseNode,
         receiver_node: FediverseNode

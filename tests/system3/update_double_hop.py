@@ -1,7 +1,3 @@
-"""
-Test double-hop update
-"""
-
 import time
 
 from feditest import poll_but_not, poll_until, step, test
@@ -10,7 +6,10 @@ from feditest.reporting import info
 
 
 @test
-class DeleteDoubleHopTest:
+class UpdateDoubleHopTest:
+    """
+    Test double-hop update.
+    """
     def __init__(self,
         node1: FediverseNode,
         node2: FediverseNode,

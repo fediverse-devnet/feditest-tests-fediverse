@@ -1,9 +1,3 @@
-"""
-Test single-hop delete
-
-See also: https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/3
-"""
-
 from datetime import datetime
 import time
 
@@ -14,6 +8,10 @@ from feditest.reporting import info
 
 @test
 class DeleteSingleHopTest:
+    """
+    Test single-hop delete.
+    See also: https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/3
+    """
     def __init__(self,
         sender_node: FediverseNode,
         receiver_node: FediverseNode

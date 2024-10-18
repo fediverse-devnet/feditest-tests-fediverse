@@ -1,10 +1,3 @@
-"""
-Tests that a note by actor A can be Replied by an actor B on a different Fediverse Node
-and both see the Reply.
-
-https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/128
-"""
-
 from datetime import datetime
 
 from hamcrest import contains_string, equal_to
@@ -16,6 +9,11 @@ from feditest.reporting import info
 
 @test
 class ReplyTest:
+    """
+    Tests that actor B can reply to a note by actor A on a different Fediverse Node and both see the reply.
+
+    https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/128
+    """
     def __init__(self,
         sender_node: FediverseNode,
         receiver_node: FediverseNode

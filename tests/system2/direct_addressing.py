@@ -1,9 +1,3 @@
-"""
-Tests that a note by actor A is delivered to an actor B on a different Fediverse Node if
-* B does not follow A
-* but A addresses the note to B
-"""
-
 from datetime import datetime
 
 from hamcrest import contains_string, equal_to
@@ -15,6 +9,9 @@ from feditest.reporting import info
 
 @test
 class SendNoteToTest:
+    """
+    Tests that a note by actor A is delivered to an actor B if A addresses the note to B
+    """
     def __init__(self,
         sender_node: FediverseNode,
         receiver_node: FediverseNode

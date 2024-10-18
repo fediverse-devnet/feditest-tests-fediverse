@@ -1,8 +1,3 @@
-"""
-Tests that a note by actor A can be announced by an actor B on a different Fediverse Node
-and the announce is seen by actor C that is following B.
-"""
-
 from datetime import datetime
 import time
 
@@ -13,6 +8,9 @@ from feditest.reporting import info
 
 @test
 class AnnounceTest:
+    """
+    Tests that if actor B announces a note by actor A, actor C that is following B on a different Fediverse Node receives the note.
+    """
     def __init__(self,
         node1: FediverseNode,
         node2: FediverseNode,

@@ -1,9 +1,3 @@
-"""
-Make sure that all hyperlinks in a note are still present on the receiving node. They may be rearranged (details tbd)
-
-FIXME
-"""
-
 from hamcrest import contains_string, equal_to, less_than
 
 from feditest import assert_that, poll_until, step, test, InteropLevel, SpecLevel
@@ -13,6 +7,9 @@ from feditest.reporting import info
 
 @test
 class PreserveBlockquoteTest:
+    """
+    Make sure that all hyperlinks in a note are still present on the receiving node. They may be rearranged.
+    """
     def __init__(self,
         sender_node: FediverseNode,
         receiver_node: FediverseNode

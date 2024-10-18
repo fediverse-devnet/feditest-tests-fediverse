@@ -1,7 +1,3 @@
-"""
-Test double-hop delete
-"""
-
 from datetime import datetime
 import time
 
@@ -12,6 +8,9 @@ from feditest.reporting import info
 
 @test
 class DeleteDoubleHopTest:
+    """
+    Test double-hop delete.
+    """
     def __init__(self,
         node1: FediverseNode,
         node2: FediverseNode,

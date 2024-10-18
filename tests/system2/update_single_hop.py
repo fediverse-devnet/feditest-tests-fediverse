@@ -1,11 +1,3 @@
-# https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/151
-#
-# Two nodes
-# A creates Note X
-# B accesses Note X
-# A updates X -> X'
-# B accesses its local copy. It is now X'
-
 from datetime import datetime
 
 from hamcrest import contains_string, equal_to
@@ -17,6 +9,11 @@ from feditest.reporting import info
 
 @test
 class UpdateTest:
+    """
+    Tests that actor B's copy of a note by actor A is correctly updated when A updates it on a different Fediverse Node.
+
+    https://github.com/fediverse-devnet/feditest-tests-fediverse/issues/151
+    """
     def __init__(self,
         sender_node: FediverseNode,
         receiver_node: FediverseNode
