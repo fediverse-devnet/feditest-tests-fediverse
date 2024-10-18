@@ -67,7 +67,7 @@ class UpdateTest:
 
 
     def _different_now(self):
-        current_content = self.receiver_node.access_note(self.receiver_actor_acct_uri, self.note_uri)
+        current_content = self.receiver_node.note_content(self.receiver_actor_acct_uri, self.note_uri)
         if current_content != self.note_received_content1:
             return current_content
         return None
