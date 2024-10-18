@@ -1,11 +1,3 @@
-"""
-Tests that actors on two different Fediverse Nodes can:
-* follow each other
-* followers receive posts by the followed actor,
-* and unfollow each other
-* and not receive posts by the followed actor any more.
-"""
-
 from datetime import datetime
 import time
 
@@ -15,7 +7,10 @@ from feditest.reporting import info
 
 
 @test
-class FollowTest:
+class FollowReceiveTest:
+    """
+    Tests that actors on two different Fediverse Nodes can follow each other and a follower receives the followed account's posts.
+    """
     def __init__(self,
         sender_node: FediverseNode,
         receiver_node: FediverseNode
@@ -78,7 +73,7 @@ class FollowTest:
 
     @step
     def unfollow(self):
-        self.receiver_node.make_follow_undo(self.receiver_actor_acct_uri, self.sender_actor_acct_uri)
+        self.receiver_node.make_unfollow(self.receiver_actor_acct_uri, self.sender_actor_acct_uri)
 
 
     @step
