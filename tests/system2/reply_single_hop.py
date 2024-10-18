@@ -25,8 +25,9 @@ class ReplyTest:
         self.receiver_actor_acct_uri = None
 
         self.note_uri = None
+        self.note_content = None
         self.reply_uri = None
-        self.reply_content = f'Testing follower_replies_to_note {datetime.now()}'
+        self.reply_content = None
 
         self.content_received_by_sender = None
         self.content_received_by_receiver = None
@@ -45,7 +46,8 @@ class ReplyTest:
 
     @step
     def sender_creates_note(self):
-        self.note_uri = self.sender_node.make_create_note(self.sender_actor_acct_uri, f"Testing sender_creates_note {datetime.now()}")
+        self.note_content = f'Testing sender_creates_note { datetime.now() }'
+        self.note_uri = self.sender_node.make_create_note(self.sender_actor_acct_uri, self.note_content)
         assert self.note_uri
         info(f'Note: { self.note_uri }')
 
@@ -54,6 +56,7 @@ class ReplyTest:
     def receiver_replies_to_note(self):
         # This is the equivalent of the receiver entering the URL of the note into the search box, until it comes up on their local server,
         # and then replies to it (no following involved)
+        self.reply_content = f'Testing follower_replies_to_note { datetime.now() }'
         self.reply_uri = self.receiver_node.make_reply_note(self.receiver_actor_acct_uri, self.note_uri, self.reply_content)
         assert self.reply_uri
         info(f'Note: { self.reply_uri }')
@@ -61,12 +64,14 @@ class ReplyTest:
 
     @step
     def wait_until_reply_received_by_receiver(self):
-        self.content_received_by_receiver = poll_until(lambda: self.receiver_node.note_has_direct_reply(self.receiver_actor_acct_uri, self.note_uri, self.reply_uri))
+        poll_until(lambda: self.reply_uri in self.receiver_node.direct_replies_to_object(self.receiver_actor_acct_uri, self.note_uri))
+        self.content_received_by_receiver = self.receiver_node.note_content(self.receiver_actor_acct_uri, self.reply_uri)
 
 
     @step
     def wait_until_reply_received_by_sender(self):
-        self.content_received_by_sender = poll_until(lambda: self.sender_node.note_has_direct_reply(self.sender_actor_acct_uri, self.note_uri, self.reply_uri))
+        poll_until(lambda: self.reply_uri in self.sender_node.direct_replies_to_object(self.sender_actor_acct_uri, self.note_uri))
+        self.content_received_by_sender = self.sender_node.note_content(self.sender_actor_acct_uri, self.reply_uri)
 
         assert_that(self.content_received_by_receiver, equal_to(self.content_received_by_sender), spec_level=SpecLevel.IMPLIED, interop_level=InteropLevel.DEGRADED)
 
