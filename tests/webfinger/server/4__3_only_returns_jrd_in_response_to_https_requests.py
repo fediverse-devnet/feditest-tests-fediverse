@@ -49,6 +49,9 @@ def does_not_return_jrd_in_response_to_http(
 
 @test
 def uses_valid_https_certificate(client: WebFingerDiagClient, server: WebFingerServer):
+    """
+    Test that the server uses a valid HTTPS certificate.
+    """
     account_id = server.obtain_account_identifier()
     webfinger_request = construct_webfinger_uri_for(account_id)
     try:
