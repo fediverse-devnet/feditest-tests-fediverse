@@ -1,4 +1,4 @@
-from feditest import AssertionFailure, InteropLevel, SpecLevel, step, test
+from feditest import AssertionFailure, InteropLevel, SpecLevel, poll_until, step, test
 from feditest.protocols.fediverse import FediverseNode
 
 
@@ -40,12 +40,8 @@ class ReplyDoubleHopTest:
 
     @step
     def note_in_middle_inbox(self):
-        try:
-            self.post_uri_on_middle_node = self.middle_node.wait_for_object_in_inbox(self.middle_actor_uri, self.post_uri_on_leader_node)
-            # FIXME check for the right content
-
-        except TimeoutError as e:
-            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, e)
+        self.post_uri_on_middle_node = self.middle_node.wait_for_object_in_inbox(self.middle_actor_uri, self.post_uri_on_leader_node)
+        # FIXME check for the right content
 
 
     @step
@@ -55,12 +51,8 @@ class ReplyDoubleHopTest:
 
     @step
     def announce_in_follower_inbox(self):
-        try:
-            self.announce_uri_on_follower_node = self.middle_node.wait_for_object_in_inbox(self.announce_uri_on_middle_node)
-            # FIXME check for the right content
-
-        except TimeoutError as e:
-            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, e)
+        self.announce_uri_on_follower_node = self.middle_node.wait_for_object_in_inbox(self.announce_uri_on_middle_node)
+        # FIXME check for the right content
 
 
     @step

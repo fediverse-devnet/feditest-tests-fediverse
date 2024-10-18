@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from feditest import AssertionFailure, InteropLevel, SpecLevel, step, test
+from feditest import AssertionFailure, InteropLevel, SpecLevel, poll_until, step, test
 from feditest.protocols.fediverse import FediverseNode
 
 
@@ -44,12 +44,8 @@ class DeliverToInboxTest:
 
     @step
     def test_note_received(self):
-        try:
-            received_content = self.create_note_uri_on_receiver_node = self.receiver_node.wait_until_actor_has_received_note(self.receiver_actor_uri, self.leader_note_uri)
-            # <p>Good morning! <span class="h-card" translate="no"><a href="https://mastodon-1.1234.lan/@feditestadmin" class="u-url mention" rel="nofollow noopener noreferrer" target="_blank">@<span>feditestadmin@mastodon-1.1234.lan</span></a></span></p>
-
-        except TimeoutError as e:
-            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, e)
+        received_content = poll_until(lambda: self.receiver_node.actor_has_received_object(self.receiver_actor_uri, self.leader_note_uri))
+        # <p>Good morning! <span class="h-card" translate="no"><a href="https://mastodon-1.1234.lan/@feditestadmin" class="u-url mention" rel="nofollow noopener noreferrer" target="_blank">@<span>feditestadmin@mastodon-1.1234.lan</span></a></span></p>
 
         if self.post_content not in received_content:
             raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, f'Received message does not contain payload: "{ received_content }".')

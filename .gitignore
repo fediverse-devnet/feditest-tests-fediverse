@@ -1,4 +1,6 @@
-.DS_Store
 examples/
+results/
 venv.*/
 __pycache__/
+.DS_Store
+.vscode/

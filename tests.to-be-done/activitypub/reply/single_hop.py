@@ -1,4 +1,4 @@
-from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, step, test
+from feditest import assert_that, poll_until, step, test
 from feditest.protocols.fediverse import FediverseNode
 
 
@@ -36,12 +36,8 @@ class ReplyTest:
 
     @step
     def note_in_follower_inbox(self):
-        try:
-            self.post_uri_on_follower_node = self.follower_node.wait_for_object_in_inbox(self.follower_actor_uri, self.post_uri_on_leader_node)
-            # FIXME check for the right content
-
-        except TimeoutError as e:
-            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, e)
+        self.post_uri_on_follower_node = self.follower_node.wait_for_object_in_inbox(self.follower_actor_uri, self.post_uri_on_leader_node)
+        # FIXME check for the right content
 
 
     @step
