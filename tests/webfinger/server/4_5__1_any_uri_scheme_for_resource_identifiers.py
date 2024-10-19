@@ -1,14 +1,15 @@
 from urllib.parse import quote
 from hamcrest import any_of, equal_to, greater_than_or_equal_to, less_than
 
-from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
+from feditest.protocols.web.diag import HttpResponse
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import WebFingerDiagClient
 
 
 @test
 def any_uri_scheme_for_resource_identifiers(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -21,7 +22,9 @@ def any_uri_scheme_for_resource_identifiers(
     for test_id in [ 'mailto:abc@def.com', 'foo://' + hostname ]:
         url : str = f"https://{ hostname }/.well-known/webfinger?resource={ quote(test_id) }"
 
-        response : HttpResponse = client.http_get(url).response
+        response = client.http_get(url).response
+        if not response:
+            raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
 
         assert_that(
                 response.http_status,

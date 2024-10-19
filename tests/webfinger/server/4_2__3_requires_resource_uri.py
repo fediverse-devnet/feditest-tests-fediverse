@@ -1,15 +1,17 @@
 from json import JSONDecodeError
+from typing import cast
 
-from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.traffic import ClaimedJrd
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
+from feditest.protocols.web.diag import HttpResponse
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient
+from feditest.protocols.webfinger.utils import construct_webfinger_uri_for
 from hamcrest import any_of, equal_to, is_not, starts_with
 
 
 @test
 def requires_resource_uri_http_status(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -17,12 +19,15 @@ def requires_resource_uri_http_status(
     """
     test_id = server.obtain_account_identifier()
 
-    correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
+    correct_webfinger_uri = construct_webfinger_uri_for(test_id)
     q = correct_webfinger_uri.find('?resource=')
     assert(q>0) # This is a server-side test, so we don't test the client side here
     uri_without = correct_webfinger_uri[0:q]
 
-    response_without : HttpResponse = client.http_get(uri_without).response
+    response_without = client.http_get(uri_without).response
+    if not response_without:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
     assert_that(
             response_without.http_status,
             not(equal_to(200)),
@@ -39,7 +44,7 @@ def requires_resource_uri_http_status(
 
 @test
 def requires_resource_uri_jrd(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -47,12 +52,14 @@ def requires_resource_uri_jrd(
     """
     test_id = server.obtain_account_identifier()
 
-    correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
+    correct_webfinger_uri = construct_webfinger_uri_for(test_id)
     q = correct_webfinger_uri.find('?resource=')
     assert(q>0) # This is a server-side test, so we don't test the client side here
     uri_without = correct_webfinger_uri[0:q]
 
-    response_without : HttpResponse = client.http_get(uri_without).response
+    response_without = client.http_get(uri_without).response
+    if not response_without:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
 
     content_type = response_without.response_headers.get('content-type', "")
     assert_that(
@@ -66,7 +73,8 @@ def requires_resource_uri_jrd(
 
     if content_type.startswith('application/json'):
         try :
-            ClaimedJrd.create_and_validate(response_without.payload)
+            payload = cast(bytes, response_without.payload).decode('utf-8')
+            ClaimedJrd.create_and_validate(payload)
 
             assert_that(
                     False,
