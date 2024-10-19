@@ -90,6 +90,16 @@ class UpdateDoubleHopTest:
 
 
     @step
+    def boost_note(self):
+        self.node2.announce_object(self.node2_actor_acct_uri, self.note_uri)
+
+
+    @step
+    def wait_until_boost_received(self):
+        poll_until(lambda: self.node3.actor_has_received_object(self.node3_actor_acct_uri, self.note_uri))
+
+
+    @step
     def wait_until_update_received(self):
         poll_until(lambda: self.updated_content in self.node2.note_content(self.node2_actor_acct_uri, self.note_uri))
         poll_until(lambda: self.updated_content in self.node3.note_content(self.node3_actor_acct_uri, self.note_uri))
