@@ -10,7 +10,7 @@ from feditest.reporting import info
 @test
 class SendNoteToTest:
     """
-    Tests that a note by actor A is delivered to an actor B if A addresses the note to B
+    Tests that a note by actor A is delivered to an actor B if A addresses the note to B.
     """
     def __init__(self,
         sender_node: FediverseNode,
