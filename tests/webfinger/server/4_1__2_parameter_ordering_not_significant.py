@@ -1,8 +1,10 @@
 from typing import cast
 
-from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
+from hamcrest import empty
+
+from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerServer
-from feditest.protocols.webfinger.diag import WebFingerDiagClient, WebFingerQueryResponse
+from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient, WebFingerQueryDiagResponse
 from feditest.protocols.webfinger.utils import recursive_equal_to, wf_error
 
 RELS = [
@@ -10,6 +12,10 @@ RELS = [
     'something-else',
     'self'
 ]
+
+IGNORED_EXCEPTIONS = (WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+""" These exceptions are not to be reported in this test as they are covered elsewhere."""
+
 
 @test
 def parameter_ordering(
@@ -25,17 +31,18 @@ def parameter_ordering(
     for i in range(0, len(RELS)):
         rels = RELS[i:] + RELS[0:i]
         webfinger_response = client.diag_perform_webfinger_query(test_id, rels=rels)
-
-        if webfinger_response.exc:
-            raise AssertionFailure(
-                    spec_level=SpecLevel.MUST,
-                    interop_level=InteropLevel.PROBLEM,
-                    msg=wf_error(webfinger_response))
+        relevant_exceptions = webfinger_response.not_exceptions_of_type(IGNORED_EXCEPTIONS)
+        assert_that(
+            relevant_exceptions,
+            empty(),
+            wf_error(webfinger_response),
+            spec_level=SpecLevel.MUST,
+            interop_level=InteropLevel.PROBLEM)
 
         if i == 0:
             first_webfinger_response = webfinger_response
         else:
-            first_webfinger_response_not_none = cast(WebFingerQueryResponse, first_webfinger_response)
+            first_webfinger_response_not_none = cast(WebFingerQueryDiagResponse, first_webfinger_response)
             assert_that(
                     webfinger_response.jrd, recursive_equal_to(first_webfinger_response_not_none.jrd),
                     f'Response {i} not same.\n'

@@ -2,7 +2,7 @@ import json
 
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerServer
-from feditest.protocols.webfinger.diag import WebFingerDiagClient, WebFingerQueryResponse
+from feditest.protocols.webfinger.diag import WebFingerDiagClient, WebFingerQueryDiagResponse
 
 
 @test
@@ -13,7 +13,7 @@ def accept_jrds_with_subject(
 
     test_id = server.obtain_account_identifier()
 
-    normal_response : WebFingerQueryResponse = client.diag_perform_webfinger_query(test_id)
+    normal_response : WebFingerQueryDiagResponse = client.diag_perform_webfinger_query(test_id)
 
     if 'subject' not in normal_response.jrd.subject():
         json_with_subject = json.loads(normal_response.jrd.as_json_string())

@@ -1,6 +1,6 @@
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.diag import WebFingerQueryResponse
+from feditest.protocols.webfinger.diag import WebFingerQueryDiagResponse
 
 
 @test
@@ -35,7 +35,7 @@ def rejects_invalid_json(
   }}}
   """ # same as in 4_3__6 but with some extra curly braces at the end
 
-    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
+    webfinger_response : WebFingerQueryDiagResponse = server.override_webfinger_response(
             lambda:
                 client.perform_webfinger_query(test_id),
             {

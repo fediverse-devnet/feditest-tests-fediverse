@@ -2,7 +2,7 @@ import json
 
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.diag import WebFingerQueryResponse
+from feditest.protocols.webfinger.diag import WebFingerQueryDiagResponse
 
 
 @test
@@ -36,7 +36,7 @@ def accept_example_response(
      }
     overridden_jrd_json_string = json.dumps(overridden_jrd_json)
 
-    webfinger_response : WebFingerQueryResponse = server.override_webfinger_response(
+    webfinger_response : WebFingerQueryDiagResponse = server.override_webfinger_response(
             lambda:
                 client.perform_webfinger_query(test_id),
             {
