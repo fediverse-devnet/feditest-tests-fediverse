@@ -2,7 +2,7 @@ from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.diag import HttpResponse
 from feditest.protocols.webfinger import WebFingerServer
 from feditest.protocols.webfinger.diag import WebFingerDiagClient
-from feditest.protocols.webfinger.diag import WebFingerQueryResponse
+from feditest.protocols.webfinger.diag import WebFingerQueryDiagResponse
 from hamcrest import equal_to
 from multidict import MultiDict
 
@@ -25,7 +25,7 @@ def follow_redirects(
 
     jrd_headers = MultiDict([('content-type', 'application/jrd+json')])
 
-    overridden_redirect_to_https_response : WebFingerQueryResponse = server.override_http_response(
+    overridden_redirect_to_https_response : WebFingerQueryDiagResponse = server.override_http_response(
             lambda: client.perform_webfinger_query(test_id),
             {
                 webfinger_uri : HttpResponse(301,  MultiDict([('location', redirect_https_uri)]).extend(jrd_headers), None ),
@@ -34,7 +34,7 @@ def follow_redirects(
     )
     assert_that(overridden_redirect_to_https_response, equal_to(normal_response), spec_level=SpecLevel.MUST, interop_level=InteropLevel.PROBLEM)
 
-    overridden_redirect_to_http_response : WebFingerQueryResponse = server.override_http_response(
+    overridden_redirect_to_http_response : WebFingerQueryDiagResponse = server.override_http_response(
             lambda: client.perform_webfinger_query(test_id),
             {
                 webfinger_uri : HttpResponse(301, MultiDict([('location', redirect_http_uri)]).extend(jrd_headers), None ),

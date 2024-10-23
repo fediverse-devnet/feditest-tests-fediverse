@@ -1,6 +1,6 @@
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerServer
-from feditest.protocols.webfinger.diag import WebFingerDiagClient, WebFingerQueryResponse
+from feditest.protocols.webfinger.diag import WebFingerDiagClient, WebFingerQueryDiagResponse
 from hamcrest import equal_to
 
 
@@ -14,7 +14,7 @@ def must_only_redirect_to_https(
     """
     test_id = server.obtain_account_identifier()
 
-    response : WebFingerQueryResponse = client.diag_perform_webfinger_query(test_id)
+    response : WebFingerQueryDiagResponse = client.diag_perform_webfinger_query(test_id)
     assert_that(
             response.http_request_response_pair.final_request.parsed_uri.scheme,
             equal_to('https'),

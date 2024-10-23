@@ -1,5 +1,3 @@
-from typing import cast
-
 from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.diag import HttpResponse
 from feditest.protocols.webfinger import WebFingerServer

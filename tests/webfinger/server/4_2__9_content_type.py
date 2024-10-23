@@ -1,4 +1,4 @@
-from hamcrest import any_of, equal_to, is_not, starts_with
+from hamcrest import any_of, equal_to, starts_with
 
 from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.web.diag import HttpResponse
@@ -36,7 +36,7 @@ def returns_jrd_in_response_to_https(
             any_of(
                     equal_to('application/jrd+json'),
                     starts_with('application/jrd+json;'),
-                    starts_with('application/xml')),
+                    starts_with('application/json')),
             f'Wrong content type.\nAccessed URI: "{ correct_webfinger_uri }".',
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
