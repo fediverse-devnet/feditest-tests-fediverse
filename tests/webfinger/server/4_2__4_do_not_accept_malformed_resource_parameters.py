@@ -1,30 +1,34 @@
 from json import JSONDecodeError
+from typing import cast
 import urllib
 
 from hamcrest import all_of, equal_to, greater_than_or_equal_to, less_than
 
-from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
-from feditest.protocols.webfinger.traffic import ClaimedJrd
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
+from feditest.protocols.web.diag import HttpResponse
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient
 
 
 @test
 def requires_valid_resource_uri_http_status(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
     Do not accept malformed resource parameters. Test HTTP status for missing acct: scheme.
     """
-    # We use the lower-level API from WebClient because we can't make the WebFingerClient do something invalid
+    # We use the lower-level API from WebClient because we can't make the WebFingerDiagClient do something invalid
     test_id : str = server.obtain_account_identifier()
     hostname : str = server.hostname
 
     test_id_no_scheme = test_id.replace("acct:", "")
     malformed_webfinger_uri : str = f"https://{hostname}/.well-known/webfinger?resource={test_id_no_scheme}"
 
-    response : HttpResponse = client.http_get(malformed_webfinger_uri).response
+    response = client.http_get(malformed_webfinger_uri).response
+    if not response:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
     assert_that(
             response.http_status,
 			all_of(
@@ -43,22 +47,26 @@ def requires_valid_resource_uri_http_status(
 
 @test
 def requires_valid_resource_uri_jrd(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
     Do not accept malformed resource parameters. Test JRD content for missing acct: scheme.
     """
-    # We use the lower-level API from WebClient because we can't make the WebFingerClient do something invalid
+    # We use the lower-level API from WebClient because we can't make the WebFingerDiagClient do something invalid
     test_id : str = server.obtain_account_identifier()
     hostname : str = server.hostname
 
     test_id_no_scheme = test_id.replace("acct:", "")
     malformed_webfinger_uri : str = f"https://{hostname}/.well-known/webfinger?resource={test_id_no_scheme}"
 
-    response : HttpResponse = client.http_get(malformed_webfinger_uri).response
-    try: # we do not use the pyhamcrest any_of(raises, raises) because the error message is incomprehensible
-        ClaimedJrd.create_and_validate(response.payload)
+    response = client.http_get(malformed_webfinger_uri).response
+    if not response:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
+    try: # don't use the pyhamcrest any_of(raises, raises) because the error message is incomprehensible
+        payload = cast(bytes, response.payload).decode('utf-8')
+        ClaimedJrd.create_and_validate(payload)
 
         assert_that(
                 False,
@@ -79,7 +87,7 @@ def requires_valid_resource_uri_jrd(
 
 @test
 def double_equals_http_status(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -91,7 +99,10 @@ def double_equals_http_status(
 
     malformed_webfinger_uri = f"https://{hostname}/.well-known/webfinger?resource=={urllib.parse.quote(test_id)}"
 
-    response : HttpResponse = client.http_get(malformed_webfinger_uri).response
+    response = client.http_get(malformed_webfinger_uri).response
+    if not response:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
     assert_that(
             response.http_status,
 			all_of(
@@ -110,7 +121,7 @@ def double_equals_http_status(
 
 @test
 def double_equals_jrd(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -122,9 +133,13 @@ def double_equals_jrd(
 
     malformed_webfinger_uri = f"https://{hostname}/.well-known/webfinger?resource=={urllib.parse.quote(test_id)}"
 
-    response : HttpResponse = client.http_get(malformed_webfinger_uri).response
-    try: # we do not use the pyhamcrest any_of(raises, raises) because the error message is incomprehensible
-        ClaimedJrd.create_and_validate(response.payload)
+    response = client.http_get(malformed_webfinger_uri).response
+    if not response:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
+    try: # don't use the pyhamcrest any_of(raises, raises) because the error message is incomprehensible
+        payload = cast(bytes, response.payload).decode('utf-8')
+        ClaimedJrd.create_and_validate(payload)
 
         assert_that(
                 False,

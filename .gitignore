@@ -1,4 +1,5 @@
+results/*
+venv.*/
 __pycache__/
-*.local/
-examples.*/
-production.*/
+.DS_Store
+.vscode/

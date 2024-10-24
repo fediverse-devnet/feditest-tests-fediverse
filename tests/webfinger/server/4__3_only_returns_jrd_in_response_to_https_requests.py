@@ -1,13 +1,14 @@
+from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
+from feditest.protocols.web.diag import HttpResponse, WebDiagClient
+from feditest.protocols.webfinger import WebFingerServer
+from feditest.protocols.webfinger.diag import WebFingerDiagClient
+from feditest.protocols.webfinger.utils import construct_webfinger_uri_for
 from hamcrest import any_of, equal_to, is_not, starts_with
-
-from feditest import InteropLevel, SpecLevel, assert_that, test
-from feditest.protocols.web.traffic import HttpResponse
-from feditest.protocols.webfinger import WebFingerClient, WebFingerServer
 
 
 @test
 def does_not_return_jrd_in_response_to_http(
-        client: WebFingerClient,
+        client: WebFingerDiagClient,
         server: WebFingerServer
 ) -> None:
     """
@@ -15,7 +16,7 @@ def does_not_return_jrd_in_response_to_http(
     """
     test_id = server.obtain_account_identifier()
 
-    correct_webfinger_uri = client.construct_webfinger_uri_for(test_id)
+    correct_webfinger_uri = construct_webfinger_uri_for(test_id)
     assert_that(
             correct_webfinger_uri,
             starts_with('https://'),
@@ -26,7 +27,10 @@ def does_not_return_jrd_in_response_to_http(
     http_webfinger_uri = correct_webfinger_uri.replace('https:', 'http:')
     assert(http_webfinger_uri.startswith('http://'))
 
-    http_response : HttpResponse = client.http_get(http_webfinger_uri, follow_redirects=False).response
+    http_response = client.http_get(http_webfinger_uri, follow_redirects=False).response
+    if not http_response:
+        raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, "No response")
+
     assert_that(
             http_response.http_status,
             is_not(equal_to(200)),
@@ -41,3 +45,23 @@ def does_not_return_jrd_in_response_to_http(
             f'Returns JRD content.\nAccessed URI: "{ http_webfinger_uri }".',
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED) # if a server also responds to http, nothing bad happens
+
+
+@test
+def uses_valid_https_certificate(client: WebFingerDiagClient, server: WebFingerServer):
+    """
+    Test that the server uses a valid HTTPS certificate.
+    """
+    account_id = server.obtain_account_identifier()
+    webfinger_request = construct_webfinger_uri_for(account_id)
+    try:
+        client.http_get(webfinger_request, verify=True)
+
+    except WebDiagClient.TlsError as ex:
+        raise AssertionFailure(
+            SpecLevel.MUST,
+            InteropLevel.PROBLEM,
+            'Must use a valid HTTPS certificate.\n'
+            f'Accessed URI: "{ webfinger_request }".',
+        )
+
