@@ -25,9 +25,8 @@ def status_404_for_nonexisting_resources(
 
     assert_that(
             http_response.http_status,
-			any_of(
-                greater_than_or_equal_to(300),
-                less_than(200)),
+			any_of( greater_than_or_equal_to(300),
+                    less_than(200)),
             f'HTTP status { http_response.http_status }.\nAccessed URI: "{ webfinger_uri }".',
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)

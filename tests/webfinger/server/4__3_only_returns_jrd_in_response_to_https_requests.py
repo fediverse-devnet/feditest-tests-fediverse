@@ -62,6 +62,5 @@ def uses_valid_https_certificate(client: WebFingerDiagClient, server: WebFingerS
             SpecLevel.MUST,
             InteropLevel.PROBLEM,
             'Must use a valid HTTPS certificate.\n'
-            f'Accessed URI: "{ webfinger_request }".',
-        )
+            f'Accessed URI: "{ webfinger_request }".')
 

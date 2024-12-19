@@ -6,6 +6,7 @@ from feditest.protocols.webfinger import WebFingerServer
 from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient, WebFingerQueryDiagResponse
 from feditest.protocols.webfinger.utils import (
     link_subset_or_equal_to,
+    no_exception_other_than,
     wf_error
 )
 from feditest.reporting import info
@@ -50,7 +51,7 @@ UNKNOWN_RELS = [ # not known to be used in webfinger files, likely not real
     'something-else'
 ]
 
-IGNORED_EXCEPTIONS = (WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+IGNORED_EXCEPTIONS = [ WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError ]
 """ These exceptions are not to be reported in this test as they are covered elsewhere."""
 
 
@@ -66,10 +67,9 @@ def accepts_known_link_rels_in_query(
     test_id = server.obtain_account_identifier()
 
     response_without_rel : WebFingerQueryDiagResponse = client.diag_perform_webfinger_query(test_id)
-    relevant_without_exceptions = response_without_rel.not_exceptions_of_type(IGNORED_EXCEPTIONS)
     assert_that(
-            relevant_without_exceptions,
-            empty(),
+            response_without_rel.exceptions,
+            no_exception_other_than(IGNORED_EXCEPTIONS),
             wf_error(response_without_rel),
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
@@ -83,10 +83,9 @@ def accepts_known_link_rels_in_query(
         if not response_with_rel.jrd:
             raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, 'JRD cannot be parsed')
 
-        relevant_with_exceptions = response_with_rel.not_exceptions_of_type(IGNORED_EXCEPTIONS)
         assert_that(
-                relevant_with_exceptions,
-                empty(),
+				response_with_rel.exceptions,
+                no_exception_other_than(IGNORED_EXCEPTIONS),
                 wf_error(response_with_rel),
                 spec_level=SpecLevel.MUST,
                 interop_level=InteropLevel.PROBLEM)
@@ -111,10 +110,9 @@ def accepts_unknown_link_rels_in_query(
     test_id = server.obtain_account_identifier()
 
     response_without_rel = client.diag_perform_webfinger_query(test_id)
-    relevant_without_exceptions = response_without_rel.not_exceptions_of_type(IGNORED_EXCEPTIONS)
     assert_that(
-            relevant_without_exceptions,
-            empty(),
+            response_without_rel,
+            no_exception_other_than(IGNORED_EXCEPTIONS),
             wf_error(response_without_rel),
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
@@ -128,10 +126,9 @@ def accepts_unknown_link_rels_in_query(
         if not response_with_rel.jrd:
             raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, 'JRD cannot be parsed')
 
-        relevant_with_exceptions = response_with_rel.not_exceptions_of_type(IGNORED_EXCEPTIONS)
         assert_that(
-                relevant_with_exceptions,
-                empty(),
+                response_without_rel,
+                no_exception_other_than(IGNORED_EXCEPTIONS),
                 wf_error(response_with_rel),
                 spec_level=SpecLevel.MUST,
                 interop_level=InteropLevel.PROBLEM)
@@ -156,10 +153,9 @@ def accepts_combined_link_rels_in_query(
     test_id = server.obtain_account_identifier()
 
     response_without_rel = client.diag_perform_webfinger_query(test_id)
-    relevant_without_exceptions = response_without_rel.not_exceptions_of_type(IGNORED_EXCEPTIONS)
     assert_that(
-            relevant_without_exceptions,
-            empty(),
+            response_without_rel.exceptions,
+            no_exception_other_than(IGNORED_EXCEPTIONS),
             wf_error(response_without_rel),
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
@@ -175,10 +171,9 @@ def accepts_combined_link_rels_in_query(
             if not response_with_rel.jrd:
                 raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, 'JRD cannot be parsed')
 
-            relevant_with_exceptions = response_with_rel.not_exceptions_of_type(IGNORED_EXCEPTIONS)
             assert_that(
-                    relevant_with_exceptions,
-                    empty(),
+                    response_with_rel.exceptions,
+                    no_exception_other_than(IGNORED_EXCEPTIONS),
                     wf_error(response_with_rel),
                     spec_level=SpecLevel.MUST,
                     interop_level=InteropLevel.PROBLEM)

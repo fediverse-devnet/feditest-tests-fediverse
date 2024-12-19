@@ -33,8 +33,7 @@ def returns_jrd_in_response_to_https(
 
     assert_that(
             correct_https_response.response_headers.get('content-type'),
-            any_of(
-                    equal_to('application/jrd+json'),
+            any_of( equal_to('application/jrd+json'),
                     starts_with('application/jrd+json;'),
                     starts_with('application/json')),
             f'Wrong content type.\nAccessed URI: "{ correct_webfinger_uri }".',
@@ -43,8 +42,7 @@ def returns_jrd_in_response_to_https(
 
     assert_that(
             correct_https_response.response_headers.get('content-type'),
-            any_of(
-                    equal_to('application/jrd+json'),
+            any_of( equal_to('application/jrd+json'),
                     starts_with('application/jrd+json;')),
             f'Wrong content type.\nAccessed URI: "{ correct_webfinger_uri }".',
             spec_level=SpecLevel.MUST,

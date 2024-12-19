@@ -5,7 +5,7 @@ from hamcrest import empty
 from feditest import InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerServer
 from feditest.protocols.webfinger.diag import ClaimedJrd, WebFingerDiagClient, WebFingerQueryDiagResponse
-from feditest.protocols.webfinger.utils import recursive_equal_to, wf_error
+from feditest.protocols.webfinger.utils import no_exception_other_than, recursive_equal_to, wf_error
 
 RELS = [
     'http://webfinger.net/rel/profile-page',
@@ -13,7 +13,7 @@ RELS = [
     'self'
 ]
 
-IGNORED_EXCEPTIONS = (WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError)
+IGNORED_EXCEPTIONS = [ WebFingerDiagClient.WrongContentTypeError, ClaimedJrd.InvalidMediaTypeError, ClaimedJrd.InvalidRelError ]
 """ These exceptions are not to be reported in this test as they are covered elsewhere."""
 
 
@@ -31,10 +31,9 @@ def parameter_ordering(
     for i in range(0, len(RELS)):
         rels = RELS[i:] + RELS[0:i]
         webfinger_response = client.diag_perform_webfinger_query(test_id, rels=rels)
-        relevant_exceptions = webfinger_response.not_exceptions_of_type(IGNORED_EXCEPTIONS)
         assert_that(
-            relevant_exceptions,
-            empty(),
+            webfinger_response.exceptions,
+            no_exception_other_than(IGNORED_EXCEPTIONS),
             wf_error(webfinger_response),
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)
