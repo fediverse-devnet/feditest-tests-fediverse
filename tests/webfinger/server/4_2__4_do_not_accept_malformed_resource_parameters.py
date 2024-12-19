@@ -31,9 +31,8 @@ def requires_valid_resource_uri_http_status(
 
     assert_that(
             response.http_status,
-			all_of(
-                greater_than_or_equal_to(400),
-                less_than(500)),
+			all_of( greater_than_or_equal_to(400),
+                    less_than(500)),
 			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".',
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED)
@@ -105,9 +104,8 @@ def double_equals_http_status(
 
     assert_that(
             response.http_status,
-			all_of(
-                greater_than_or_equal_to(400),
-                less_than(500)),
+			all_of( greater_than_or_equal_to(400),
+                    less_than(500)),
 			f'Not HTTP status 4xx.\nAccessed URI: "{ malformed_webfinger_uri }".',
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.UNAFFECTED)

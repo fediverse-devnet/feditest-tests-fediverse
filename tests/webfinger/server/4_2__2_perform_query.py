@@ -1,7 +1,7 @@
 from feditest import AssertionFailure, InteropLevel, SpecLevel, assert_that, test
 from feditest.protocols.webfinger import WebFingerServer
 from feditest.protocols.webfinger.diag import WebFingerDiagClient
-from feditest.protocols.webfinger.utils import wf_error
+from feditest.protocols.webfinger.utils import no_exception, wf_error
 from hamcrest import empty, not_none
 
 
@@ -19,7 +19,7 @@ def normal_query(
 
     assert_that(
             webfinger_response.exceptions,
-            empty(),
+            no_exception(),
             wf_error(webfinger_response),
             spec_level=SpecLevel.MUST,
             interop_level=InteropLevel.PROBLEM)

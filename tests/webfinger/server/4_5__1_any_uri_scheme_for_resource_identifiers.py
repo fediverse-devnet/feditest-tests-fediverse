@@ -28,9 +28,8 @@ def any_uri_scheme_for_resource_identifiers(
 
         assert_that(
                 response.http_status,
-                any_of(
-                    greater_than_or_equal_to(300),
-                    less_than(200)),
+                any_of( greater_than_or_equal_to(300),
+                        less_than(200)),
                 f'HTTP status { response.http_status }.\nAccessed URI: "{ url }".',
                 spec_level=SpecLevel.MUST,
                 interop_level=InteropLevel.PROBLEM)
