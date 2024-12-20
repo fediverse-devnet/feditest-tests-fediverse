@@ -1,4 +1,4 @@
-## Feditest-test-fediverse: testing the Fediverse
+## `feditest-test-fediverse`: testing the ActivityPub-based Fediverse
 
 This repo contains:
 
