@@ -111,7 +111,7 @@ def accepts_unknown_link_rels_in_query(
 
     response_without_rel = client.diag_perform_webfinger_query(test_id)
     assert_that(
-            response_without_rel,
+            response_without_rel.exceptions,
             no_exception_other_than(IGNORED_EXCEPTIONS),
             wf_error(response_without_rel),
             spec_level=SpecLevel.MUST,
@@ -127,7 +127,7 @@ def accepts_unknown_link_rels_in_query(
             raise AssertionFailure(SpecLevel.MUST, InteropLevel.PROBLEM, 'JRD cannot be parsed')
 
         assert_that(
-                response_without_rel,
+                response_without_rel.exceptions,
                 no_exception_other_than(IGNORED_EXCEPTIONS),
                 wf_error(response_with_rel),
                 spec_level=SpecLevel.MUST,
